@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  * { box-sizing: border-box; }
+  ::selection { background: #FFC800; color: #1E2138; }
+  a { color: #2E3192; }
+  a:hover { color: #12A5E0; }
+  @keyframes ds-toast-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes ds-modal-in { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes ds-fade-in { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</helmet>
+<div style="font-family: 'Nunito Sans', system-ui, sans-serif; color: #1E2138; background: #F7F8FB; display: flex; min-height: 100vh; -webkit-font-smoothing: antialiased;">
+
+  <aside style="width: 268px; flex-shrink: 0; position: sticky; top: 0; align-self: flex-start; height: 100vh; overflow-y: auto; background: #FFFFFF; border-right: 1px solid #E3E5ED; padding: 28px 20px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+      <img src="assets/logo.png" alt="Clube Criacionista de Ciências" style="width: 52px; height: 52px; object-fit: contain;">
+      <div>
+        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 15px; line-height: 1.05; color: #2E3192;">Clube Criacionista</div>
+        <div style="font-size: 12px; font-weight: 700; color: #12A5E0;">Design System</div>
+      </div>
+    </div>
+    <p style="font-size: 12px; color: #9195A8; margin: 6px 0 20px;">v1.0 · Guia interativo para Wix Studio</p>
+    <nav style="display: flex; flex-direction: column; gap: 2px; font-size: 14px; font-weight: 600;">
+      <a href="#previa" style="text-decoration: none; color: #2E3192; background: #E9EAF5; padding: 8px 12px; border-radius: 8px; font-weight: 800;" style-hover="background:#dcdeef;">★ Como vai ficar</a>
+      <div style="height: 1px; background: #E3E5ED; margin: 8px 4px;"></div>
+      <a href="#principios" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">1 · Princípios</a>
+      <a href="#cores" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">2 · Cores</a>
+      <a href="#tipografia" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">3 · Tipografia</a>
+      <a href="#spacing" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">4 · Espaçamento</a>
+      <a href="#radius" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">5 · Border radius</a>
+      <a href="#shadows" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">6 · Sombras</a>
+      <a href="#grid" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">7 · Grid</a>
+      <a href="#containers" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">8 · Containers</a>
+      <a href="#componentes" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">9 · Componentes</a>
+      <a href="#projeto" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">10 · Componentes do projeto</a>
+      <a href="#estados" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">11 · Estados</a>
+      <a href="#responsivo" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">12 · Responsividade</a>
+      <a href="#wix" style="text-decoration: none; color: #5B5F76; padding: 8px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;color:#2E3192;">13 · Implementação Wix</a>
+    </nav>
+    <div style="margin-top: 22px; padding: 14px; background: #F7F8FB; border-radius: 12px; border: 1px solid #E3E5ED;">
+      <div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #9195A8; margin-bottom: 10px;">Legenda de implementação</div>
+      <div style="display: flex; flex-direction: column; gap: 7px; font-size: 12px; font-weight: 700;">
+        <span style="display: inline-flex; align-items: center; gap: 7px; color: #2FA84F;"><span style="width: 8px; height: 8px; border-radius: 999px; background: currentColor;"></span>Nativo Wix</span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; color: #12A5E0;"><span style="width: 8px; height: 8px; border-radius: 999px; background: currentColor;"></span>Wix CMS</span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; color: #8134A8;"><span style="width: 8px; height: 8px; border-radius: 999px; background: currentColor;"></span>CSS custom</span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; color: #2E3192;"><span style="width: 8px; height: 8px; border-radius: 999px; background: currentColor;"></span>Custom Element</span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; color: #E08A00;"><span style="width: 8px; height: 8px; border-radius: 999px; background: currentColor;"></span>Velo (código)</span>
+      </div>
+    </div>
+  </aside>
+
+  <main style="flex: 1; min-width: 0;">
+
+    <header style="position: relative; overflow: hidden; padding: 72px 56px 64px; background: linear-gradient(135deg, #2E3192 0%, #3B3FB0 55%, #12A5E0 100%); color: #fff;">
+      <div style="position: absolute; top: -60px; right: -40px; width: 260px; height: 260px; border-radius: 999px; background: rgba(255,200,0,.16);"></div>
+      <div style="position: absolute; bottom: -80px; right: 180px; width: 180px; height: 180px; border-radius: 999px; background: rgba(129,52,168,.28);"></div>
+      <div style="position: relative; max-width: 820px;">
+        <span style="display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,.16); font-size: 13px; font-weight: 800; letter-spacing: .04em; margin-bottom: 20px;">GUIA DE MARCA & UI · WIX STUDIO</span>
+        <h1 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 54px; line-height: 1.02; margin: 0 0 16px;">Design System<br>Clube Criacionista de Ciências</h1>
+        <p style="font-size: 19px; line-height: 1.5; color: rgba(255,255,255,.9); max-width: 640px; margin: 0;">Um sistema vivo para guiar como o site será construído e propagado no Wix Studio: princípios, tokens, componentes e a orientação de implementação mais nativa possível para cada peça.</p>
+        <a href="#previa" style="display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; text-decoration: none; font-family: 'Nunito Sans'; font-weight: 800; font-size: 16px; color: #1E2138; background: #FFC800; border-radius: 14px; padding: 14px 26px;" style-hover="background:#ffd633;">Ver como o site vai ficar →</a>
+        <div style="display: flex; gap: 28px; margin-top: 30px; flex-wrap: wrap;">
+          <div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 30px;">7</div><div style="font-size: 13px; color: rgba(255,255,255,.8);">cores de marca</div></div>
+          <div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 30px;">8</div><div style="font-size: 13px; color: rgba(255,255,255,.8);">componentes base</div></div>
+          <div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 30px;">7</div><div style="font-size: 13px; color: rgba(255,255,255,.8);">componentes do projeto</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 0. PRÉVIA APLICADA -->
+    <section id="previa" style="scroll-margin-top: 24px; padding: 56px 40px 0;">
+        <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 20px; padding: 32px; box-shadow: 0 10px 28px rgba(46,49,146,.08);">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #2FA84F; margin-bottom: 8px;">Comece por aqui</div>
+          <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 34px; margin: 0 0 10px;">Como o site vai ficar</h2>
+          <p style="font-size: 16px; line-height: 1.6; color: #5B5F76; max-width: 620px; margin: 0 0 24px;">Estas são telas reais montadas com os componentes deste guia. Tudo abaixo desta seção é a "caixa de peças" que produz estas telas.</p>
+
+          <div style="display: inline-flex; gap: 6px; padding: 5px; background: #F0F2F7; border-radius: 12px; margin-bottom: 22px; flex-wrap: wrap;">
+            <button onClick="{{ setScreenHome }}" style="{{ scHomeStyle }}">Página inicial</button>
+            <button onClick="{{ setScreenPainel }}" style="{{ scPainelStyle }}">Painel do pesquisador</button>
+            <button onClick="{{ setScreenRecompensas }}" style="{{ scRecompensasStyle }}">Recompensas</button>
+          </div>
+
+          <div style="border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; background: #F7F8FB;">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; background: #EDEFF5; border-bottom: 1px solid #E3E5ED;">
+              <span style="width: 11px; height: 11px; border-radius: 999px; background: #FF5F57;"></span>
+              <span style="width: 11px; height: 11px; border-radius: 999px; background: #FEBC2E;"></span>
+              <span style="width: 11px; height: 11px; border-radius: 999px; background: #28C840;"></span>
+              <span style="margin-left: 12px; font-size: 12px; color: #9195A8; font-family: monospace;">clubecriacionista.com.br{{ screenPath }}</span>
+            </div>
+
+            <div style="background: #fff; padding: 0 0 28px;">
+              <div style="position: relative; z-index: 5;">
+                <div style="display: flex; align-items: center; gap: 16px; padding: 14px 24px; flex-wrap: wrap; background: #fff;">
+                  <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;"><img src="assets/logo.png" style="width: 46px; height: 46px; object-fit: contain;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 17px; color: #2E3192; line-height: 1.05;">Clube Criacionista<br><span style="font-size: 11px; font-weight: 600; color: #12A5E0; letter-spacing: .02em;">Ciências das Origens</span></span></div>
+                  <div style="flex: 1; min-width: 180px; display: flex; align-items: center; gap: 9px; background: #F0F2F7; border: 1.5px solid transparent; border-radius: 999px; padding: 9px 15px;" style-hover="border-color:#C7CAD8;background:#fff;">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0;"><circle cx="7" cy="7" r="5" stroke="#9195A8" stroke-width="2"></circle><line x1="10.8" y1="10.8" x2="14" y2="14" stroke="#9195A8" stroke-width="2" stroke-linecap="round"></line></svg>
+                    <input type="text" placeholder="Buscar artigos, vídeos e temas..." style="flex: 1; min-width: 0; border: none; background: none; outline: none; font-family: 'Nunito Sans'; font-size: 13px; color: #1E2138;">
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0; font-size: 12px; font-weight: 700;">
+                    <a href="#previa" style="color: #9195A8; text-decoration: none;">YouTube</a>
+                    <a href="#previa" style="color: #9195A8; text-decoration: none;">Instagram</a>
+                  </div>
+                </div>
+
+                <div style="background: #FFC800; display: flex; align-items: stretch; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 0 12px;">
+                  <div style="display: flex; align-items: stretch; flex-wrap: wrap;">
+                    <button onClick="{{ toggleGeral }}" style="{{ geralBtnStyle }}">Menu <span style="font-size: 14px; line-height: 1;">⌄</span></button>
+                    <span style="width: 1px; background: rgba(30,33,56,.15); margin: 8px 6px;"></span>
+                    <div style="position: relative; display: flex; align-items: stretch;">
+                      <button onClick="{{ toggleConteudos }}" style="{{ conteudosBtnStyle }}">Conteúdos <span style="font-size: 14px; line-height: 1;">⌄</span></button>
+                      <sc-if value="{{ menuConteudos }}" hint-placeholder-val="{{ false }}">
+                        <div style="position: absolute; left: 0; top: 100%; width: 246px; background: #fff; border: 1px solid #E3E5ED; border-top: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 12px; display: flex; flex-direction: column; gap: 2px; z-index: 10; animation: ds-fade-in .18s ease;">
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Momento Criacionista</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Artigos</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Notícias</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Vídeos</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Blog completo</a>
+                        </div>
+                      </sc-if>
+                    </div>
+                    <div style="position: relative; display: flex; align-items: stretch;">
+                      <button onClick="{{ toggleRecomp }}" style="{{ recompBtnStyle }}">Programa de Recompensas <span style="font-size: 14px; line-height: 1;">⌄</span></button>
+                      <sc-if value="{{ menuRecomp }}" hint-placeholder-val="{{ false }}">
+                        <div style="position: absolute; left: 0; top: 100%; width: 246px; background: #fff; border: 1px solid #E3E5ED; border-top: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 12px; display: flex; flex-direction: column; gap: 2px; z-index: 10; animation: ds-fade-in .18s ease;">
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Como funciona</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Missões disponíveis</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Loja de pontos</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Meu painel</a>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px;">Doe</a>
+                    <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px; display: inline-flex; align-items: center; gap: 7px;">Entrar / Cadastrar <span style="width: 20px; height: 20px; border-radius: 999px; background: #2E3192; color: #FFC800; font-size: 11px; display: inline-flex; align-items: center; justify-content: center;">●</span></a>
+                  </div>
+                </div>
+
+                <sc-if value="{{ menuGeral }}" hint-placeholder-val="{{ false }}">
+                  <div style="position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 28px 24px 20px; animation: ds-fade-in .18s ease;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 26px 24px;">
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Institucional</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Quem somos</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Missão e valores</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Equipe</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Parcerias</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Conteúdos</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Momento Criacionista</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Artigos</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Notícias</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Vídeos</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Blog completo</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Temas</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Origens</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Biologia</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Geologia</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Astronomia</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Biomimética</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Programa de Recompensas</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Como funciona</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Missões disponíveis</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Loja de pontos</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Meu painel</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Participe</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Inscreva-se</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Seja voluntário</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Doe</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Contato</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Eventos</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Agenda</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Palestras</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Eventos anteriores</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Recursos</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Downloads</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Newsletter</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Perguntas frequentes</a>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Novidades <span style="padding: 2px 8px; border-radius: 999px; background: #E4123B; color: #fff; font-family: 'Nunito Sans'; font-size: 10px; font-weight: 800; vertical-align: middle;">NOVO</span></div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Clube nas escolas</a>
+                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Trilhas de estudo</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 22px; padding-top: 16px; border-top: 1px solid #F0F2F7;">
+                      <a href="#previa" style="font-weight: 800; font-size: 13px; color: #2E3192; text-decoration: none;">Ver mapa do site</a>
+                    </div>
+                  </div>
+                </sc-if>
+
+              </div>
+
+              <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+                <div style="animation: ds-fade-in .3s ease;">
+
+                  <div style="position: relative; background: linear-gradient(120deg, #2E3192 0%, #3B3FB0 50%, #12A5E0 100%); color: #fff; padding: 52px 32px; overflow: hidden;">
+                    <div style="position: absolute; top: -50px; right: -30px; width: 220px; height: 220px; border-radius: 999px; background: rgba(255,200,0,.14);"></div>
+                    <div style="position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: center;">
+                      <div>
+                        <span style="display: inline-block; padding: 5px 13px; border-radius: 999px; background: rgba(255,255,255,.16); font-size: 12px; font-weight: 800; margin-bottom: 14px;">CIÊNCIAS DAS ORIGENS</span>
+                        <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 36px; margin: 0 0 12px; line-height: 1.05;">Conheça e faça parte deste Clube</h3>
+                        <p style="font-size: 15px; color: rgba(255,255,255,.9); margin: 0 0 22px; line-height: 1.55;">Informações e curiosidades sobre o mundo que nos cerca, analisadas com pensamento crítico a partir da cosmovisão bíblica.</p>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                          <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #1E2138; background: #FFC800; border: none; border-radius: 12px; padding: 13px 26px; cursor: pointer;">Inscreva-se</button>
+                          <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: transparent; border: 2px solid rgba(255,255,255,.55); border-radius: 12px; padding: 11px 24px; cursor: pointer;">Saiba mais</button>
+                        </div>
+                      </div>
+                      <div style="height: 190px; border-radius: 16px; background: repeating-linear-gradient(45deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 12px,rgba(255,255,255,.07) 12px,rgba(255,255,255,.07) 24px); display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 12px; color: rgba(255,255,255,.75); border: 1px dashed rgba(255,255,255,.35);">imagem de destaque</div>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; padding: 26px 32px; border-bottom: 1px solid #F0F2F7;">
+                    <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#12A5E0;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #E6F5FC; color: #12A5E0; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">📖</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Explorar conteúdos</div>
+                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45;">Artigos, notícias e vídeos por tema.</div>
+                    </a>
+                    <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#FFC800;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #FFF6D6; color: #B58900; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">★</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Programa de Recompensas</div>
+                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45;">Participe, acumule pontos e resgate.</div>
+                    </a>
+                    <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#8134A8;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #F2E9F7; color: #8134A8; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">🗓</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Eventos e palestras</div>
+                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45;">Agenda e encontros do Clube.</div>
+                    </a>
+                  </div>
+
+                  <div style="padding: 26px 32px; border-bottom: 1px solid #F0F2F7;">
+                    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px;">
+                      <div><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0;">Momento Criacionista</h4><p style="font-size: 12px; color: #9195A8; margin: 2px 0 0;">Wix CMS · Repeater horizontal</p></div>
+                      <a href="#previa" style="font-size: 13px; font-weight: 800; color: #12A5E0; text-decoration: none;">Ver todos →</a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px;">
+                      <div><div style="aspect-ratio: 1; border-radius: 14px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 9px,#F0F2F7 9px,#F0F2F7 18px);"></div><div style="font-size: 12px; font-weight: 700; margin-top: 8px; line-height: 1.35;">Egoísmo só traz prejuízos</div></div>
+                      <div><div style="aspect-ratio: 1; border-radius: 14px; background: repeating-linear-gradient(45deg,#EAF7EE,#EAF7EE 9px,#F0F2F7 9px,#F0F2F7 18px);"></div><div style="font-size: 12px; font-weight: 700; margin-top: 8px; line-height: 1.35;">Árvore extinta está florescendo</div></div>
+                      <div><div style="aspect-ratio: 1; border-radius: 14px; background: repeating-linear-gradient(45deg,#FFF6D6,#FFF6D6 9px,#F0F2F7 9px,#F0F2F7 18px);"></div><div style="font-size: 12px; font-weight: 700; margin-top: 8px; line-height: 1.35;">Eras de Petrificação</div></div>
+                      <div><div style="aspect-ratio: 1; border-radius: 14px; background: repeating-linear-gradient(45deg,#F2E9F7,#F2E9F7 9px,#F0F2F7 9px,#F0F2F7 18px);"></div><div style="font-size: 12px; font-weight: 700; margin-top: 8px; line-height: 1.35;">A despensa do pica-pau</div></div>
+                      <div><div style="aspect-ratio: 1; border-radius: 14px; background: repeating-linear-gradient(45deg,#FBE3E7,#FBE3E7 9px,#F0F2F7 9px,#F0F2F7 18px);"></div><div style="font-size: 12px; font-weight: 700; margin-top: 8px; line-height: 1.35;">As aranhas sentem dor?</div></div>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0; border-bottom: 1px solid #F0F2F7;">
+                    <div style="padding: 26px 24px 26px 32px; border-right: 1px solid #F0F2F7;">
+                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 4px;">Artigos</h4>
+                      <p style="font-size: 12px; color: #9195A8; margin: 0 0 16px;">Wix Blog · card de artigo do design system</p>
+                      <div style="display: flex; flex-direction: column; gap: 14px;">
+                        <div style="display: flex; gap: 14px; background: #fff; border: 1px solid #E3E5ED; border-radius: 14px; padding: 12px;" style-hover="box-shadow:0 10px 28px rgba(46,49,146,.12);">
+                          <div style="width: 92px; height: 68px; flex-shrink: 0; border-radius: 10px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 9px,#F0F2F7 9px,#F0F2F7 18px);"></div>
+                          <div style="min-width: 0;"><span style="font-size: 10px; font-weight: 800; color: #2FA84F; text-transform: uppercase; letter-spacing: .05em;">Biologia</span><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 3px 0 4px;">Critérios de classificação dos animais</h5><p style="font-size: 12px; color: #5B5F76; margin: 0; line-height: 1.45;">Como esses critérios mudaram ao longo do tempo.</p></div>
+                        </div>
+                        <div style="display: flex; gap: 14px; background: #fff; border: 1px solid #E3E5ED; border-radius: 14px; padding: 12px;" style-hover="box-shadow:0 10px 28px rgba(46,49,146,.12);">
+                          <div style="width: 92px; height: 68px; flex-shrink: 0; border-radius: 10px; background: repeating-linear-gradient(45deg,#FFF6D6,#FFF6D6 9px,#F0F2F7 9px,#F0F2F7 18px);"></div>
+                          <div style="min-width: 0;"><span style="font-size: 10px; font-weight: 800; color: #12A5E0; text-transform: uppercase; letter-spacing: .05em;">Tecnologia</span><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 3px 0 4px;">Conheça o carro eVTOL em forma de pelicano</h5><p style="font-size: 12px; color: #5B5F76; margin: 0; line-height: 1.45;">A biomimética inspirando novos inventos.</p></div>
+                        </div>
+                        <div style="display: flex; gap: 14px; background: #fff; border: 1px solid #E3E5ED; border-radius: 14px; padding: 12px;" style-hover="box-shadow:0 10px 28px rgba(46,49,146,.12);">
+                          <div style="width: 92px; height: 68px; flex-shrink: 0; border-radius: 10px; background: repeating-linear-gradient(45deg,#F2E9F7,#F2E9F7 9px,#F0F2F7 9px,#F0F2F7 18px);"></div>
+                          <div style="min-width: 0;"><span style="font-size: 10px; font-weight: 800; color: #8134A8; text-transform: uppercase; letter-spacing: .05em;">Origens</span><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 3px 0 4px;">Trapaceando com o acaso</h5><p style="font-size: 12px; color: #5B5F76; margin: 0; line-height: 1.45;">O que se argumenta sobre o surgimento da vida.</p></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="padding: 26px 32px 26px 24px;">
+                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 4px;">Notícias</h4>
+                      <p style="font-size: 12px; color: #9195A8; margin: 0 0 16px;">Lista compacta</p>
+                      <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; gap: 10px; align-items: start;"><span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;">1</span><span style="font-size: 13px; font-weight: 700; line-height: 1.4;">Estudo sugere que árvores evolutivas podem estar erradas</span></div>
+                        <div style="display: flex; gap: 10px; align-items: start;"><span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;">2</span><span style="font-size: 13px; font-weight: 700; line-height: 1.4;">Astronauta da NASA crê no relato bíblico da criação</span></div>
+                        <div style="display: flex; gap: 10px; align-items: start;"><span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;">3</span><span style="font-size: 13px; font-weight: 700; line-height: 1.4;">Carro eVTOL em forma de pelicano é apresentado</span></div>
+                      </div>
+                      <div style="margin-top: 20px; padding: 16px; border-radius: 14px; background: #F7F8FB; border: 1px solid #E3E5ED;">
+                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 4px;">Newsletter</div>
+                        <p style="font-size: 12px; color: #5B5F76; margin: 0 0 10px; line-height: 1.45;">Receba novidades por e-mail.</p>
+                        <input type="text" placeholder="seu@email.com" style="width: 100%; font-family: 'Nunito Sans'; font-size: 12px; padding: 9px 12px; border: 1.5px solid #C7CAD8; border-radius: 10px; outline: none; margin-bottom: 8px;" style-focus="border-color:#12A5E0;box-shadow:0 0 0 3px rgba(18,165,224,.18);">
+                        <button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #2E3192; border: none; border-radius: 10px; padding: 9px; cursor: pointer;">Assinar</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="padding: 26px 32px; border-bottom: 1px solid #F0F2F7;">
+                    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px;">
+                      <div><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0;">Vídeos</h4><p style="font-size: 12px; color: #9195A8; margin: 2px 0 0;">Wix Video / embed do YouTube</p></div>
+                      <a href="#previa" style="font-size: 13px; font-weight: 800; color: #12A5E0; text-decoration: none;">Ver canal →</a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px;">
+                      <div><div style="aspect-ratio: 16/9; border-radius: 14px; background: #1E2138; display: flex; align-items: center; justify-content: center; position: relative;"><span style="width: 42px; height: 42px; border-radius: 999px; background: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center; color: #2E3192; font-size: 15px; padding-left: 3px;">▶</span></div><div style="font-size: 13px; font-weight: 700; margin-top: 9px;">O Criador e a criação no Apocalipse</div></div>
+                      <div><div style="aspect-ratio: 16/9; border-radius: 14px; background: #2A2D45; display: flex; align-items: center; justify-content: center;"><span style="width: 42px; height: 42px; border-radius: 999px; background: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center; color: #2E3192; font-size: 15px; padding-left: 3px;">▶</span></div><div style="font-size: 13px; font-weight: 700; margin-top: 9px;">Gênesis 1 e 2 · Parte 1</div></div>
+                      <div><div style="aspect-ratio: 16/9; border-radius: 14px; background: #1E2138; display: flex; align-items: center; justify-content: center;"><span style="width: 42px; height: 42px; border-radius: 999px; background: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center; color: #2E3192; font-size: 15px; padding-left: 3px;">▶</span></div><div style="font-size: 13px; font-weight: 700; margin-top: 9px;">Prólogo · Origens #1</div></div>
+                    </div>
+                  </div>
+
+                  <div style="margin: 26px 32px; border-radius: 18px; background: linear-gradient(135deg,#FFC800,#F5A623); padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                    <div style="min-width: 0;">
+                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 22px; margin: 0 0 6px; color: #1E2138;">Programa de Recompensas</h4>
+                      <p style="font-size: 14px; color: rgba(30,33,56,.75); margin: 0; line-height: 1.5;">Leia, participe e acumule pontos para trocar por materiais do Clube.</p>
+                    </div>
+                    <button onClick="{{ setScreenRecompensas }}" style="flex-shrink: 0; font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 13px 26px; cursor: pointer;" style-hover="background:#262a7d;">Ver recompensas</button>
+                  </div>
+
+                  <div style="background: #1E2138; color: #fff; padding: 30px 32px; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 24px;">
+                    <div>
+                      <img src="assets/logo.png" style="width: 92px; object-fit: contain; margin-bottom: 12px; filter: brightness(0) invert(1);">
+                      <p style="font-size: 12px; color: rgba(255,255,255,.6); margin: 0; line-height: 1.5;">Explorando as evidências da nossa origem superior.</p>
+                    </div>
+                    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Acesso rápido</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Institucional</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Blog</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Eventos</a></div></div>
+                    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Participe</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Recompensas</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Parcerias</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Contato</a></div></div>
+                    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Siga</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">YouTube</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Instagram</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Facebook</a></div></div>
+                  </div>
+
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isPainel }}" hint-placeholder-val="{{ false }}">
+                <div style="animation: ds-fade-in .3s ease; padding: 28px 32px;">
+                  <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 18px;">Olá, Ana Luísa 👋</h3>
+                  <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 18px; align-items: start;">
+                    <div style="background: linear-gradient(135deg,#FFC800,#F5A623); border-radius: 16px; padding: 20px; color: #1E2138;"><div style="font-size: 13px; font-weight: 800; opacity: .7;">Seus pontos</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 40px; line-height: 1;">840</div><div style="display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: rgba(30,33,56,.12); font-weight: 800; font-size: 12px;">Nível 4 · Explorador</div></div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; margin: 0 0 4px;">Cristais de sal caseiros</h5><p style="font-size: 13px; color: #5B5F76; margin: 0 0 14px;">Missão em andamento</p><div style="height: 8px; background: #F0F2F7; border-radius: 999px; overflow: hidden; margin-bottom: 8px;"><div style="width: 60%; height: 100%; background: linear-gradient(90deg,#12A5E0,#2E3192); border-radius: 999px;"></div></div><div style="display: flex; justify-content: space-between; font-size: 12px; color: #9195A8; font-weight: 700;"><span>Progresso</span><span>3 de 5 etapas</span></div></div>
+                  </div>
+                  <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; margin-top: 18px;">
+                    <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; margin: 0 0 18px;">Status do seu último envio</h5>
+                    <div style="display: flex; align-items: center;">
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 34px; height: 34px; border-radius: 999px; background: #2FA84F; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin: 0 auto;">✓</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #2FA84F;">Enviado</div></div>
+                      <div style="flex: 1; height: 3px; background: #2FA84F; margin: 0 6px 22px;"></div>
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 34px; height: 34px; border-radius: 999px; background: #FFC800; color: #1E2138; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin: 0 auto;">◐</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #E08A00;">Em análise</div></div>
+                      <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px 22px;"></div>
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 34px; height: 34px; border-radius: 999px; background: #F0F2F7; color: #9195A8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin: 0 auto;">3</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #9195A8;">Aprovado</div></div>
+                      <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px 22px;"></div>
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 34px; height: 34px; border-radius: 999px; background: #F0F2F7; color: #9195A8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin: 0 auto;">★</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #9195A8;">Pontos</div></div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isRecompensas }}" hint-placeholder-val="{{ false }}">
+                <div style="animation: ds-fade-in .3s ease; padding: 28px 32px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px;">
+                    <div><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 2px;">Loja de recompensas</h3><p style="font-size: 13px; color: #9195A8; margin: 0;">Troque seus pontos por materiais de laboratório</p></div>
+                    <span style="padding: 8px 16px; border-radius: 999px; background: #FFF6D6; color: #B58900; font-weight: 800; font-size: 14px;">★ 840 pts disponíveis</span>
+                  </div>
+                  <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px;">
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;"><div style="height: 92px; background: repeating-linear-gradient(45deg,#F2E9F7,#F2E9F7 10px,#F0F2F7 10px,#F0F2F7 20px);"></div><div style="padding: 14px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Kit microscópio</h5><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #FFC800; font-size: 14px;">★ 500</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #8134A8; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Resgatar</button></div></div></div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;"><div style="height: 92px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 10px,#F0F2F7 10px,#F0F2F7 20px);"></div><div style="padding: 14px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Caderno de campo</h5><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #FFC800; font-size: 14px;">★ 180</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #8134A8; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Resgatar</button></div></div></div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; opacity: .6;"><div style="height: 92px; background: repeating-linear-gradient(45deg,#F0F2F7,#F0F2F7 10px,#E3E5ED 10px,#E3E5ED 20px);"></div><div style="padding: 14px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Telescópio infantil</h5><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #9195A8; font-size: 14px;">★ 1200</span><button disabled="disabled" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #9195A8; background: #E3E5ED; border: none; border-radius: 9px; padding: 7px 14px; cursor: not-allowed;">Faltam pts</button></div></div></div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; border-top: 1px solid #F0F2F7;">
+            <div style="flex: 1; min-width: 200px; background: #F7F8FB; border-radius: 12px; padding: 16px;"><div style="font-weight: 800; font-size: 14px; color: #2FA84F; margin-bottom: 4px;">Montado no Wix nativo</div><div style="font-size: 13px; color: #5B5F76; line-height: 1.5;">Header, botões e layout usam elementos do editor.</div></div>
+            <div style="flex: 1; min-width: 200px; background: #F7F8FB; border-radius: 12px; padding: 16px;"><div style="font-weight: 800; font-size: 14px; color: #12A5E0; margin-bottom: 4px;">Conteúdo pelo CMS</div><div style="font-size: 13px; color: #5B5F76; line-height: 1.5;">Missões, artigos e recompensas saem de coleções.</div></div>
+            <div style="flex: 1; min-width: 200px; background: #F7F8FB; border-radius: 12px; padding: 16px;"><div style="font-weight: 800; font-size: 14px; color: #E08A00; margin-bottom: 4px;">Velo só onde precisa</div><div style="font-size: 13px; color: #5B5F76; line-height: 1.5;">Pontos, resgate e status de envio.</div></div>
+          </div>
+
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #F0F2F7;">
+            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px;">Sobre a navegação em menu ampliado</h3>
+            <p style="font-size: 15px; color: #5B5F76; line-height: 1.6; margin: 0 0 20px; max-width: 700px;">Resposta à pergunta sobre desvantagens desta abordagem — menu geral com todas as áreas, mais atalhos na barra para as áreas estratégicas.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+              <div style="background: #F7FCF9; border: 1px solid #CFE9D8; border-radius: 14px; padding: 20px;">
+                <div style="font-weight: 800; font-size: 14px; color: #2FA84F; margin-bottom: 12px;">A favor</div>
+                <ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #2A2D45; line-height: 1.65;">
+                  <li>O visitante vê a extensão do site de uma vez, sem navegar às cegas.</li>
+                  <li>As duas áreas estratégicas ficam a um clique, sem depender do menu geral.</li>
+                  <li>Permite a Home clean: a navegação absorve a complexidade e a Home respira.</li>
+                  <li>Escala bem conforme o acervo de artigos e vídeos cresce.</li>
+                </ul>
+              </div>
+              <div style="background: #FFFBF3; border: 1px solid #F3DEBB; border-radius: 14px; padding: 20px;">
+                <div style="font-weight: 800; font-size: 14px; color: #E08A00; margin-bottom: 12px;">Pontos de atenção</div>
+                <ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #2A2D45; line-height: 1.65;">
+                  <li>Item repetido em dois lugares exige rótulo idêntico, senão parecem destinos diferentes.</li>
+                  <li>Acima de 8 grupos o painel vira uma segunda Home e cansa em vez de ajudar.</li>
+                  <li>No mobile o painel precisa virar acordeão — decidir isso agora, não depois.</li>
+                  <li>Exige curadoria contínua: cada página nova precisa de um grupo, ou o menu incha.</li>
+                  <li>Painel grande demanda navegação por teclado e foco visível bem resolvidos.</li>
+                </ul>
+              </div>
+            </div>
+            <div style="margin-top: 16px; background: #E9EAF5; border-radius: 14px; padding: 18px 20px;">
+              <div style="font-weight: 800; font-size: 14px; color: #2E3192; margin-bottom: 6px;">Nossa recomendação</div>
+              <p style="margin: 0; font-size: 14px; color: #2A2D45; line-height: 1.6;">Adotar o padrão, com três limites: no máximo 8 grupos no menu geral, no máximo 2 atalhos em destaque na barra, e rótulos exatamente iguais entre o atalho e o item correspondente no menu geral. Assim a repetição soa como atalho, não como duplicidade.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div style="max-width: 1080px; padding: 0 56px 96px;">
+
+      <!-- 1. PRINCÍPIOS -->
+      <section id="principios" style="scroll-margin-top: 24px; padding-top: 64px;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0; margin-bottom: 8px;">01 — Fundamentos</div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px; color: #1E2138;">Princípios de marca</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 32px;">Quatro ideias que orientam toda decisão visual e de produto. Quando houver dúvida, volte a elas.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 26px;">
+            <div style="width: 46px; height: 46px; border-radius: 12px; background: #E9EAF5; color: #2E3192; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; font-family: 'Baloo 2', sans-serif; margin-bottom: 16px;">01</div>
+            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 8px;">Curiosidade em primeiro lugar</h3>
+            <p style="font-size: 15px; line-height: 1.6; color: #5B5F76; margin: 0;">A interface convida à exploração. Cada tela abre uma pergunta e recompensa quem investiga — como um verdadeiro laboratório.</p>
+          </div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 26px;">
+            <div style="width: 46px; height: 46px; border-radius: 12px; background: #E6F5FC; color: #12A5E0; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; font-family: 'Baloo 2', sans-serif; margin-bottom: 16px;">02</div>
+            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 8px;">Colorido com propósito</h3>
+            <p style="font-size: 15px; line-height: 1.6; color: #5B5F76; margin: 0;">A paleta viva do logo é usada com intenção: cor guia a atenção e organiza a informação, nunca só decora.</p>
+          </div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 26px;">
+            <div style="width: 46px; height: 46px; border-radius: 12px; background: #EAF7EE; color: #2FA84F; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; font-family: 'Baloo 2', sans-serif; margin-bottom: 16px;">03</div>
+            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 8px;">Acessível para todos</h3>
+            <p style="font-size: 15px; line-height: 1.6; color: #5B5F76; margin: 0;">Contraste, tamanhos de toque e linguagem clara. Um público jovem e diverso precisa entender sem esforço.</p>
+          </div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 26px;">
+            <div style="width: 46px; height: 46px; border-radius: 12px; background: #F2E9F7; color: #8134A8; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; font-family: 'Baloo 2', sans-serif; margin-bottom: 16px;">04</div>
+            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 8px;">Consistente e reaproveitável</h3>
+            <p style="font-size: 15px; line-height: 1.6; color: #5B5F76; margin: 0;">Tokens e componentes se repetem em todo o site. O que se define aqui se propaga por todas as páginas do Wix.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. CORES -->
+      <section id="cores" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">02 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Site Theme / Custom Element</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Cores</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Extraídas do logo. Clique em qualquer amostra para copiar o HEX. No Wix, cadastre-as no <strong>Site Theme</strong> (paleta global) para que se propaguem automaticamente.</p>
+
+        <div style="font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #9195A8; margin: 0 0 14px;">Marca</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;">
+          <button data-hex="#2E3192" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 96px; background: #2E3192;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Primary</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#2E3192</div></div>
+          </button>
+          <button data-hex="#12A5E0" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 96px; background: #12A5E0;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Secondary</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#12A5E0</div></div>
+          </button>
+          <button data-hex="#FFC800" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 96px; background: #FFC800;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Accent</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#FFC800</div></div>
+          </button>
+          <button data-hex="#8134A8" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 96px; background: #8134A8;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Accent 2</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#8134A8</div></div>
+          </button>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #9195A8; margin: 0 0 14px;">Feedback</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px;">
+          <button data-hex="#2FA84F" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 84px; background: #2FA84F;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Success</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#2FA84F</div></div>
+          </button>
+          <button data-hex="#F5A623" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 84px; background: #F5A623;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Warning</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#F5A623</div></div>
+          </button>
+          <button data-hex="#E4123B" onClick="{{ copyEvt }}" style="text-align: left; border: 1px solid #E3E5ED; border-radius: 14px; overflow: hidden; background: #fff; cursor: pointer; padding: 0;">
+            <div style="height: 84px; background: #E4123B;"></div>
+            <div style="padding: 12px 14px;"><div style="font-weight: 800; font-size: 14px;">Error</div><div style="font-size: 13px; color: #9195A8; font-family: monospace;">#E4123B</div></div>
+          </button>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #9195A8; margin: 0 0 14px;">Neutros</div>
+        <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; border: 1px solid #E3E5ED; border-radius: 14px; padding: 16px; background: #fff;">
+          <button data-hex="#1E2138" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #1E2138; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">Ink</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">1E2138</div></button>
+          <button data-hex="#2A2D45" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #2A2D45; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">900</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">2A2D45</div></button>
+          <button data-hex="#5B5F76" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #5B5F76; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">600</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">5B5F76</div></button>
+          <button data-hex="#9195A8" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #9195A8; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">400</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">9195A8</div></button>
+          <button data-hex="#C7CAD8" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #C7CAD8; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">300</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">C7CAD8</div></button>
+          <button data-hex="#E3E5ED" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #E3E5ED; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">200</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">E3E5ED</div></button>
+          <button data-hex="#F0F2F7" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #F0F2F7; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">100</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">F0F2F7</div></button>
+          <button data-hex="#FFFFFF" onClick="{{ copyEvt }}" style="border: none; background: none; cursor: pointer; padding: 0; text-align: center;"><div style="height: 64px; border-radius: 10px; background: #FFFFFF; border: 1px solid #E3E5ED;"></div><div style="font-size: 11px; font-weight: 700; margin-top: 6px;">White</div><div style="font-size: 10px; color: #9195A8; font-family: monospace;">FFFFFF</div></button>
+        </div>
+      </section>
+
+      <!-- 3. TIPOGRAFIA -->
+      <section id="tipografia" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">03 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Site Theme (Text Styles)</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Tipografia</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;"><strong style="color:#2E3192;font-family:'Baloo 2',sans-serif;">Baloo 2</strong> para títulos (arredondada e lúdica, ecoa o logo) e <strong>Nunito Sans</strong> para textos (altamente legível). No Wix, cadastre em <em>Site Theme → Text</em>; carregue as fontes via Custom Element ou Google Fonts.</p>
+        <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05;">Heading 1</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Baloo 2 · 800 · 48/50</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 36px; line-height: 1.1;">Heading 2</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Baloo 2 · 800 · 36/40</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15;">Heading 3</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Baloo 2 · 700 · 28/32</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; line-height: 1.2;">Heading 4</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Baloo 2 · 700 · 22/26</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 18px; line-height: 1.25;">Heading 5</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Baloo 2 · 600 · 18/22</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 16px; line-height: 1.3; text-transform: uppercase; letter-spacing: .04em;">Heading 6</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Baloo 2 · 600 · 16 · caps</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-size: 18px; line-height: 1.6; max-width: 460px;">Parágrafo 1 — texto de destaque para introduções e chamadas de leitura confortável.</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Nunito Sans · 400 · 18/29</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #F0F2F7;"><span style="font-size: 16px; line-height: 1.6; max-width: 460px;">Parágrafo 2 — corpo de texto padrão, usado na maioria das telas e cards do site.</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Nunito Sans · 400 · 16/26</span></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 24px;"><span style="font-size: 14px; line-height: 1.55; color: #5B5F76; max-width: 460px;">Parágrafo 3 — legendas, metadados e textos de apoio secundário.</span><span style="font-size: 13px; color: #9195A8; font-family: monospace; white-space: nowrap;">Nunito Sans · 400 · 14/22</span></div>
+        </div>
+      </section>
+
+      <!-- 4. SPACING -->
+      <section id="spacing" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">04 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (margens/padding do editor)</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Escala de espaçamento</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Base de <strong>4px</strong>. Use estes valores para paddings, gaps e margens em todo o site, garantindo ritmo consistente.</p>
+        <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">xs</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">4px</span><div style="height: 22px; width: 4px; background: #12A5E0; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">sm</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">8px</span><div style="height: 22px; width: 8px; background: #12A5E0; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">md</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">12px</span><div style="height: 22px; width: 12px; background: #12A5E0; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">lg</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">16px</span><div style="height: 22px; width: 16px; background: #12A5E0; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">xl</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">24px</span><div style="height: 22px; width: 24px; background: #2E3192; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">2xl</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">32px</span><div style="height: 22px; width: 32px; background: #2E3192; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">3xl</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">48px</span><div style="height: 22px; width: 48px; background: #2E3192; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">4xl</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">64px</span><div style="height: 22px; width: 64px; background: #8134A8; border-radius: 3px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 16px;"><span style="width: 56px; font-weight: 800; font-size: 14px;">5xl</span><span style="width: 60px; font-size: 13px; color: #9195A8; font-family: monospace;">96px</span><div style="height: 22px; width: 96px; background: #8134A8; border-radius: 3px;"></div></div>
+        </div>
+      </section>
+
+      <!-- 5. RADIUS -->
+      <section id="radius" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">05 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (corner radius)</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Border radius</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Cantos generosos reforçam o tom amigável da marca. Padrão de cards: <strong>16px</strong>.</p>
+        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;">
+          <div style="text-align: center;"><div style="height: 96px; background: #E9EAF5; border: 2px solid #2E3192; border-radius: 4px;"></div><div style="font-weight: 800; font-size: 14px; margin-top: 10px;">sm</div><div style="font-size: 12px; color: #9195A8; font-family: monospace;">4px</div></div>
+          <div style="text-align: center;"><div style="height: 96px; background: #E9EAF5; border: 2px solid #2E3192; border-radius: 8px;"></div><div style="font-weight: 800; font-size: 14px; margin-top: 10px;">md</div><div style="font-size: 12px; color: #9195A8; font-family: monospace;">8px</div></div>
+          <div style="text-align: center;"><div style="height: 96px; background: #E9EAF5; border: 2px solid #2E3192; border-radius: 12px;"></div><div style="font-weight: 800; font-size: 14px; margin-top: 10px;">lg</div><div style="font-size: 12px; color: #9195A8; font-family: monospace;">12px</div></div>
+          <div style="text-align: center;"><div style="height: 96px; background: #E9EAF5; border: 2px solid #2E3192; border-radius: 16px;"></div><div style="font-weight: 800; font-size: 14px; margin-top: 10px;">xl</div><div style="font-size: 12px; color: #9195A8; font-family: monospace;">16px</div></div>
+          <div style="text-align: center;"><div style="height: 96px; background: #E9EAF5; border: 2px solid #2E3192; border-radius: 24px;"></div><div style="font-weight: 800; font-size: 14px; margin-top: 10px;">2xl</div><div style="font-size: 12px; color: #9195A8; font-family: monospace;">24px</div></div>
+          <div style="text-align: center;"><div style="height: 96px; background: #E9EAF5; border: 2px solid #2E3192; border-radius: 999px;"></div><div style="font-weight: 800; font-size: 14px; margin-top: 10px;">full</div><div style="font-size: 12px; color: #9195A8; font-family: monospace;">999px</div></div>
+        </div>
+      </section>
+
+      <!-- 6. SHADOWS -->
+      <section id="shadows" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">06 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #F2E9F7; color: #8134A8; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>CSS custom / Nativo (shadow do editor)</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Sombras</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Suaves e frias (tom azulado) para dar elevação sem pesar. Quatro níveis de profundidade.</p>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+          <div style="text-align: center;"><div style="height: 110px; background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(46,49,146,.08), 0 1px 3px rgba(46,49,146,.06);"></div><div style="font-weight: 800; font-size: 14px; margin-top: 12px;">sm</div><div style="font-size: 11px; color: #9195A8; font-family: monospace;">0 1px 3px / .06</div></div>
+          <div style="text-align: center;"><div style="height: 110px; background: #fff; border-radius: 16px; box-shadow: 0 4px 12px rgba(46,49,146,.10);"></div><div style="font-weight: 800; font-size: 14px; margin-top: 12px;">md</div><div style="font-size: 11px; color: #9195A8; font-family: monospace;">0 4px 12px / .10</div></div>
+          <div style="text-align: center;"><div style="height: 110px; background: #fff; border-radius: 16px; box-shadow: 0 10px 28px rgba(46,49,146,.14);"></div><div style="font-weight: 800; font-size: 14px; margin-top: 12px;">lg</div><div style="font-size: 11px; color: #9195A8; font-family: monospace;">0 10px 28px / .14</div></div>
+          <div style="text-align: center;"><div style="height: 110px; background: #fff; border-radius: 16px; box-shadow: 0 20px 48px rgba(46,49,146,.20);"></div><div style="font-weight: 800; font-size: 14px; margin-top: 12px;">xl</div><div style="font-size: 11px; color: #9195A8; font-family: monospace;">0 20px 48px / .20</div></div>
+        </div>
+      </section>
+
+      <!-- 7. GRID -->
+      <section id="grid" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">07 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (Grid / Repeater / Stack)</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Grid</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 24px;">Alterne os breakpoints para ver a estrutura de colunas. No Wix, use <strong>Grid/Stack layouts</strong> e o container responsivo nativo — evite posicionamento absoluto.</p>
+        <div style="display: inline-flex; gap: 6px; padding: 5px; background: #F0F2F7; border-radius: 12px; margin-bottom: 20px;">
+          <button onClick="{{ setGridDesktop }}" style="{{ gridDesktopStyle }}">Desktop</button>
+          <button onClick="{{ setGridTablet }}" style="{{ gridTabletStyle }}">Tablet</button>
+          <button onClick="{{ setGridMobile }}" style="{{ gridMobileStyle }}">Mobile</button>
+        </div>
+        <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <span style="font-weight: 800; font-size: 15px;">{{ gridLabel }}</span>
+            <span style="font-size: 13px; color: #9195A8; font-family: monospace;">{{ gridMeta }}</span>
+          </div>
+          <div style="display: grid; gap: 12px; grid-template-columns: {{ gridTemplate }};">
+            <sc-for list="{{ gridBars }}" as="bar" hint-placeholder-count="12">
+              <div style="height: 72px; background: linear-gradient(180deg, #E6F5FC, #D3ECF9); border: 1px dashed #12A5E0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #12A5E0;">{{ bar }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. CONTAINERS -->
+      <section id="containers" style="scroll-margin-top: 24px; padding-top: 72px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0;">08 — Fundamentos</div>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (section / container width)</span>
+        </div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Containers</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Largura máxima do conteúdo e respiro lateral por breakpoint.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;"><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; color: #2E3192;">1200px</div><div style="font-weight: 700; margin: 4px 0 10px;">Max width — Desktop</div><div style="font-size: 14px; color: #5B5F76; line-height: 1.5;">Padding lateral: <strong>48–80px</strong>. Conteúdo centralizado.</div></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;"><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; color: #12A5E0;">100%</div><div style="font-weight: 700; margin: 4px 0 10px;">Fluido — Tablet</div><div style="font-size: 14px; color: #5B5F76; line-height: 1.5;">Padding lateral: <strong>32px</strong>. Largura fluida até 1024px.</div></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;"><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; color: #8134A8;">100%</div><div style="font-weight: 700; margin: 4px 0 10px;">Fluido — Mobile</div><div style="font-size: 14px; color: #5B5F76; line-height: 1.5;">Padding lateral: <strong>20px</strong>. Alvos de toque ≥ 44px.</div></div>
+        </div>
+      </section>
+
+      <!-- 9. COMPONENTES -->
+      <section id="componentes" style="scroll-margin-top: 24px; padding-top: 80px;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #FFC800; margin-bottom: 8px;">09 — Biblioteca</div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Componentes base</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 36px;">Blocos reutilizáveis. Cada um traz a orientação de como construí-lo no Wix da forma mais nativa.</p>
+
+        <!-- Buttons -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Botões</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (Button)</span></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 24px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 12px 22px; cursor: pointer; box-shadow: 0 4px 12px rgba(46,49,146,.24);" style-hover="background:#262a7d;transform:translateY(-1px);">Primary</button>
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #12A5E0; border: none; border-radius: 12px; padding: 12px 22px; cursor: pointer; box-shadow: 0 4px 12px rgba(18,165,224,.24);" style-hover="background:#0f93c8;transform:translateY(-1px);">Secondary</button>
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #1E2138; background: #FFC800; border: none; border-radius: 12px; padding: 12px 22px; cursor: pointer; box-shadow: 0 4px 12px rgba(255,200,0,.3);" style-hover="background:#f0bd00;transform:translateY(-1px);">Accent</button>
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #2E3192; background: transparent; border: 2px solid #2E3192; border-radius: 12px; padding: 10px 20px; cursor: pointer;" style-hover="background:#E9EAF5;">Outline</button>
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #2E3192; background: transparent; border: none; border-radius: 12px; padding: 12px 16px; cursor: pointer;" style-hover="background:#F0F2F7;">Ghost</button>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; border-top: 1px solid #F0F2F7; padding-top: 22px;">
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 13px; color: #fff; background: #2E3192; border: none; border-radius: 10px; padding: 8px 16px; cursor: pointer;">Small</button>
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 12px 22px; cursor: pointer;">Medium</button>
+              <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 17px; color: #fff; background: #2E3192; border: none; border-radius: 14px; padding: 15px 30px; cursor: pointer;">Large</button>
+              <button disabled="disabled" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #9195A8; background: #E3E5ED; border: none; border-radius: 12px; padding: 12px 22px; cursor: not-allowed;">Disabled</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Inputs</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (Input / Forms)</span></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 28px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px;">
+            <div><label style="display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px;">Padrão</label><input type="text" placeholder="Digite seu nome" style="width: 100%; font-family: 'Nunito Sans'; font-size: 15px; padding: 12px 14px; border: 1.5px solid #C7CAD8; border-radius: 12px; outline: none;" style-focus="border-color:#12A5E0;box-shadow:0 0 0 3px rgba(18,165,224,.18);"></div>
+            <div><label style="display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px;">Com foco (clique)</label><input type="text" value="pesquisador@clube.org" style="width: 100%; font-family: 'Nunito Sans'; font-size: 15px; padding: 12px 14px; border: 1.5px solid #12A5E0; border-radius: 12px; outline: none; box-shadow: 0 0 0 3px rgba(18,165,224,.18);"></div>
+            <div><label style="display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px;">Erro</label><input type="text" value="email-invalido" style="width: 100%; font-family: 'Nunito Sans'; font-size: 15px; padding: 12px 14px; border: 1.5px solid #E4123B; border-radius: 12px; outline: none;"><span style="display: block; font-size: 12px; color: #E4123B; font-weight: 700; margin-top: 6px;">Informe um e-mail válido.</span></div>
+            <div><label style="display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px;">Desabilitado</label><input type="text" value="Bloqueado" disabled="disabled" style="width: 100%; font-family: 'Nunito Sans'; font-size: 15px; padding: 12px 14px; border: 1.5px solid #E3E5ED; border-radius: 12px; background: #F0F2F7; color: #9195A8;"></div>
+            <div style="grid-column: 1 / -1;"><label style="display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px;">Área de texto</label><textarea placeholder="Descreva sua descoberta..." rows="3" style="width: 100%; font-family: 'Nunito Sans'; font-size: 15px; padding: 12px 14px; border: 1.5px solid #C7CAD8; border-radius: 12px; outline: none; resize: vertical;" style-focus="border-color:#12A5E0;box-shadow:0 0 0 3px rgba(18,165,224,.18);"></textarea></div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Badges</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #F2E9F7; color: #8134A8; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>CSS custom / Nativo (Tag)</span></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 28px; display: flex; flex-wrap: wrap; gap: 12px;">
+            <span style="padding: 6px 14px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-weight: 800; font-size: 13px;">Primary</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-weight: 800; font-size: 13px;">Sucesso</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-weight: 800; font-size: 13px;">Atenção</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #FBE3E7; color: #E4123B; font-weight: 800; font-size: 13px;">Erro</span>
+            <span style="padding: 6px 14px; border-radius: 999px; background: #F0F2F7; color: #5B5F76; font-weight: 800; font-size: 13px;">Neutro</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; background: #FFF6D6; color: #B58900; font-weight: 800; font-size: 13px;">★ Destaque</span>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Cards</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Wix CMS + Repeater</span></div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(46,49,146,.06);" style-hover="box-shadow:0 10px 28px rgba(46,49,146,.14);transform:translateY(-2px);">
+              <div style="height: 120px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 10px,#F0F2F7 10px,#F0F2F7 20px); display: flex; align-items: center; justify-content: center; color: #12A5E0; font-family: monospace; font-size: 12px;">imagem 3:2</div>
+              <div style="padding: 18px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0 0 6px;">Título do card</h4><p style="font-size: 14px; color: #5B5F76; margin: 0; line-height: 1.5;">Texto de apoio curto que descreve o conteúdo do card.</p></div>
+            </div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: #FFF6D6; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 20px;">🔬</div>
+              <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0 0 6px;">Card com ícone</h4><p style="font-size: 14px; color: #5B5F76; margin: 0; line-height: 1.5;">Variante para features e destaques temáticos.</p>
+            </div>
+            <div style="background: linear-gradient(135deg,#2E3192,#12A5E0); border-radius: 16px; padding: 22px; color: #fff;">
+              <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0 0 6px;">Card destaque</h4><p style="font-size: 14px; color: rgba(255,255,255,.9); margin: 0 0 16px; line-height: 1.5;">Fundo colorido para chamadas de ação importantes.</p><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 13px; color: #2E3192; background: #FFC800; border: none; border-radius: 10px; padding: 8px 16px; cursor: pointer;">Ação</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Tabs</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (Tabs) + Velo p/ lógica</span></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;">
+            <div style="display: flex; gap: 6px; border-bottom: 2px solid #F0F2F7; margin-bottom: 20px;">
+              <button onClick="{{ setTabPerfil }}" style="{{ tabPerfilStyle }}">Perfil</button>
+              <button onClick="{{ setTabMissoes }}" style="{{ tabMissoesStyle }}">Missões</button>
+              <button onClick="{{ setTabConquistas }}" style="{{ tabConquistasStyle }}">Conquistas</button>
+            </div>
+            <sc-if value="{{ showPerfil }}" hint-placeholder-val="{{ true }}"><div style="animation: ds-fade-in .3s ease;"><h4 style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:18px;margin:0 0 6px;">Perfil do pesquisador</h4><p style="font-size:15px;color:#5B5F76;margin:0;line-height:1.6;">Dados, avatar e nível do membro. O conteúdo troca ao clicar nas abas — comportamento controlado por Velo.</p></div></sc-if>
+            <sc-if value="{{ showMissoes }}" hint-placeholder-val="{{ false }}"><div style="animation: ds-fade-in .3s ease;"><h4 style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:18px;margin:0 0 6px;">Missões ativas</h4><p style="font-size:15px;color:#5B5F76;margin:0;line-height:1.6;">Lista de experimentos e desafios em andamento, vindos do CMS.</p></div></sc-if>
+            <sc-if value="{{ showConquistas }}" hint-placeholder-val="{{ false }}"><div style="animation: ds-fade-in .3s ease;"><h4 style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:18px;margin:0 0 6px;">Conquistas</h4><p style="font-size:15px;color:#5B5F76;margin:0;line-height:1.6;">Medalhas e recompensas desbloqueadas ao longo da jornada.</p></div></sc-if>
+          </div>
+        </div>
+
+        <!-- Accordions -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Accordions</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo Wix (Accordion / Collapsible)</span></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;">
+            <div style="border-bottom: 1px solid #F0F2F7;">
+              <button onClick="{{ toggleAcc1 }}" style="width: 100%; text-align: left; background: none; border: none; padding: 18px 22px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: 'Nunito Sans'; font-weight: 700; font-size: 16px; color: #1E2138;"><span>Como participo das missões?</span><span style="{{ acc1Chevron }}">⌄</span></button>
+              <sc-if value="{{ acc1Open }}" hint-placeholder-val="{{ true }}"><div style="padding: 0 22px 20px; font-size: 15px; color: #5B5F76; line-height: 1.6;">Escolha uma missão disponível no seu painel, siga as etapas do experimento e envie sua descoberta para análise.</div></sc-if>
+            </div>
+            <div style="border-bottom: 1px solid #F0F2F7;">
+              <button onClick="{{ toggleAcc2 }}" style="width: 100%; text-align: left; background: none; border: none; padding: 18px 22px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: 'Nunito Sans'; font-weight: 700; font-size: 16px; color: #1E2138;"><span>Como ganho pontos?</span><span style="{{ acc2Chevron }}">⌄</span></button>
+              <sc-if value="{{ acc2Open }}" hint-placeholder-val="{{ false }}"><div style="padding: 0 22px 20px; font-size: 15px; color: #5B5F76; line-height: 1.6;">Cada missão aprovada gera pontos. Acumule-os para subir de nível e trocar por recompensas.</div></sc-if>
+            </div>
+            <div>
+              <button onClick="{{ toggleAcc3 }}" style="width: 100%; text-align: left; background: none; border: none; padding: 18px 22px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: 'Nunito Sans'; font-weight: 700; font-size: 16px; color: #1E2138;"><span>Posso doar para o clube?</span><span style="{{ acc3Chevron }}">⌄</span></button>
+              <sc-if value="{{ acc3Open }}" hint-placeholder-val="{{ false }}"><div style="padding: 0 22px 20px; font-size: 15px; color: #5B5F76; line-height: 1.6;">Sim! O card de doação permite contribuir com qualquer valor para apoiar novos experimentos.</div></sc-if>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navbar -->
+        <div style="margin-bottom: 40px;">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Navbar + busca</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo (Header + Menu + Search)</span></div>
+          <p style="font-size: 14px; color: #5B5F76; margin: 0 0 16px; max-width: 680px; line-height: 1.55;">Três camadas: barra utilitária (institucional + login), barra principal (logo, menu, busca, CTA) e mega menu. O menu vem de páginas do site; a busca usa o <strong>Wix Site Search</strong> nativo.</p>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(46,49,146,.08);">
+            <div style="background: #2E3192; color: #fff; padding: 8px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px;">
+              <span style="opacity: .85;">Explorando as evidências da nossa origem superior</span>
+              <div style="display: flex; align-items: center; gap: 12px; font-weight: 700;"><span style="color: rgba(255,255,255,.85);">YouTube</span><span style="color: rgba(255,255,255,.85);">Instagram</span><span style="width: 1px; height: 12px; background: rgba(255,255,255,.3);"></span><span style="color: #FFC800;">Login</span></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 20px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 9px; flex-shrink: 0;"><img src="assets/logo.png" style="width: 42px; height: 42px; object-fit: contain;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 15px; color: #2E3192; line-height: 1.05;">Clube Criacionista<br><span style="font-size: 10px; font-weight: 600; color: #12A5E0;">Ciências das Origens</span></span></div>
+              <div style="flex: 1; min-width: 160px; display: flex; align-items: center; gap: 9px; background: #F0F2F7; border: 1.5px solid transparent; border-radius: 999px; padding: 9px 14px;" style-hover="border-color:#C7CAD8;background:#fff;">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style="flex-shrink: 0;"><circle cx="7" cy="7" r="5" stroke="#9195A8" stroke-width="2"></circle><line x1="10.8" y1="10.8" x2="14" y2="14" stroke="#9195A8" stroke-width="2" stroke-linecap="round"></line></svg>
+                <input type="text" placeholder="Buscar artigos, vídeos e temas..." style="flex: 1; min-width: 0; border: none; background: none; outline: none; font-family: 'Nunito Sans'; font-size: 13px; color: #1E2138;">
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0; font-size: 12px; font-weight: 700;"><span style="color: #9195A8;">YouTube</span><span style="color: #9195A8;">Instagram</span></div>
+            </div>
+            <div style="background: #FFC800; display: flex; align-items: stretch; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 0 12px;">
+              <div style="display: flex; align-items: stretch; flex-wrap: wrap; font-weight: 800; font-size: 13.5px; color: #1E2138;">
+                <span style="padding: 12px 16px; text-decoration: underline; text-underline-offset: 3px;">Menu ⌄</span>
+                <span style="width: 1px; background: rgba(30,33,56,.15); margin: 8px 6px;"></span>
+                <span style="padding: 12px 16px;">Conteúdos ⌄</span>
+                <span style="padding: 12px 16px;">Programa de Recompensas ⌄</span>
+              </div>
+              <div style="display: flex; align-items: center; font-weight: 800; font-size: 13.5px; color: #1E2138;">
+                <span style="padding: 12px 16px;">Doe</span>
+                <span style="padding: 12px 16px;">Entrar / Cadastrar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modals -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Modais</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo (Lightbox) ou Custom Element</span></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 28px;">
+            <p style="font-size: 15px; color: #5B5F76; margin: 0 0 18px;">No Wix, a forma mais nativa é o <strong>Lightbox</strong>. Clique para ver o padrão visual.</p>
+            <button onClick="{{ openModal }}" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #8134A8; border: none; border-radius: 12px; padding: 12px 22px; cursor: pointer;" style-hover="background:#6f2c92;">Abrir modal</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. COMPONENTES DO PROJETO -->
+      <section id="projeto" style="scroll-margin-top: 24px; padding-top: 80px;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #8134A8; margin-bottom: 8px;">10 — Biblioteca</div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Componentes do projeto</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 36px;">Peças específicas da plataforma. Quase todas nascem de coleções do <strong>Wix CMS</strong> exibidas em <strong>Repeaters</strong>, com estados controlados por Velo.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+
+          <!-- Researcher card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de pesquisador</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>CMS + Repeater</span></div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <div style="width: 76px; height: 76px; border-radius: 999px; background: linear-gradient(135deg,#12A5E0,#2E3192); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 28px;">AL</div>
+              <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px;">Ana Luísa</div>
+              <div style="font-size: 14px; color: #12A5E0; font-weight: 700; margin-bottom: 12px;">Pesquisadora · Nível 4</div>
+              <div style="display: flex; justify-content: center; gap: 22px; border-top: 1px solid #F0F2F7; padding-top: 14px;"><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">12</div><div style="font-size: 12px; color: #9195A8;">missões</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">840</div><div style="font-size: 12px; color: #9195A8;">pontos</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">7</div><div style="font-size: 12px; color: #9195A8;">medalhas</div></div></div>
+            </div>
+          </div>
+
+          <!-- Mission card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de missão</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>CMS + Repeater</span></div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;"><span style="padding: 5px 12px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-weight: 800; font-size: 12px;">Intermediário</span><span style="display: inline-flex; align-items: center; gap: 5px; font-weight: 800; color: #FFC800; font-size: 14px;">★ 120 pts</span></div>
+              <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0 0 6px;">Cristais de sal caseiros</h5>
+              <p style="font-size: 14px; color: #5B5F76; margin: 0 0 16px; line-height: 1.5;">Observe a formação de cristais durante 5 dias e registre o crescimento.</p>
+              <div style="height: 8px; background: #F0F2F7; border-radius: 999px; overflow: hidden; margin-bottom: 8px;"><div style="width: 60%; height: 100%; background: linear-gradient(90deg,#12A5E0,#2E3192); border-radius: 999px;"></div></div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: #9195A8; font-weight: 700;"><span>Progresso</span><span>3 de 5 etapas</span></div>
+            </div>
+          </div>
+
+          <!-- Points card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de pontos</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Velo (dado do usuário)</span></div>
+            <div style="background: linear-gradient(135deg,#FFC800,#F5A623); border-radius: 16px; padding: 24px; color: #1E2138; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -30px; right: -20px; width: 120px; height: 120px; border-radius: 999px; background: rgba(255,255,255,.25);"></div>
+              <div style="position: relative;"><div style="font-size: 14px; font-weight: 800; opacity: .7;">Seus pontos</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 46px; line-height: 1;">840</div><div style="display: inline-block; margin-top: 12px; padding: 5px 14px; border-radius: 999px; background: rgba(30,33,56,.12); font-weight: 800; font-size: 13px;">Nível 4 · Explorador</div></div>
+            </div>
+          </div>
+
+          <!-- Reward card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de recompensa</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>CMS + Velo (resgate)</span></div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <div style="height: 110px; background: repeating-linear-gradient(45deg,#F2E9F7,#F2E9F7 10px,#F0F2F7 10px,#F0F2F7 20px); display: flex; align-items: center; justify-content: center; color: #8134A8; font-family: monospace; font-size: 12px;">foto do brinde</div>
+              <div style="padding: 18px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; margin: 0 0 4px;">Kit microscópio</h5><div style="display: flex; align-items: center; justify-content: space-between; margin-top: 12px;"><span style="font-weight: 800; color: #FFC800; font-size: 15px;">★ 500 pts</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 13px; color: #fff; background: #8134A8; border: none; border-radius: 10px; padding: 8px 16px; cursor: pointer;">Resgatar</button></div></div>
+            </div>
+          </div>
+
+          <!-- Article card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de artigo</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Wix Blog / CMS</span></div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <div style="height: 110px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 10px,#F0F2F7 10px,#F0F2F7 20px); display: flex; align-items: center; justify-content: center; color: #12A5E0; font-family: monospace; font-size: 12px;">imagem de capa</div>
+              <div style="padding: 18px;"><span style="font-size: 12px; font-weight: 800; color: #2FA84F; text-transform: uppercase; letter-spacing: .04em;">Biologia</span><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; margin: 6px 0;">Por que as folhas mudam de cor?</h5><p style="font-size: 13px; color: #5B5F76; margin: 0 0 12px; line-height: 1.5;">A ciência por trás do outono explicada de forma simples.</p><a href="#" style="font-weight: 800; font-size: 14px; color: #12A5E0; text-decoration: none;">Ler artigo →</a></div>
+            </div>
+          </div>
+
+          <!-- Donation card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de doação</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Velo + Wix Pay</span></div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; margin: 0 0 4px;">Apoie novos experimentos</h5>
+              <p style="font-size: 13px; color: #5B5F76; margin: 0 0 14px;">Meta do mês: R$ 2.000</p>
+              <div style="height: 10px; background: #F0F2F7; border-radius: 999px; overflow: hidden; margin-bottom: 8px;"><div style="width: 72%; height: 100%; background: linear-gradient(90deg,#2FA84F,#7DB93F); border-radius: 999px;"></div></div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin-bottom: 16px;"><span style="color: #2FA84F;">R$ 1.440 arrecadados</span><span style="color: #9195A8;">72%</span></div>
+              <button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2FA84F; border: none; border-radius: 12px; padding: 12px; cursor: pointer;" style-hover="background:#268a41;">Doar agora</button>
+            </div>
+          </div>
+
+          <!-- Submission status -->
+          <div style="grid-column: 1 / -1;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Status de envio</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Velo (workflow) + CMS status</span></div>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 26px 28px;">
+              <div style="display: flex; align-items: center; gap: 0;">
+                <div style="text-align: center; flex-shrink: 0;"><div style="width: 40px; height: 40px; border-radius: 999px; background: #2FA84F; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto;">✓</div><div style="font-size: 12px; font-weight: 800; margin-top: 8px; color: #2FA84F;">Enviado</div></div>
+                <div style="flex: 1; height: 3px; background: #2FA84F; margin: 0 6px; margin-bottom: 26px;"></div>
+                <div style="text-align: center; flex-shrink: 0;"><div style="width: 40px; height: 40px; border-radius: 999px; background: #FFC800; color: #1E2138; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto;">◐</div><div style="font-size: 12px; font-weight: 800; margin-top: 8px; color: #E08A00;">Em análise</div></div>
+                <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px; margin-bottom: 26px;"></div>
+                <div style="text-align: center; flex-shrink: 0;"><div style="width: 40px; height: 40px; border-radius: 999px; background: #F0F2F7; color: #9195A8; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto;">3</div><div style="font-size: 12px; font-weight: 800; margin-top: 8px; color: #9195A8;">Aprovado</div></div>
+                <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px; margin-bottom: 26px;"></div>
+                <div style="text-align: center; flex-shrink: 0;"><div style="width: 40px; height: 40px; border-radius: 999px; background: #F0F2F7; color: #9195A8; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto;">★</div><div style="font-size: 12px; font-weight: 800; margin-top: 8px; color: #9195A8;">Pontos</div></div>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; border-top: 1px solid #F0F2F7; padding-top: 18px;">
+                <span style="padding: 5px 12px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-weight: 800; font-size: 12px;">✓ Aprovado</span>
+                <span style="padding: 5px 12px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-weight: 800; font-size: 12px;">◐ Em análise</span>
+                <span style="padding: 5px 12px; border-radius: 999px; background: #FBE3E7; color: #E4123B; font-weight: 800; font-size: 12px;">✕ Revisar</span>
+                <span style="padding: 5px 12px; border-radius: 999px; background: #F0F2F7; color: #5B5F76; font-weight: 800; font-size: 12px;">◷ Rascunho</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 11. ESTADOS -->
+      <section id="estados" style="scroll-margin-top: 24px; padding-top: 80px;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0; margin-bottom: 8px;">11 — Comportamento</div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Estados de interação</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Todo elemento interativo tem cinco estados definidos. Consistência entre eles cria previsibilidade.</p>
+        <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 28px;">
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; text-align: center;">
+            <div><button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 12px; cursor: default;">Botão</button><div style="font-weight: 800; font-size: 13px; margin-top: 12px;">Default</div><div style="font-size: 12px; color: #9195A8; line-height: 1.4;">Repouso</div></div>
+            <div><button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #fff; background: #262a7d; border: none; border-radius: 12px; padding: 12px; cursor: default; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(46,49,146,.28);">Botão</button><div style="font-weight: 800; font-size: 13px; margin-top: 12px;">Hover</div><div style="font-size: 12px; color: #9195A8; line-height: 1.4;">Escurece + eleva</div></div>
+            <div><button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #fff; background: #1f2368; border: none; border-radius: 12px; padding: 12px; cursor: default; transform: translateY(1px);">Botão</button><div style="font-weight: 800; font-size: 13px; margin-top: 12px;">Active</div><div style="font-size: 12px; color: #9195A8; line-height: 1.4;">Pressionado</div></div>
+            <div><button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 12px; cursor: default; box-shadow: 0 0 0 3px rgba(18,165,224,.5);">Botão</button><div style="font-weight: 800; font-size: 13px; margin-top: 12px;">Focus</div><div style="font-size: 12px; color: #9195A8; line-height: 1.4;">Anel de foco</div></div>
+            <div><button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #9195A8; background: #E3E5ED; border: none; border-radius: 12px; padding: 12px; cursor: not-allowed;">Botão</button><div style="font-weight: 800; font-size: 13px; margin-top: 12px;">Disabled</div><div style="font-size: 12px; color: #9195A8; line-height: 1.4;">Inativo</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. RESPONSIVO -->
+      <section id="responsivo" style="scroll-margin-top: 24px; padding-top: 80px;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #12A5E0; margin-bottom: 8px;">12 — Comportamento</div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Comportamento responsivo</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">O Wix Studio trabalha com breakpoints. Defina o layout em cada um e deixe o container fluir.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;"><div style="font-size: 22px; margin-bottom: 10px;">🖥️</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px;">Desktop</div><div style="font-size: 13px; color: #9195A8; font-family: monospace; margin-bottom: 12px;">≥ 1025px</div><ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #5B5F76; line-height: 1.7;"><li>Grid de 12 colunas</li><li>Menu horizontal completo</li><li>Cards em 3–4 colunas</li></ul></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;"><div style="font-size: 22px; margin-bottom: 10px;">📱</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px;">Tablet</div><div style="font-size: 13px; color: #9195A8; font-family: monospace; margin-bottom: 12px;">768–1024px</div><ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #5B5F76; line-height: 1.7;"><li>Grid de 8 colunas</li><li>Cards em 2 colunas</li><li>Menu compacto</li></ul></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 24px;"><div style="font-size: 22px; margin-bottom: 10px;">📲</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px;">Mobile</div><div style="font-size: 13px; color: #9195A8; font-family: monospace; margin-bottom: 12px;">≤ 767px</div><ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #5B5F76; line-height: 1.7;"><li>1 coluna empilhada</li><li>Menu hambúrguer</li><li>Toque ≥ 44px</li></ul></div>
+        </div>
+      </section>
+
+      <!-- 13. WIX -->
+      <section id="wix" style="scroll-margin-top: 24px; padding-top: 80px;">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #2FA84F; margin-bottom: 8px;">13 — Implementação</div>
+        <h2 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 38px; margin: 0 0 12px;">Notas de implementação no Wix</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: #5B5F76; max-width: 680px; margin: 0 0 28px;">Regra de ouro: <strong>sempre a solução mais nativa e simples possível</strong>. Só suba de nível quando a anterior não resolver.</p>
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px;">
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-left: 5px solid #2FA84F; border-radius: 12px; padding: 20px 22px;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px; color: #2FA84F;">1. Nativo Wix Studio</span><span style="font-size: 12px; color: #9195A8; font-weight: 700;">preferência máxima</span></div><p style="margin: 0; font-size: 15px; color: #5B5F76; line-height: 1.6;">Elementos do editor: botões, inputs, tabs, accordions, header/menu, lightbox, grid/stack e o Site Theme (cores e tipografia). Cobre a maior parte do sistema sem código.</p></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-left: 5px solid #12A5E0; border-radius: 12px; padding: 20px 22px;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px; color: #12A5E0;">2. Wix CMS</span></div><p style="margin: 0; font-size: 15px; color: #5B5F76; line-height: 1.6;">Coleções + Repeaters para todo conteúdo dinâmico: pesquisadores, missões, artigos, recompensas. Estrutura os dados uma vez e o layout se repete sozinho.</p></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-left: 5px solid #8134A8; border-radius: 12px; padding: 20px 22px;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px; color: #8134A8;">3. CSS custom</span></div><p style="margin: 0; font-size: 15px; color: #5B5F76; line-height: 1.6;">Ajustes finos de estilo (sombras específicas, badges, micro-estados) quando o editor não expõe a propriedade. Use com parcimônia.</p></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-left: 5px solid #2E3192; border-radius: 12px; padding: 20px 22px;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px; color: #2E3192;">4. Custom Element</span></div><p style="margin: 0; font-size: 15px; color: #5B5F76; line-height: 1.6;">Componentes que o Wix não oferece nativamente (widgets ricos, carregar fontes, visual muito específico). Encapsula HTML/CSS/JS próprios.</p></div>
+          <div style="background: #fff; border: 1px solid #E3E5ED; border-left: 5px solid #E08A00; border-radius: 12px; padding: 20px 22px;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;"><span style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 18px; color: #E08A00;">5. Velo (código)</span><span style="font-size: 12px; color: #9195A8; font-weight: 700;">último recurso</span></div><p style="margin: 0; font-size: 15px; color: #5B5F76; line-height: 1.6;">Lógica e interatividade: troca de abas, resgate de recompensas, workflow de status, pagamentos (Wix Pay), cálculo de pontos. Só onde há regra de negócio.</p></div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;">
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; background: #2E3192; color: #fff; font-weight: 800; font-size: 13px;">
+            <div style="padding: 14px 18px;">Componente</div><div style="padding: 14px 18px;">Implementação</div><div style="padding: 14px 18px;">Observação</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Botões, Inputs, Tabs, Accordion, Navbar</div><div style="padding: 13px 18px;"><span style="color: #2FA84F; font-weight: 800;">Nativo</span></div><div style="padding: 13px 18px; color: #5B5F76;">Elementos do editor + Site Theme</div></div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Cards, Pesquisador, Missão, Artigo</div><div style="padding: 13px 18px;"><span style="color: #12A5E0; font-weight: 800;">CMS + Repeater</span></div><div style="padding: 13px 18px; color: #5B5F76;">Conteúdo dinâmico de coleções</div></div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Badges, sombras específicas</div><div style="padding: 13px 18px;"><span style="color: #8134A8; font-weight: 800;">CSS custom</span></div><div style="padding: 13px 18px; color: #5B5F76;">Quando o editor não expõe a propriedade</div></div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Modal</div><div style="padding: 13px 18px;"><span style="color: #2E3192; font-weight: 800;">Lightbox / Custom El.</span></div><div style="padding: 13px 18px; color: #5B5F76;">Lightbox nativo cobre a maioria dos casos</div></div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Pontos, Recompensa (resgate), Doação, Status</div><div style="padding: 13px 18px;"><span style="color: #E08A00; font-weight: 800;">Velo</span></div><div style="padding: 13px 18px; color: #5B5F76;">Regra de negócio + Wix Pay</div></div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer style="padding: 40px 56px; border-top: 1px solid #E3E5ED; color: #9195A8; font-size: 13px; display: flex; align-items: center; gap: 12px;">
+      <img src="assets/logo.png" style="width: 34px; height: 34px; object-fit: contain;">
+      <span>Design System · Clube Criacionista de Ciências · v1.0 — guia vivo para implementação no Wix Studio.</span>
+    </footer>
+
+  </main>
+
+  <!-- Modal -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position: fixed; inset: 0; background: rgba(30,33,56,.55); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 24px; animation: ds-fade-in .2s ease;">
+      <div onClick="{{ stop }}" style="background: #fff; border-radius: 20px; max-width: 440px; width: 100%; padding: 32px; box-shadow: 0 20px 48px rgba(46,49,146,.3); animation: ds-modal-in .28s cubic-bezier(.16,1,.3,1);">
+        <div style="width: 56px; height: 56px; border-radius: 16px; background: #F2E9F7; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 18px;">🎉</div>
+        <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 10px;">Missão concluída!</h3>
+        <p style="font-size: 15px; color: #5B5F76; line-height: 1.6; margin: 0 0 24px;">Padrão de modal do design system. No Wix, use o <strong>Lightbox</strong> nativo com estes estilos, ou um Custom Element para casos avançados.</p>
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+          <button onClick="{{ closeModal }}" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #2E3192; background: transparent; border: 2px solid #2E3192; border-radius: 12px; padding: 10px 20px; cursor: pointer;">Fechar</button>
+          <button onClick="{{ closeModal }}" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 14px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 12px 22px; cursor: pointer;">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Toast -->
+  <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: #1E2138; color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 700; font-size: 14px; box-shadow: 0 10px 28px rgba(0,0,0,.25); z-index: 120; animation: ds-toast-in .25s ease;">Copiado: {{ toastText }}</div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'perfil', acc1: true, acc2: false, acc3: false, modal: false, grid: 'desktop', toast: null, screen: 'home', menu: null };
+
+  toggleMenu(id) {
+    this.setState(s => ({ menu: s.menu === id ? null : id }));
+  }
+
+  barBtnStyle(active, strong) {
+    return {
+      fontFamily: "'Nunito Sans', sans-serif",
+      fontWeight: 800,
+      fontSize: '13.5px',
+      padding: '12px 16px',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      color: '#1E2138',
+      background: active ? '#fff' : 'transparent',
+      textDecoration: active || strong ? 'underline' : 'none',
+      textUnderlineOffset: '3px',
+      boxShadow: active ? '0 -2px 0 #2E3192 inset' : 'none'
+    };
+  }
+
+  screenBtnStyle(id) {
+    const active = this.state.screen === id;
+    return {
+      fontFamily: "'Nunito Sans', sans-serif",
+      fontWeight: 800,
+      fontSize: '14px',
+      padding: '9px 18px',
+      border: 'none',
+      borderRadius: '9px',
+      cursor: 'pointer',
+      color: active ? '#2E3192' : '#5B5F76',
+      background: active ? '#fff' : 'transparent',
+      boxShadow: active ? '0 1px 3px rgba(46,49,146,.14)' : 'none'
+    };
+  }
+
+  copy(hex) {
+    if (!hex) return;
+    try { navigator.clipboard.writeText(hex); } catch (e) {}
+    this.setState({ toast: hex });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: null }), 1500);
+  }
+
+  tabStyle(id) {
+    const active = this.state.tab === id;
+    return {
+      fontFamily: "'Nunito Sans', sans-serif",
+      fontWeight: 800,
+      fontSize: '15px',
+      padding: '10px 18px',
+      border: 'none',
+      background: 'none',
+      cursor: 'pointer',
+      color: active ? '#2E3192' : '#9195A8',
+      borderBottom: active ? '3px solid #2E3192' : '3px solid transparent',
+      marginBottom: '-2px'
+    };
+  }
+
+  gridBtnStyle(id) {
+    const active = this.state.grid === id;
+    return {
+      fontFamily: "'Nunito Sans', sans-serif",
+      fontWeight: 800,
+      fontSize: '14px',
+      padding: '8px 18px',
+      border: 'none',
+      borderRadius: '9px',
+      cursor: 'pointer',
+      color: active ? '#2E3192' : '#5B5F76',
+      background: active ? '#fff' : 'transparent',
+      boxShadow: active ? '0 1px 3px rgba(46,49,146,.14)' : 'none'
+    };
+  }
+
+  chevron(open) {
+    return `font-size:20px;color:#12A5E0;transition:transform .2s ease;display:inline-block;transform:rotate(${open ? 180 : 0}deg);`;
+  }
+
+  renderVals() {
+    const g = this.state.grid;
+    const cols = g === 'desktop' ? 12 : g === 'tablet' ? 8 : 4;
+    const bars = [];
+    for (let i = 1; i <= cols; i++) bars.push(i);
+    const meta = g === 'desktop' ? '12 colunas · ≥ 1025px' : g === 'tablet' ? '8 colunas · 768–1024px' : '4 colunas · ≤ 767px';
+    const label = g === 'desktop' ? 'Desktop' : g === 'tablet' ? 'Tablet' : 'Mobile';
+
+    const sc = this.state.screen;
+
+    return {
+      copyEvt: (e) => this.copy(e.currentTarget.dataset.hex),
+
+      setScreenHome: () => this.setState({ screen: 'home' }),
+      setScreenPainel: () => this.setState({ screen: 'painel' }),
+      setScreenRecompensas: () => this.setState({ screen: 'recompensas' }),
+      scHomeStyle: this.screenBtnStyle('home'),
+      scPainelStyle: this.screenBtnStyle('painel'),
+      scRecompensasStyle: this.screenBtnStyle('recompensas'),
+      isHome: sc === 'home',
+      isPainel: sc === 'painel',
+      isRecompensas: sc === 'recompensas',
+      screenPath: sc === 'home' ? '/' : sc === 'painel' ? '/meu-painel' : '/recompensas',
+
+      toggleGeral: () => this.toggleMenu('geral'),
+      toggleConteudos: () => this.toggleMenu('conteudos'),
+      toggleRecomp: () => this.toggleMenu('recomp'),
+      closeMenu: () => this.setState({ menu: null }),
+      menuGeral: this.state.menu === 'geral',
+      menuConteudos: this.state.menu === 'conteudos',
+      menuRecomp: this.state.menu === 'recomp',
+      geralBtnStyle: this.barBtnStyle(this.state.menu === 'geral', true),
+      conteudosBtnStyle: this.barBtnStyle(this.state.menu === 'conteudos', false),
+      recompBtnStyle: this.barBtnStyle(this.state.menu === 'recomp', false),
+
+      tabPerfilStyle: this.tabStyle('perfil'),
+      tabMissoesStyle: this.tabStyle('missoes'),
+      tabConquistasStyle: this.tabStyle('conquistas'),
+      setTabPerfil: () => this.setState({ tab: 'perfil' }),
+      setTabMissoes: () => this.setState({ tab: 'missoes' }),
+      setTabConquistas: () => this.setState({ tab: 'conquistas' }),
+      showPerfil: this.state.tab === 'perfil',
+      showMissoes: this.state.tab === 'missoes',
+      showConquistas: this.state.tab === 'conquistas',
+
+      toggleAcc1: () => this.setState(s => ({ acc1: !s.acc1 })),
+      toggleAcc2: () => this.setState(s => ({ acc2: !s.acc2 })),
+      toggleAcc3: () => this.setState(s => ({ acc3: !s.acc3 })),
+      acc1Open: this.state.acc1,
+      acc2Open: this.state.acc2,
+      acc3Open: this.state.acc3,
+      acc1Chevron: this.chevron(this.state.acc1),
+      acc2Chevron: this.chevron(this.state.acc2),
+      acc3Chevron: this.chevron(this.state.acc3),
+
+      openModal: () => this.setState({ modal: true }),
+      closeModal: () => this.setState({ modal: false }),
+      modalOpen: this.state.modal,
+      stop: (e) => e.stopPropagation(),
+
+      setGridDesktop: () => this.setState({ grid: 'desktop' }),
+      setGridTablet: () => this.setState({ grid: 'tablet' }),
+      setGridMobile: () => this.setState({ grid: 'mobile' }),
+      gridDesktopStyle: this.gridBtnStyle('desktop'),
+      gridTabletStyle: this.gridBtnStyle('tablet'),
+      gridMobileStyle: this.gridBtnStyle('mobile'),
+      gridBars: bars,
+      gridTemplate: `repeat(${cols}, 1fr)`,
+      gridMeta: meta,
+      gridLabel: label,
+
+      showToast: !!this.state.toast,
+      toastText: this.state.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
