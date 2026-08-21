@@ -90,8 +90,12 @@
 
           <div style="display: inline-flex; gap: 6px; padding: 5px; background: #F0F2F7; border-radius: 12px; margin-bottom: 22px; flex-wrap: wrap;">
             <button onClick="{{ setScreenHome }}" style="{{ scHomeStyle }}">Página inicial</button>
+            <button onClick="{{ setScreenCadastro }}" style="{{ scCadastroStyle }}">Cadastro</button>
             <button onClick="{{ setScreenPainel }}" style="{{ scPainelStyle }}">Painel do pesquisador</button>
-            <button onClick="{{ setScreenRecompensas }}" style="{{ scRecompensasStyle }}">Recompensas</button>
+            <button onClick="{{ setScreenEnvio }}" style="{{ scEnvioStyle }}">Enviar descoberta</button>
+            <button onClick="{{ setScreenPais }}" style="{{ scPaisStyle }}">Painel dos pais</button>
+            <button onClick="{{ setScreenDoador }}" style="{{ scDoadorStyle }}">Painel do doador</button>
+            <button onClick="{{ setScreenRecompensas }}" style="{{ scRecompensasStyle }}">Loja</button>
           </div>
 
           <div style="border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; background: #F7F8FB;">
@@ -118,117 +122,25 @@
 
                 <div style="background: #FFC800; display: flex; align-items: stretch; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 0 12px;">
                   <div style="display: flex; align-items: stretch; flex-wrap: wrap;">
-                    <button onClick="{{ toggleGeral }}" style="{{ geralBtnStyle }}">Menu <span style="font-size: 14px; line-height: 1;">⌄</span></button>
-                    <span style="width: 1px; background: rgba(30,33,56,.15); margin: 8px 6px;"></span>
+                    <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px; display: inline-flex; align-items: center;">O Clube</a>
+                    <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px; display: inline-flex; align-items: center;">Como Funciona</a>
                     <div style="position: relative; display: flex; align-items: stretch;">
                       <button onClick="{{ toggleConteudos }}" style="{{ conteudosBtnStyle }}">Conteúdos <span style="font-size: 14px; line-height: 1;">⌄</span></button>
                       <sc-if value="{{ menuConteudos }}" hint-placeholder-val="{{ false }}">
-                        <div style="position: absolute; left: 0; top: 100%; width: 246px; background: #fff; border: 1px solid #E3E5ED; border-top: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 12px; display: flex; flex-direction: column; gap: 2px; z-index: 10; animation: ds-fade-in .18s ease;">
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Momento Criacionista</a>
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Artigos</a>
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Notícias</a>
+                        <div style="position: absolute; left: 0; top: 100%; width: 220px; background: #fff; border: 1px solid #E3E5ED; border-top: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 12px; display: flex; flex-direction: column; gap: 2px; z-index: 10; animation: ds-fade-in .18s ease;">
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Artigos e Estudos</a>
+                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Blog</a>
                           <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Vídeos</a>
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Blog completo</a>
                         </div>
                       </sc-if>
                     </div>
-                    <div style="position: relative; display: flex; align-items: stretch;">
-                      <button onClick="{{ toggleRecomp }}" style="{{ recompBtnStyle }}">Programa de Recompensas <span style="font-size: 14px; line-height: 1;">⌄</span></button>
-                      <sc-if value="{{ menuRecomp }}" hint-placeholder-val="{{ false }}">
-                        <div style="position: absolute; left: 0; top: 100%; width: 246px; background: #fff; border: 1px solid #E3E5ED; border-top: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 12px; display: flex; flex-direction: column; gap: 2px; z-index: 10; animation: ds-fade-in .18s ease;">
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Como funciona</a>
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Missões disponíveis</a>
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Loja de pontos</a>
-                          <a href="#previa" style="text-decoration: none; color: #1E2138; font-size: 13.5px; font-weight: 700; padding: 9px 12px; border-radius: 8px;" style-hover="background:#F0F2F7;">Meu painel</a>
-                        </div>
-                      </sc-if>
-                    </div>
+                    <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px; display: inline-flex; align-items: center;">Loja</a>
                   </div>
                   <div style="display: flex; align-items: center; gap: 4px;">
                     <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px;">Doe</a>
                     <a href="#previa" style="text-decoration: none; font-weight: 800; font-size: 13.5px; color: #1E2138; padding: 12px 16px; display: inline-flex; align-items: center; gap: 7px;">Entrar / Cadastrar <span style="width: 20px; height: 20px; border-radius: 999px; background: #2E3192; color: #FFC800; font-size: 11px; display: inline-flex; align-items: center; justify-content: center;">●</span></a>
                   </div>
                 </div>
-
-                <sc-if value="{{ menuGeral }}" hint-placeholder-val="{{ false }}">
-                  <div style="position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 3px solid #FFC800; box-shadow: 0 20px 48px rgba(46,49,146,.18); padding: 28px 24px 20px; animation: ds-fade-in .18s ease;">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 26px 24px;">
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Institucional</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Quem somos</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Missão e valores</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Equipe</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Parcerias</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Conteúdos</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Momento Criacionista</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Artigos</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Notícias</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Vídeos</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Blog completo</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Temas</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Origens</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Biologia</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Geologia</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Astronomia</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Biomimética</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Programa de Recompensas</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Como funciona</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Missões disponíveis</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Loja de pontos</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Meu painel</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Participe</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Inscreva-se</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Seja voluntário</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Doe</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Contato</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Eventos</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Agenda</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Palestras</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Eventos anteriores</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Recursos</div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Downloads</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Newsletter</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Perguntas frequentes</a>
-                        </div>
-                      </div>
-                      <div>
-                        <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; color: #2E3192; margin-bottom: 11px;">Novidades <span style="padding: 2px 8px; border-radius: 999px; background: #E4123B; color: #fff; font-family: 'Nunito Sans'; font-size: 10px; font-weight: 800; vertical-align: middle;">NOVO</span></div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Clube nas escolas</a>
-                          <a href="#previa" style="text-decoration: none; color: #2A2D45;" style-hover="color:#12A5E0;">Trilhas de estudo</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="text-align: center; margin-top: 22px; padding-top: 16px; border-top: 1px solid #F0F2F7;">
-                      <a href="#previa" style="font-weight: 800; font-size: 13px; color: #2E3192; text-decoration: none;">Ver mapa do site</a>
-                    </div>
-                  </div>
-                </sc-if>
 
               </div>
 
@@ -239,12 +151,13 @@
                     <div style="position: absolute; top: -50px; right: -30px; width: 220px; height: 220px; border-radius: 999px; background: rgba(255,200,0,.14);"></div>
                     <div style="position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: center;">
                       <div>
-                        <span style="display: inline-block; padding: 5px 13px; border-radius: 999px; background: rgba(255,255,255,.16); font-size: 12px; font-weight: 800; margin-bottom: 14px;">CIÊNCIAS DAS ORIGENS</span>
-                        <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 36px; margin: 0 0 12px; line-height: 1.05;">Conheça e faça parte deste Clube</h3>
+                        <span style="display: inline-block; padding: 5px 13px; border-radius: 999px; background: rgba(255,255,255,.16); font-size: 12px; font-weight: 800; margin-bottom: 14px;">CIÊNCIA, DESCOBERTAS E FÉ</span>
+                        <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 36px; margin: 0 0 10px; line-height: 1.05;">Ciência, descobertas e fé em um só lugar.</h3>
+                        <p style="font-size: 16px; color: #FFC800; margin: 0 0 12px; line-height: 1.5; font-weight: 800;">Aqui, sua criança não assiste. Ela investiga.</p>
                         <p style="font-size: 15px; color: rgba(255,255,255,.9); margin: 0 0 22px; line-height: 1.55;">Informações e curiosidades sobre o mundo que nos cerca, analisadas com pensamento crítico a partir da cosmovisão bíblica.</p>
                         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                          <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #1E2138; background: #FFC800; border: none; border-radius: 12px; padding: 13px 26px; cursor: pointer;">Inscreva-se</button>
-                          <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: transparent; border: 2px solid rgba(255,255,255,.55); border-radius: 12px; padding: 11px 24px; cursor: pointer;">Saiba mais</button>
+                          <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #1E2138; background: #FFC800; border: none; border-radius: 12px; padding: 13px 26px; cursor: pointer;">Quero inscrever meu filho</button>
+                          <button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: transparent; border: 2px solid rgba(255,255,255,.55); border-radius: 12px; padding: 11px 24px; cursor: pointer;">Conhecer o Clube</button>
                         </div>
                       </div>
                       <div style="height: 190px; border-radius: 16px; background: repeating-linear-gradient(45deg,rgba(255,255,255,.16),rgba(255,255,255,.16) 12px,rgba(255,255,255,.07) 12px,rgba(255,255,255,.07) 24px); display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 12px; color: rgba(255,255,255,.75); border: 1px dashed rgba(255,255,255,.35);">imagem de destaque</div>
@@ -253,19 +166,25 @@
 
                   <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; padding: 26px 32px; border-bottom: 1px solid #F0F2F7;">
                     <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#12A5E0;box-shadow:0 10px 28px rgba(46,49,146,.10);">
-                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #E6F5FC; color: #12A5E0; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">📖</div>
-                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Explorar conteúdos</div>
-                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45;">Artigos, notícias e vídeos por tema.</div>
+                      <span style="display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #12A5E0; margin-bottom: 10px;">Para os pais</span>
+                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #E6F5FC; color: #12A5E0; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">👨‍👩‍👧</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Inscreva seu pequeno pesquisador</div>
+                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45; margin-bottom: 12px;">Conheça o Clube e matricule sua criança.</div>
+                      <span style="font-weight: 800; font-size: 13px; color: #12A5E0;">Quero inscrever →</span>
                     </a>
-                    <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#FFC800;box-shadow:0 10px 28px rgba(46,49,146,.10);">
-                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #FFF6D6; color: #B58900; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">★</div>
-                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Programa de Recompensas</div>
-                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45;">Participe, acumule pontos e resgate.</div>
+                    <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#E4123B;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <span style="display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #E4123B; margin-bottom: 10px;">Para apoiadores</span>
+                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #FBE3E7; color: #E4123B; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">♡</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Apoie a próxima geração</div>
+                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45; margin-bottom: 12px;">Sua contribuição sustenta novos experimentos.</div>
+                      <span style="font-weight: 800; font-size: 13px; color: #E4123B;">Quero apoiar →</span>
                     </a>
                     <a href="#previa" style="text-decoration: none; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;" style-hover="border-color:#8134A8;box-shadow:0 10px 28px rgba(46,49,146,.10);">
-                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #F2E9F7; color: #8134A8; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">🗓</div>
-                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Eventos e palestras</div>
-                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45;">Agenda e encontros do Clube.</div>
+                      <span style="display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #8134A8; margin-bottom: 10px;">Pesquisadores</span>
+                      <div style="width: 38px; height: 38px; border-radius: 11px; background: #F2E9F7; color: #8134A8; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 12px;">🔬</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138; margin-bottom: 4px;">Estudos e artigos criacionistas</div>
+                      <div style="font-size: 13px; color: #5B5F76; line-height: 1.45; margin-bottom: 12px;">Pesquisa científica com cosmovisão bíblica.</div>
+                      <span style="font-weight: 800; font-size: 13px; color: #8134A8;">Explorar →</span>
                     </a>
                   </div>
 
@@ -285,8 +204,8 @@
 
                   <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 0; border-bottom: 1px solid #F0F2F7;">
                     <div style="padding: 26px 24px 26px 32px; border-right: 1px solid #F0F2F7;">
-                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 4px;">Artigos</h4>
-                      <p style="font-size: 12px; color: #9195A8; margin: 0 0 16px;">Wix Blog · card de artigo do design system</p>
+                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0 0 4px;">Blog</h4>
+                      <p style="font-size: 12px; color: #9195A8; margin: 0 0 16px;">Wix Blog · card de blog do design system</p>
                       <div style="display: flex; flex-direction: column; gap: 14px;">
                         <div style="display: flex; gap: 14px; background: #fff; border: 1px solid #E3E5ED; border-radius: 14px; padding: 12px;" style-hover="box-shadow:0 10px 28px rgba(46,49,146,.12);">
                           <div style="width: 92px; height: 68px; flex-shrink: 0; border-radius: 10px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 9px,#F0F2F7 9px,#F0F2F7 18px);"></div>
@@ -320,6 +239,29 @@
                   </div>
 
                   <div style="padding: 26px 32px; border-bottom: 1px solid #F0F2F7;">
+                    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px;">
+                      <div><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0;">Artigos e Estudos</h4><p style="font-size: 12px; color: #9195A8; margin: 2px 0 0;">Wix CMS · card de artigo científico, distinto do blog</p></div>
+                      <a href="#previa" style="font-size: 13px; font-weight: 800; color: #12A5E0; text-decoration: none;">Ver todos os estudos →</a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 14px;">
+                      <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                        <span style="font-size: 11px; font-weight: 800; color: #8134A8; text-transform: uppercase; letter-spacing: .05em;">Pensamento crítico infantil</span>
+                        <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; margin: 8px 0 6px;">Critérios de classificação dos seres vivos</h5>
+                        <p style="font-size: 12px; color: #5B5F76; margin: 0 0 8px;">Autor: Eliezer Militão et al.</p>
+                        <p style="font-size: 13px; color: #5B5F76; margin: 0 0 14px; line-height: 1.5;">Como esses critérios mudaram ao longo do tempo e o que isso revela sobre os limites da variação biológica.</p>
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;"><span style="font-size: 12px; color: #9195A8;">Publicado em agosto de 2026</span><div style="display: flex; gap: 8px;"><a href="#" style="font-weight: 800; font-size: 13px; color: #fff; background: #2E3192; border-radius: 9px; padding: 7px 13px; text-decoration: none;">Ver estudo</a><a href="#" style="font-weight: 800; font-size: 13px; color: #2E3192; border: 1.5px solid #C7CAD8; border-radius: 9px; padding: 7px 13px; text-decoration: none;">↓ PDF</a></div></div>
+                      </div>
+                      <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                        <span style="font-size: 11px; font-weight: 800; color: #12A5E0; text-transform: uppercase; letter-spacing: .05em;">Origens</span>
+                        <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; margin: 8px 0 6px;">Trapaceando com o acaso: os limites da probabilidade</h5>
+                        <p style="font-size: 12px; color: #5B5F76; margin: 0 0 8px;">Autor: equipe Clube Criacionista</p>
+                        <p style="font-size: 13px; color: #5B5F76; margin: 0 0 14px; line-height: 1.5;">O que se argumenta sobre o surgimento da vida a partir do acaso, sob o crivo do pensamento crítico.</p>
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;"><span style="font-size: 12px; color: #9195A8;">Publicado em julho de 2026</span><div style="display: flex; gap: 8px;"><a href="#" style="font-weight: 800; font-size: 13px; color: #fff; background: #2E3192; border-radius: 9px; padding: 7px 13px; text-decoration: none;">Ver estudo</a><a href="#" style="font-weight: 800; font-size: 13px; color: #2E3192; border: 1.5px solid #C7CAD8; border-radius: 9px; padding: 7px 13px; text-decoration: none;">↓ PDF</a></div></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="padding: 26px 32px; border-bottom: 1px solid #F0F2F7;">
                     <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px;">
                       <div><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px; margin: 0;">Vídeos</h4><p style="font-size: 12px; color: #9195A8; margin: 2px 0 0;">Wix Video / embed do YouTube</p></div>
                       <a href="#previa" style="font-size: 13px; font-weight: 800; color: #12A5E0; text-decoration: none;">Ver canal →</a>
@@ -333,10 +275,10 @@
 
                   <div style="margin: 26px 32px; border-radius: 18px; background: linear-gradient(135deg,#FFC800,#F5A623); padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
                     <div style="min-width: 0;">
-                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 22px; margin: 0 0 6px; color: #1E2138;">Programa de Recompensas</h4>
-                      <p style="font-size: 14px; color: rgba(30,33,56,.75); margin: 0; line-height: 1.5;">Leia, participe e acumule pontos para trocar por materiais do Clube.</p>
+                      <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 22px; margin: 0 0 6px; color: #1E2138;">Estação dos Porquês</h4>
+                      <p style="font-size: 14px; color: rgba(30,33,56,.75); margin: 0; line-height: 1.5;">Investigue, experimente e compartilhe suas descobertas. Cada atividade validada gera pontos que podem ser trocados por recompensas.</p>
                     </div>
-                    <button onClick="{{ setScreenRecompensas }}" style="flex-shrink: 0; font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 13px 26px; cursor: pointer;" style-hover="background:#262a7d;">Ver recompensas</button>
+                    <button onClick="{{ setScreenRecompensas }}" style="flex-shrink: 0; font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 13px 26px; cursor: pointer;" style-hover="background:#262a7d;">Ver missões e recompensas</button>
                   </div>
 
                   <div style="background: #1E2138; color: #fff; padding: 30px 32px; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 24px;">
@@ -345,7 +287,7 @@
                       <p style="font-size: 12px; color: rgba(255,255,255,.6); margin: 0; line-height: 1.5;">Explorando as evidências da nossa origem superior.</p>
                     </div>
                     <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Acesso rápido</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Institucional</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Blog</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Eventos</a></div></div>
-                    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Participe</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Recompensas</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Parcerias</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Contato</a></div></div>
+                    <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Participe</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Estação dos Porquês</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Parcerias</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Contato</a></div></div>
                     <div><div style="font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px;">Siga</div><div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;"><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">YouTube</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Instagram</a><a href="#previa" style="color: rgba(255,255,255,.85); text-decoration: none;">Facebook</a></div></div>
                   </div>
 
@@ -354,9 +296,12 @@
 
               <sc-if value="{{ isPainel }}" hint-placeholder-val="{{ false }}">
                 <div style="animation: ds-fade-in .3s ease; padding: 28px 32px;">
-                  <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 18px;">Olá, Ana Luísa 👋</h3>
+                  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
+                    <div style="width: 44px; height: 44px; border-radius: 999px; background: linear-gradient(135deg,#12A5E0,#2E3192); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🔬</div>
+                    <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0;">Olá, Faraday 07 👋</h3>
+                  </div>
                   <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 18px; align-items: start;">
-                    <div style="background: linear-gradient(135deg,#FFC800,#F5A623); border-radius: 16px; padding: 20px; color: #1E2138;"><div style="font-size: 13px; font-weight: 800; opacity: .7;">Seus pontos</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 40px; line-height: 1;">840</div><div style="display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: rgba(30,33,56,.12); font-weight: 800; font-size: 12px;">Nível 4 · Explorador</div></div>
+                    <div style="background: linear-gradient(135deg,#FFC800,#F5A623); border-radius: 16px; padding: 20px; color: #1E2138;"><div style="font-size: 13px; font-weight: 800; opacity: .7;">Seus pontos</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 40px; line-height: 1;">840</div><div style="display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; background: rgba(30,33,56,.12); font-weight: 800; font-size: 12px;">Nível 4 · Explorador</div><div style="font-size: 10px; font-weight: 800; opacity: .55; margin-top: 8px;">Mecânica sugerida — sujeita à validação</div></div>
                     <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; margin: 0 0 4px;">Cristais de sal caseiros</h5><p style="font-size: 13px; color: #5B5F76; margin: 0 0 14px;">Missão em andamento</p><div style="height: 8px; background: #F0F2F7; border-radius: 999px; overflow: hidden; margin-bottom: 8px;"><div style="width: 60%; height: 100%; background: linear-gradient(90deg,#12A5E0,#2E3192); border-radius: 999px;"></div></div><div style="display: flex; justify-content: space-between; font-size: 12px; color: #9195A8; font-weight: 700;"><span>Progresso</span><span>3 de 5 etapas</span></div></div>
                   </div>
                   <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; margin-top: 18px;">
@@ -374,16 +319,183 @@
                 </div>
               </sc-if>
 
+              <sc-if value="{{ isCadastro }}" hint-placeholder-val="{{ false }}">
+                <div style="animation: ds-fade-in .3s ease; padding: 40px 32px; max-width: 640px; margin: 0 auto;">
+                  <div style="text-align: center; margin-bottom: 28px;">
+                    <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 26px; margin: 0 0 8px;">Como você quer participar?</h3>
+                    <p style="font-size: 14px; color: #5B5F76; margin: 0;">Escolha uma opção para começar seu cadastro.</p>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <a href="#previa" style="text-decoration: none; display: flex; align-items: center; gap: 16px; border: 1.5px solid #E3E5ED; border-radius: 16px; padding: 20px 22px;" style-hover="border-color:#12A5E0;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <div style="width: 44px; height: 44px; border-radius: 12px; background: #E6F5FC; color: #12A5E0; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">👨‍👩‍👧</div>
+                      <div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138;">Sou responsável</div><div style="font-size: 13px; color: #5B5F76;">Quero inscrever meu filho no Clube.</div></div>
+                    </a>
+                    <a href="#previa" style="text-decoration: none; display: flex; align-items: center; gap: 16px; border: 1.5px solid #E3E5ED; border-radius: 16px; padding: 20px 22px;" style-hover="border-color:#E4123B;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <div style="width: 44px; height: 44px; border-radius: 12px; background: #FBE3E7; color: #E4123B; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">♡</div>
+                      <div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138;">Quero apoiar</div><div style="font-size: 13px; color: #5B5F76;">Quero ser doador do Clube.</div></div>
+                    </a>
+                    <a href="#previa" style="text-decoration: none; display: flex; align-items: center; gap: 16px; border: 1.5px solid #E3E5ED; border-radius: 16px; padding: 20px 22px;" style-hover="border-color:#8134A8;box-shadow:0 10px 28px rgba(46,49,146,.10);">
+                      <div style="width: 44px; height: 44px; border-radius: 12px; background: #F2E9F7; color: #8134A8; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">✨</div>
+                      <div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; color: #1E2138;">Quero fazer os dois</div><div style="font-size: 13px; color: #5B5F76;">Inscrever meu filho e apoiar o projeto.</div></div>
+                    </a>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isEnvio }}" hint-placeholder-val="{{ false }}">
+                <div style="animation: ds-fade-in .3s ease; padding: 28px 32px; max-width: 640px;">
+                  <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 4px;">Enviar minha descoberta</h3>
+                  <p style="font-size: 14px; color: #5B5F76; margin: 0 0 22px;">Registre o que você observou na sua missão.</p>
+
+                  <div style="margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 800; color: #1E2138; margin-bottom: 8px;">Escolha a missão</div>
+                    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: #E9EAF5; color: #2E3192; font-weight: 800; font-size: 13.5px;">🧪 Cristais de sal caseiros ⌄</div>
+                  </div>
+
+                  <div style="margin-bottom: 24px;">
+                    <div style="font-size: 13px; font-weight: 800; color: #1E2138; margin-bottom: 8px;">Como deseja registrar?</div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                      <button style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 8px; border: 1.5px solid #12A5E0; background: #E6F5FC; border-radius: 14px; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #12A5E0; cursor: pointer;"><span style="font-size: 20px;">📷</span>Foto</button>
+                      <button style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 8px; border: 1.5px solid #E3E5ED; background: #fff; border-radius: 14px; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #5B5F76; cursor: pointer;"><span style="font-size: 20px;">🎥</span>Vídeo</button>
+                      <button style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 8px; border: 1.5px solid #E3E5ED; background: #fff; border-radius: 14px; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #5B5F76; cursor: pointer;"><span style="font-size: 20px;">🔗</span>Link</button>
+                      <button style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 8px; border: 1.5px solid #E3E5ED; background: #fff; border-radius: 14px; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #5B5F76; cursor: pointer;"><span style="font-size: 20px;">📝</span>Texto</button>
+                    </div>
+                  </div>
+
+                  <div style="margin-bottom: 24px; border: 2px dashed #C7CAD8; border-radius: 14px; padding: 28px; text-align: center; color: #9195A8; font-size: 13px;">Arraste uma foto ou clique para enviar</div>
+
+                  <button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 15px; color: #fff; background: #2E3192; border: none; border-radius: 12px; padding: 14px; cursor: pointer;">Enviar descoberta</button>
+
+                  <div style="margin-top: 28px; padding-top: 24px; border-top: 1px solid #F0F2F7;">
+                    <div style="font-size: 13px; font-weight: 800; color: #9195A8; margin-bottom: 14px;">O que acontece depois</div>
+                    <div style="display: flex; align-items: center;">
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 32px; height: 32px; border-radius: 999px; background: #2E3192; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin: 0 auto;">1</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px;">Enviado</div></div>
+                      <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px 20px;"></div>
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 32px; height: 32px; border-radius: 999px; background: #F0F2F7; color: #9195A8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin: 0 auto;">2</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #9195A8;">Em análise</div></div>
+                      <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px 20px;"></div>
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 32px; height: 32px; border-radius: 999px; background: #F0F2F7; color: #9195A8; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin: 0 auto;">3</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #9195A8;">Aprovado</div></div>
+                      <div style="flex: 1; height: 3px; background: #E3E5ED; margin: 0 6px 20px;"></div>
+                      <div style="text-align: center; flex-shrink: 0;"><div style="width: 32px; height: 32px; border-radius: 999px; background: #FFC800; color: #1E2138; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; margin: 0 auto;">★</div><div style="font-size: 11px; font-weight: 800; margin-top: 6px; color: #E08A00;">+120 pts</div></div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isPais }}" hint-placeholder-val="{{ false }}">
+                <div style="animation: ds-fade-in .3s ease; padding: 28px 32px;">
+                  <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 4px;">Olá, Mariana 👋</h3>
+                  <p style="font-size: 14px; color: #9195A8; margin: 0 0 22px;">Acompanhe o progresso dos seus pesquisadores.</p>
+
+                  <div style="font-size: 13px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #9195A8; margin-bottom: 12px;">Seus pesquisadores</div>
+                  <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-bottom: 28px;">
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;"><div style="width: 44px; height: 44px; border-radius: 999px; background: linear-gradient(135deg,#12A5E0,#2E3192); display: flex; align-items: center; justify-content: center; font-size: 20px;">🔬</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px;">Faraday 07</div></div>
+                      <div style="display: flex; gap: 20px; margin-bottom: 16px;"><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">840</div><div style="font-size: 11px; color: #9195A8;">pontos</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">12</div><div style="font-size: 11px; color: #9195A8;">ativ. aprovadas</div></div></div>
+                      <button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 13px; color: #2E3192; background: #E9EAF5; border: none; border-radius: 10px; padding: 10px; cursor: pointer;">Acompanhar</button>
+                    </div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;"><div style="width: 44px; height: 44px; border-radius: 999px; background: linear-gradient(135deg,#8134A8,#2E3192); display: flex; align-items: center; justify-content: center; font-size: 20px;">🔭</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px;">Galileu 03</div></div>
+                      <div style="display: flex; gap: 20px; margin-bottom: 16px;"><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">340</div><div style="font-size: 11px; color: #9195A8;">pontos</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">5</div><div style="font-size: 11px; color: #9195A8;">ativ. aprovadas</div></div></div>
+                      <button style="width: 100%; font-family: 'Nunito Sans'; font-weight: 800; font-size: 13px; color: #2E3192; background: #E9EAF5; border: none; border-radius: 10px; padding: 10px; cursor: pointer;">Acompanhar</button>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                      <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 12px;">Autorizações — Faraday 07</h5>
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F2F7; font-size: 13px;"><span>Publicar descobertas no site</span><span style="width: 34px; height: 20px; border-radius: 999px; background: #2FA84F; position: relative; display: inline-block;"><span style="position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; border-radius: 999px; background: #fff;"></span></span></div>
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; font-size: 13px;"><span>Enviar fotos com o rosto da criança</span><span style="width: 34px; height: 20px; border-radius: 999px; background: #E3E5ED; position: relative; display: inline-block;"><span style="position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 999px; background: #fff;"></span></span></div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                      <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 12px;">Últimos envios</h5>
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 13px;"><span>Cristais de sal caseiros</span><span style="padding: 3px 10px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-weight: 800; font-size: 11px;">Em análise</span></div>
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 13px; border-top: 1px solid #F0F2F7;"><span>Sombra e luz</span><span style="padding: 3px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-weight: 800; font-size: 11px;">Aprovado</span></div>
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 13px; border-top: 1px solid #F0F2F7;"><span>Germinação do feijão</span><span style="padding: 3px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-weight: 800; font-size: 11px;">Aprovado</span></div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isDoador }}" hint-placeholder-val="{{ false }}">
+                <div style="animation: ds-fade-in .3s ease; padding: 28px 32px;">
+                  <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 18px;">Olá, Roberto 👋</h3>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div style="background: linear-gradient(135deg,#2FA84F,#7DB93F); border-radius: 16px; padding: 20px; color: #fff;">
+                      <div style="font-size: 13px; font-weight: 800; opacity: .85;">Total doado</div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 34px; line-height: 1.1; margin: 4px 0;">R$ 1.240</div>
+                      <div style="font-size: 12px; opacity: .85;">desde março de 2026</div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;"><span style="font-size: 13px; font-weight: 800; color: #1E2138;">Doação recorrente</span><span style="padding: 3px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-weight: 800; font-size: 11px;">Ativa</span></div>
+                      <div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 22px; margin: 6px 0;">R$ 100 <span style="font-size: 12px; font-weight: 700; color: #9195A8;">/ mês</span></div>
+                      <div style="font-size: 12px; color: #9195A8; margin-bottom: 12px;">Próxima cobrança em 05/09/2026</div>
+                      <div style="display: flex; gap: 8px;">
+                        <button style="flex: 1; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #5B5F76; background: #F0F2F7; border: none; border-radius: 9px; padding: 9px; cursor: pointer;">Pausar</button>
+                        <button style="flex: 1; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #5B5F76; background: #F0F2F7; border: none; border-radius: 9px; padding: 9px; cursor: pointer;">Alterar</button>
+                        <button style="flex: 1; font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #E4123B; background: #FBE3E7; border: none; border-radius: 9px; padding: 9px; cursor: pointer;">Cancelar</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px; margin-bottom: 16px;">
+                    <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 14px;">Histórico de doações</h5>
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F2F7; font-size: 13px;"><span>05 ago 2026 · Recorrente</span><span style="font-weight: 800;">R$ 100,00</span><a href="#" style="font-weight: 800; color: #12A5E0; text-decoration: none; font-size: 12px;">↓ Recibo</a></div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F2F7; font-size: 13px;"><span>05 jul 2026 · Recorrente</span><span style="font-weight: 800;">R$ 100,00</span><a href="#" style="font-weight: 800; color: #12A5E0; text-decoration: none; font-size: 12px;">↓ Recibo</a></div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; font-size: 13px;"><span>12 jun 2026 · Avulsa</span><span style="font-weight: 800;">R$ 1.040,00</span><a href="#" style="font-weight: 800; color: #12A5E0; text-decoration: none; font-size: 12px;">↓ Recibo</a></div>
+                  </div>
+
+                  <div style="background: #F7F8FB; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px;">
+                    <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 8px;">Transparência</h5>
+                    <p style="font-size: 13px; color: #5B5F76; margin: 0 0 12px; line-height: 1.5;">Veja para onde vão as doações do Clube.</p>
+                    <div style="height: 10px; background: #E3E5ED; border-radius: 999px; overflow: hidden; display: flex;"><div style="width: 60%; background: #2FA84F;"></div><div style="width: 25%; background: #12A5E0;"></div><div style="width: 15%; background: #FFC800;"></div></div>
+                    <div style="display: flex; gap: 16px; margin-top: 10px; font-size: 12px; font-weight: 700; flex-wrap: wrap;"><span style="color: #2FA84F;">● 60% Materiais e experimentos</span><span style="color: #12A5E0;">● 25% Produção de conteúdo</span><span style="color: #B58900;">● 15% Manutenção do Clube</span></div>
+                  </div>
+                </div>
+              </sc-if>
+
               <sc-if value="{{ isRecompensas }}" hint-placeholder-val="{{ false }}">
                 <div style="animation: ds-fade-in .3s ease; padding: 28px 32px;">
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px;">
-                    <div><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 2px;">Loja de recompensas</h3><p style="font-size: 13px; color: #9195A8; margin: 0;">Troque seus pontos por materiais de laboratório</p></div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 6px;">
+                    <div><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 24px; margin: 0 0 2px;">Loja</h3><p style="font-size: 13px; color: #9195A8; margin: 0;">Compre com dinheiro, resgate com pontos ou doe o valor do produto</p></div>
                     <span style="padding: 8px 16px; border-radius: 999px; background: #FFF6D6; color: #B58900; font-weight: 800; font-size: 14px;">★ 840 pts disponíveis</span>
                   </div>
-                  <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px;">
-                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;"><div style="height: 92px; background: repeating-linear-gradient(45deg,#F2E9F7,#F2E9F7 10px,#F0F2F7 10px,#F0F2F7 20px);"></div><div style="padding: 14px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Kit microscópio</h5><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #FFC800; font-size: 14px;">★ 500</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #8134A8; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Resgatar</button></div></div></div>
-                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;"><div style="height: 92px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 10px,#F0F2F7 10px,#F0F2F7 20px);"></div><div style="padding: 14px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Caderno de campo</h5><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #FFC800; font-size: 14px;">★ 180</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #8134A8; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Resgatar</button></div></div></div>
-                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; opacity: .6;"><div style="height: 92px; background: repeating-linear-gradient(45deg,#F0F2F7,#F0F2F7 10px,#E3E5ED 10px,#E3E5ED 20px);"></div><div style="padding: 14px;"><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Telescópio infantil</h5><div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #9195A8; font-size: 14px;">★ 1200</span><button disabled="disabled" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #9195A8; background: #E3E5ED; border: none; border-radius: 9px; padding: 7px 14px; cursor: not-allowed;">Faltam pts</button></div></div></div>
+                  <p style="font-size: 12px; color: #9195A8; margin: 0 0 18px;">ProductCard prevê três variantes: somente dinheiro, somente pontos, ou dinheiro OU pontos.</p>
+                  <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px;">
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;">
+                      <div style="height: 92px; background: repeating-linear-gradient(45deg,#F2E9F7,#F2E9F7 10px,#F0F2F7 10px,#F0F2F7 20px);"></div>
+                      <div style="padding: 14px;">
+                        <span style="display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; background: #F0F2F7; color: #5B5F76; font-size: 10px; font-weight: 800;">DINHEIRO OU PONTOS</span>
+                        <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Kit microscópio</h5>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px;"><span style="font-weight: 800; color: #2A2D45; font-size: 14px;">R$ 149,90</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #2E3192; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Comprar</button></div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #FFC800; font-size: 14px;">★ 750</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #8134A8; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Resgatar</button></div>
+                      </div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;">
+                      <div style="height: 92px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 10px,#F0F2F7 10px,#F0F2F7 20px);"></div>
+                      <div style="padding: 14px;">
+                        <span style="display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; background: #F2E9F7; color: #8134A8; font-size: 10px; font-weight: 800;">SOMENTE PONTOS</span>
+                        <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Caderno de campo</h5>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #FFC800; font-size: 14px;">★ 180</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #8134A8; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Resgatar</button></div>
+                      </div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden;">
+                      <div style="height: 92px; background: repeating-linear-gradient(45deg,#FFF6D6,#FFF6D6 10px,#F0F2F7 10px,#F0F2F7 20px);"></div>
+                      <div style="padding: 14px;">
+                        <span style="display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 10px; font-weight: 800;">SOMENTE DINHEIRO</span>
+                        <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Camiseta do Clube</h5>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #2A2D45; font-size: 14px;">R$ 59,90</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #2E3192; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Comprar</button></div>
+                      </div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; opacity: .75;">
+                      <div style="height: 92px; background: repeating-linear-gradient(45deg,#F0F2F7,#F0F2F7 10px,#E3E5ED 10px,#E3E5ED 20px);"></div>
+                      <div style="padding: 14px;">
+                        <span style="display: inline-block; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; background: #F0F2F7; color: #5B5F76; font-size: 10px; font-weight: 800;">DINHEIRO OU PONTOS</span>
+                        <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; margin: 0 0 10px;">Telescópio infantil</h5>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px;"><span style="font-weight: 800; color: #2A2D45; font-size: 14px;">R$ 349,90</span><button style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #fff; background: #2E3192; border: none; border-radius: 9px; padding: 7px 14px; cursor: pointer;">Comprar</button></div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-weight: 800; color: #9195A8; font-size: 14px;">★ 1200</span><button disabled="disabled" style="font-family: 'Nunito Sans'; font-weight: 800; font-size: 12px; color: #9195A8; background: #E3E5ED; border: none; border-radius: 9px; padding: 7px 14px; cursor: not-allowed;">Faltam pts</button></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </sc-if>
@@ -397,32 +509,30 @@
           </div>
 
           <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #F0F2F7;">
-            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px;">Sobre a navegação em menu ampliado</h3>
-            <p style="font-size: 15px; color: #5B5F76; line-height: 1.6; margin: 0 0 20px; max-width: 700px;">Resposta à pergunta sobre desvantagens desta abordagem — menu geral com todas as áreas, mais atalhos na barra para as áreas estratégicas.</p>
+            <h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px;">Sobre a simplificação da navegação</h3>
+            <p style="font-size: 15px; color: #5B5F76; line-height: 1.6; margin: 0 0 20px; max-width: 700px;">A versão anterior deste guia usava um mega menu com 8 grupos (Institucional, Conteúdos, Temas, Programa de Recompensas, Participe, Eventos, Recursos, Novidades). Revisamos essa decisão: o briefing confirma apenas três públicos e um conjunto menor de páginas, então a navegação foi reduzida para não sugerir escopo que ainda não foi fechado com o cliente.</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
               <div style="background: #F7FCF9; border: 1px solid #CFE9D8; border-radius: 14px; padding: 20px;">
-                <div style="font-weight: 800; font-size: 14px; color: #2FA84F; margin-bottom: 12px;">A favor</div>
+                <div style="font-weight: 800; font-size: 14px; color: #2FA84F; margin-bottom: 12px;">Por que simplificar</div>
                 <ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #2A2D45; line-height: 1.65;">
-                  <li>O visitante vê a extensão do site de uma vez, sem navegar às cegas.</li>
-                  <li>As duas áreas estratégicas ficam a um clique, sem depender do menu geral.</li>
-                  <li>Permite a Home clean: a navegação absorve a complexidade e a Home respira.</li>
-                  <li>Escala bem conforme o acervo de artigos e vídeos cresce.</li>
+                  <li>O briefing define 3 públicos (pais, doadores, pesquisadores) — a Home e o menu devem refletir só isso.</li>
+                  <li>Um mega menu de 8 grupos sugere ao cliente funcionalidades (newsletter, trilhas, voluntariado) que ainda não têm escopo confirmado.</li>
+                  <li>Menos destinos no topo reduz a sensação de "40 caminhos possíveis" para quem chega pela primeira vez.</li>
+                  <li>"Programa de Recompensas" deixa de competir como item de primeiro nível — vira "Como Funciona" + "Loja", com nome de produto próprio (Estação dos Porquês) só dentro da experiência.</li>
                 </ul>
               </div>
               <div style="background: #FFFBF3; border: 1px solid #F3DEBB; border-radius: 14px; padding: 20px;">
                 <div style="font-weight: 800; font-size: 14px; color: #E08A00; margin-bottom: 12px;">Pontos de atenção</div>
                 <ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #2A2D45; line-height: 1.65;">
-                  <li>Item repetido em dois lugares exige rótulo idêntico, senão parecem destinos diferentes.</li>
-                  <li>Acima de 8 grupos o painel vira uma segunda Home e cansa em vez de ajudar.</li>
-                  <li>No mobile o painel precisa virar acordeão — decidir isso agora, não depois.</li>
-                  <li>Exige curadoria contínua: cada página nova precisa de um grupo, ou o menu incha.</li>
-                  <li>Painel grande demanda navegação por teclado e foco visível bem resolvidos.</li>
+                  <li>Conforme o site crescer, "Conteúdos" pode precisar de um item a mais (ex.: Concurso) — só adicionar quando estiver ativo.</li>
+                  <li>Itens institucionais que existiam no mega menu (Quem somos, Missão, Equipe, Parcerias) precisam de um novo lar — sugerimos dentro de "O Clube".</li>
+                  <li>Sem mega menu, o rodapé passa a carregar mais peso de navegação secundária — vale revisar seus links.</li>
                 </ul>
               </div>
             </div>
             <div style="margin-top: 16px; background: #E9EAF5; border-radius: 14px; padding: 18px 20px;">
               <div style="font-weight: 800; font-size: 14px; color: #2E3192; margin-bottom: 6px;">Nossa recomendação</div>
-              <p style="margin: 0; font-size: 14px; color: #2A2D45; line-height: 1.6;">Adotar o padrão, com três limites: no máximo 8 grupos no menu geral, no máximo 2 atalhos em destaque na barra, e rótulos exatamente iguais entre o atalho e o item correspondente no menu geral. Assim a repetição soa como atalho, não como duplicidade.</p>
+              <p style="margin: 0; font-size: 14px; color: #2A2D45; line-height: 1.6;">Validar esta estrutura enxuta (O Clube · Como Funciona · Conteúdos · Loja · Doe · Entrar) antes de evoluir para um menu maior. Só adicionar um novo item de primeiro nível quando uma página tiver conteúdo publicado e público confirmado — nunca para "deixar reservado".</p>
             </div>
           </div>
         </div>
@@ -740,7 +850,7 @@
         <!-- Navbar -->
         <div style="margin-bottom: 40px;">
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;"><h3 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">Navbar + busca</h3><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EAF7EE; color: #2FA84F; font-size: 12px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 999px; background: currentColor;"></span>Nativo (Header + Menu + Search)</span></div>
-          <p style="font-size: 14px; color: #5B5F76; margin: 0 0 16px; max-width: 680px; line-height: 1.55;">Três camadas: barra utilitária (institucional + login), barra principal (logo, menu, busca, CTA) e mega menu. O menu vem de páginas do site; a busca usa o <strong>Wix Site Search</strong> nativo.</p>
+          <p style="font-size: 14px; color: #5B5F76; margin: 0 0 16px; max-width: 680px; line-height: 1.55;">Duas camadas: barra utilitária (institucional + login) e barra principal (logo, menu, busca, CTA). Navegação enxuta, sem mega menu — o menu vem de páginas do site; a busca usa o <strong>Wix Site Search</strong> nativo.</p>
           <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(46,49,146,.08);">
             <div style="background: #2E3192; color: #fff; padding: 8px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px;">
               <span style="opacity: .85;">Explorando as evidências da nossa origem superior</span>
@@ -756,10 +866,10 @@
             </div>
             <div style="background: #FFC800; display: flex; align-items: stretch; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 0 12px;">
               <div style="display: flex; align-items: stretch; flex-wrap: wrap; font-weight: 800; font-size: 13.5px; color: #1E2138;">
-                <span style="padding: 12px 16px; text-decoration: underline; text-underline-offset: 3px;">Menu ⌄</span>
-                <span style="width: 1px; background: rgba(30,33,56,.15); margin: 8px 6px;"></span>
-                <span style="padding: 12px 16px;">Conteúdos ⌄</span>
-                <span style="padding: 12px 16px;">Programa de Recompensas ⌄</span>
+                <span style="padding: 12px 16px;">O Clube</span>
+                <span style="padding: 12px 16px;">Como Funciona</span>
+                <span style="padding: 12px 16px; text-decoration: underline; text-underline-offset: 3px;">Conteúdos ⌄</span>
+                <span style="padding: 12px 16px;">Loja</span>
               </div>
               <div style="display: flex; align-items: center; font-weight: 800; font-size: 13.5px; color: #1E2138;">
                 <span style="padding: 12px 16px;">Doe</span>
@@ -789,11 +899,13 @@
           <!-- Researcher card -->
           <div>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de pesquisador</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>CMS + Repeater</span></div>
+            <p style="font-size: 12px; color: #9195A8; margin: -6px 0 12px;">Alias + avatar ilustrado — o nome real fica restrito ao responsável e à administração.</p>
             <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
-              <div style="width: 76px; height: 76px; border-radius: 999px; background: linear-gradient(135deg,#12A5E0,#2E3192); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 28px;">AL</div>
-              <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px;">Ana Luísa</div>
-              <div style="font-size: 14px; color: #12A5E0; font-weight: 700; margin-bottom: 12px;">Pesquisadora · Nível 4</div>
-              <div style="display: flex; justify-content: center; gap: 22px; border-top: 1px solid #F0F2F7; padding-top: 14px;"><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">12</div><div style="font-size: 12px; color: #9195A8;">missões</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">840</div><div style="font-size: 12px; color: #9195A8;">pontos</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">7</div><div style="font-size: 12px; color: #9195A8;">medalhas</div></div></div>
+              <div style="width: 76px; height: 76px; border-radius: 999px; background: linear-gradient(135deg,#12A5E0,#2E3192); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 32px;">🔬</div>
+              <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px;">Faraday 07</div>
+              <div style="font-size: 14px; color: #12A5E0; font-weight: 700; margin-bottom: 12px;">Sócio Pesquisador · Nível 4</div>
+              <div style="display: flex; justify-content: center; gap: 22px; border-top: 1px solid #F0F2F7; padding-top: 14px;"><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">12</div><div style="font-size: 12px; color: #9195A8;">missões</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">840</div><div style="font-size: 12px; color: #9195A8;">pontos</div></div><div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 20px; color: #2E3192;">7</div><div style="font-size: 12px; color: #9195A8;">medalhas*</div></div></div>
+              <div style="font-size: 10px; color: #9195A8; margin-top: 10px;">*Níveis e medalhas: mecânica sugerida, sujeita à validação.</div>
             </div>
           </div>
 
@@ -814,7 +926,7 @@
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de pontos</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Velo (dado do usuário)</span></div>
             <div style="background: linear-gradient(135deg,#FFC800,#F5A623); border-radius: 16px; padding: 24px; color: #1E2138; position: relative; overflow: hidden;">
               <div style="position: absolute; top: -30px; right: -20px; width: 120px; height: 120px; border-radius: 999px; background: rgba(255,255,255,.25);"></div>
-              <div style="position: relative;"><div style="font-size: 14px; font-weight: 800; opacity: .7;">Seus pontos</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 46px; line-height: 1;">840</div><div style="display: inline-block; margin-top: 12px; padding: 5px 14px; border-radius: 999px; background: rgba(30,33,56,.12); font-weight: 800; font-size: 13px;">Nível 4 · Explorador</div></div>
+              <div style="position: relative;"><div style="font-size: 14px; font-weight: 800; opacity: .7;">Seus pontos</div><div style="font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 46px; line-height: 1;">840</div><div style="display: inline-block; margin-top: 12px; padding: 5px 14px; border-radius: 999px; background: rgba(30,33,56,.12); font-weight: 800; font-size: 13px;">Nível 4 · Explorador</div><div style="font-size: 10px; font-weight: 800; opacity: .55; margin-top: 8px;">Nível: mecânica sugerida — sujeita à validação</div></div>
             </div>
           </div>
 
@@ -827,12 +939,28 @@
             </div>
           </div>
 
-          <!-- Article card -->
+          <!-- Blog card -->
           <div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de artigo</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Wix Blog / CMS</span></div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de blog</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #E6F5FC; color: #12A5E0; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Wix Blog</span></div>
             <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
               <div style="height: 110px; background: repeating-linear-gradient(45deg,#E6F5FC,#E6F5FC 10px,#F0F2F7 10px,#F0F2F7 20px); display: flex; align-items: center; justify-content: center; color: #12A5E0; font-family: monospace; font-size: 12px;">imagem de capa</div>
-              <div style="padding: 18px;"><span style="font-size: 12px; font-weight: 800; color: #2FA84F; text-transform: uppercase; letter-spacing: .04em;">Biologia</span><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; margin: 6px 0;">Por que as folhas mudam de cor?</h5><p style="font-size: 13px; color: #5B5F76; margin: 0 0 12px; line-height: 1.5;">A ciência por trás do outono explicada de forma simples.</p><a href="#" style="font-weight: 800; font-size: 14px; color: #12A5E0; text-decoration: none;">Ler artigo →</a></div>
+              <div style="padding: 18px;"><span style="font-size: 12px; font-weight: 800; color: #2FA84F; text-transform: uppercase; letter-spacing: .04em;">Biologia</span><h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; margin: 6px 0;">Por que as folhas mudam de cor?</h5><p style="font-size: 13px; color: #5B5F76; margin: 0 0 10px; line-height: 1.5;">A ciência por trás do outono explicada de forma simples.</p><div style="display: flex; align-items: center; justify-content: space-between;"><span style="font-size: 12px; color: #9195A8;">12 ago 2026</span><a href="#" style="font-weight: 800; font-size: 14px; color: #12A5E0; text-decoration: none;">Ler →</a></div></div>
+            </div>
+          </div>
+
+          <!-- Scientific article card -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;"><h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0;">Card de artigo científico</h4><span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: #FDF1DE; color: #E08A00; font-size: 11px; font-weight: 800;"><span style="width: 6px; height: 6px; border-radius: 999px; background: currentColor;"></span>Wix CMS</span></div>
+            <p style="font-size: 12px; color: #9195A8; margin: -6px 0 12px;">Componente distinto do blog: autor(es), resumo, data de publicação e PDF.</p>
+            <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 16px; padding: 20px; box-shadow: 0 1px 3px rgba(46,49,146,.06);">
+              <span style="font-size: 11px; font-weight: 800; color: #8134A8; text-transform: uppercase; letter-spacing: .05em;">Pensamento crítico infantil</span>
+              <h5 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; margin: 8px 0 6px;">Critérios de classificação dos seres vivos</h5>
+              <p style="font-size: 12px; color: #5B5F76; margin: 0 0 8px;">Autor: Eliezer Militão et al.</p>
+              <p style="font-size: 13px; color: #5B5F76; margin: 0 0 14px; line-height: 1.5;">Resumo: como esses critérios mudaram ao longo do tempo e o que isso revela sobre os limites da variação biológica.</p>
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                <span style="font-size: 12px; color: #9195A8;">Publicado em agosto de 2026</span>
+                <div style="display: flex; gap: 8px;"><a href="#" style="font-weight: 800; font-size: 13px; color: #fff; background: #2E3192; border-radius: 9px; padding: 8px 14px; text-decoration: none;">Ver estudo</a><a href="#" style="font-weight: 800; font-size: 13px; color: #2E3192; border: 1.5px solid #C7CAD8; border-radius: 9px; padding: 8px 14px; text-decoration: none;">↓ PDF</a></div>
+              </div>
             </div>
           </div>
 
@@ -867,6 +995,28 @@
                 <span style="padding: 5px 12px; border-radius: 999px; background: #FBE3E7; color: #E4123B; font-weight: 800; font-size: 12px;">✕ Revisar</span>
                 <span style="padding: 5px 12px; border-radius: 999px; background: #F0F2F7; color: #5B5F76; font-weight: 800; font-size: 12px;">◷ Rascunho</span>
               </div>
+            </div>
+          </div>
+
+          <!-- Componentes dos pais e do doador -->
+          <div style="grid-column: 1 / -1; margin-top: 8px;">
+            <h4 style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; margin: 0 0 4px;">Componentes dos pais e do doador</h4>
+            <p style="font-size: 13px; color: #9195A8; margin: 0 0 16px; max-width: 640px;">O briefing define os pais como público decisor e o doador como público com necessidades próprias de transparência — os três públicos (criança, responsável, doador) precisam de representação equivalente. Estes componentes aparecem montados nas telas "Painel dos pais" e "Painel do doador" da prévia no topo do guia.</p>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px;">
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">ParentDashboard</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Tela do responsável: reúne ChildSelector, autorizações e envios recentes.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">ChildSelector</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Grade de ChildSummaryCard — um responsável pode ter mais de um pesquisador.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">ChildSummaryCard</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Avatar, alias, pontos e atividades aprovadas de um pesquisador.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">AuthorizationCard</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Permissões do responsável (publicar descobertas, imagem do rosto).</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">SubmissionHistory</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Lista de envios do pesquisador com status (aprovado / em análise).</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">PointsHistory</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Extrato de pontos ganhos e gastos ao longo do tempo.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">PurchaseHistory</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Histórico de compras e resgates feitos na Loja.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">DonationSummaryCard</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Total doado e desde quando o doador contribui.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">RecurringDonationCard</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Valor recorrente, próxima cobrança, pausar / alterar / cancelar.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">DonationHistoryRow</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Uma linha do histórico: data, tipo, valor e recibo.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">ReceiptDownload</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Baixar comprovante de uma doação específica.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">TransparencyCard</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Para onde vão as doações — barra de composição + legenda.</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">ProductCard (3 variantes)</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Somente dinheiro, somente pontos, ou dinheiro OU pontos — ver tela "Loja".</div></div>
+              <div style="background: #fff; border: 1px solid #E3E5ED; border-radius: 12px; padding: 14px;"><div style="font-weight: 800; font-size: 13.5px; margin-bottom: 4px;">SubmissionForm</div><div style="font-size: 12px; color: #5B5F76; line-height: 1.4;">Escolha de missão + formato (foto, vídeo, link, texto) — ver tela "Enviar descoberta".</div></div>
             </div>
           </div>
 
@@ -919,7 +1069,8 @@
             <div style="padding: 14px 18px;">Componente</div><div style="padding: 14px 18px;">Implementação</div><div style="padding: 14px 18px;">Observação</div>
           </div>
           <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Botões, Inputs, Tabs, Accordion, Navbar</div><div style="padding: 13px 18px;"><span style="color: #2FA84F; font-weight: 800;">Nativo</span></div><div style="padding: 13px 18px; color: #5B5F76;">Elementos do editor + Site Theme</div></div>
-          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Cards, Pesquisador, Missão, Artigo</div><div style="padding: 13px 18px;"><span style="color: #12A5E0; font-weight: 800;">CMS + Repeater</span></div><div style="padding: 13px 18px; color: #5B5F76;">Conteúdo dinâmico de coleções</div></div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Cards de Pesquisador, Missão, Artigo científico</div><div style="padding: 13px 18px;"><span style="color: #12A5E0; font-weight: 800;">CMS + Repeater</span></div><div style="padding: 13px 18px; color: #5B5F76;">Coleção própria: autor(es), resumo, data, PDF, palavras-chave</div></div>
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Blog</div><div style="padding: 13px 18px;"><span style="color: #2FA84F; font-weight: 800;">Nativo (Wix Blog)</span></div><div style="padding: 13px 18px; color: #5B5F76;">Conteúdo leve e recorrente — não é a mesma coleção dos artigos científicos</div></div>
           <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Badges, sombras específicas</div><div style="padding: 13px 18px;"><span style="color: #8134A8; font-weight: 800;">CSS custom</span></div><div style="padding: 13px 18px; color: #5B5F76;">Quando o editor não expõe a propriedade</div></div>
           <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; border-bottom: 1px solid #F0F2F7; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Modal</div><div style="padding: 13px 18px;"><span style="color: #2E3192; font-weight: 800;">Lightbox / Custom El.</span></div><div style="padding: 13px 18px; color: #5B5F76;">Lightbox nativo cobre a maioria dos casos</div></div>
           <div style="display: grid; grid-template-columns: 1.4fr 1fr 1.6fr; font-size: 14px; align-items: center;"><div style="padding: 13px 18px; font-weight: 700;">Pontos, Recompensa (resgate), Doação, Status</div><div style="padding: 13px 18px;"><span style="color: #E08A00; font-weight: 800;">Velo</span></div><div style="padding: 13px 18px; color: #5B5F76;">Regra de negócio + Wix Pay</div></div>
@@ -1058,26 +1209,31 @@ class Component extends DCLogic {
       copyEvt: (e) => this.copy(e.currentTarget.dataset.hex),
 
       setScreenHome: () => this.setState({ screen: 'home' }),
+      setScreenCadastro: () => this.setState({ screen: 'cadastro' }),
       setScreenPainel: () => this.setState({ screen: 'painel' }),
+      setScreenEnvio: () => this.setState({ screen: 'envio' }),
+      setScreenPais: () => this.setState({ screen: 'pais' }),
+      setScreenDoador: () => this.setState({ screen: 'doador' }),
       setScreenRecompensas: () => this.setState({ screen: 'recompensas' }),
       scHomeStyle: this.screenBtnStyle('home'),
+      scCadastroStyle: this.screenBtnStyle('cadastro'),
       scPainelStyle: this.screenBtnStyle('painel'),
+      scEnvioStyle: this.screenBtnStyle('envio'),
+      scPaisStyle: this.screenBtnStyle('pais'),
+      scDoadorStyle: this.screenBtnStyle('doador'),
       scRecompensasStyle: this.screenBtnStyle('recompensas'),
       isHome: sc === 'home',
+      isCadastro: sc === 'cadastro',
       isPainel: sc === 'painel',
+      isEnvio: sc === 'envio',
+      isPais: sc === 'pais',
+      isDoador: sc === 'doador',
       isRecompensas: sc === 'recompensas',
-      screenPath: sc === 'home' ? '/' : sc === 'painel' ? '/meu-painel' : '/recompensas',
+      screenPath: sc === 'home' ? '/' : sc === 'cadastro' ? '/cadastro' : sc === 'painel' ? '/meu-painel' : sc === 'envio' ? '/enviar-descoberta' : sc === 'pais' ? '/area-dos-pais' : sc === 'doador' ? '/area-do-doador' : '/recompensas',
 
-      toggleGeral: () => this.toggleMenu('geral'),
       toggleConteudos: () => this.toggleMenu('conteudos'),
-      toggleRecomp: () => this.toggleMenu('recomp'),
-      closeMenu: () => this.setState({ menu: null }),
-      menuGeral: this.state.menu === 'geral',
       menuConteudos: this.state.menu === 'conteudos',
-      menuRecomp: this.state.menu === 'recomp',
-      geralBtnStyle: this.barBtnStyle(this.state.menu === 'geral', true),
       conteudosBtnStyle: this.barBtnStyle(this.state.menu === 'conteudos', false),
-      recompBtnStyle: this.barBtnStyle(this.state.menu === 'recomp', false),
 
       tabPerfilStyle: this.tabStyle('perfil'),
       tabMissoesStyle: this.tabStyle('missoes'),
