@@ -58,8 +58,9 @@ const PROPOSTAS = [
 
     fs.mkdirSync(outDir, { recursive: true });
     for (const [key, label] of PROPOSTAS) {
+      // o seletor visual foi removido da página; a paleta é trocada pelo atributo do body
       await cdp.send('Runtime.evaluate', {
-        expression: "document.querySelector('[data-sw=\"" + key + "\"]').click();",
+        expression: "document.body.setAttribute('data-hero','" + key + "');",
       });
       await sleep(700);
       const box = await cdp.send('Runtime.evaluate', {

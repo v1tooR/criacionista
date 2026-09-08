@@ -57,6 +57,10 @@
   --hero-glow2:rgba(255,210,0,.28);
 }
 
+/* Propostas alternativas da faixa do hero.
+   A escolhida é a Prisma, definida em <body data-hero="prisma">.
+   Para rever a decisão basta trocar esse atributo por "ceu" ou "aurora". */
+
 /* Proposta B — Aurora Profunda */
 [data-hero="aurora"]{
   --hero-bg:
@@ -243,40 +247,47 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .stat__l{font-size:12.5px;font-weight:700;color:var(--hero-fg-soft);line-height:1.3}
 
 /* Hero — arte */
-.hero__art{position:relative;display:flex;align-items:center;justify-content:center;min-height:400px}
-.hero__logo{
-  position:relative;z-index:3;width:min(100%,470px);
-  filter:drop-shadow(0 26px 50px rgba(23,32,58,.18));
-  animation:floaty 7s ease-in-out infinite;
+.hero__art{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px}
+
+/* Foto principal + selo da marca */
+.hero__frame{position:relative;z-index:3;width:min(100%,432px)}
+.hero__photo{
+  position:relative;margin:0;width:100%;aspect-ratio:4/5;
+  border-radius:38px;overflow:hidden;
+  background:var(--bg-soft2);
+  border:7px solid rgba(255,255,255,.95);
+  box-shadow:0 34px 70px rgba(23,32,58,.20), 0 4px 14px rgba(23,32,58,.08);
+  animation:floaty 9s ease-in-out infinite;
 }
+.hero__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+/* leve tingimento de marca para a foto conversar com a paleta */
+.hero__photo::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(160deg, rgba(0,174,239,.10) 0%, rgba(0,174,239,0) 42%, rgba(46,49,146,.14) 100%);
+}
+
+/* Logo sobreposto à foto — mantém a marca grande e flutuando, como no hero anterior */
+.hero__badge{
+  position:absolute;z-index:4;left:-38px;bottom:-14px;
+  background:#fff;border-radius:26px;padding:14px 22px;
+  box-shadow:0 22px 48px rgba(23,32,58,.24), 0 2px 10px rgba(23,32,58,.10);
+  animation:floaty 7s ease-in-out infinite reverse;
+}
+.hero__badge img{height:84px;width:auto;display:block}
+
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-/* em fundo escuro o logo precisa de uma base clara para o lettering navy não sumir */
-[data-hero="aurora"] .hero__logo{
-  background:rgba(255,255,255,.97);border-radius:34px;padding:24px 28px;
-  box-shadow:0 30px 64px rgba(0,0,0,.32);
-}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.12);opacity:.65}}
 .orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.9}
-.orb--1{width:250px;height:250px;top:-6%;right:2%;background:radial-gradient(circle at 32% 30%,var(--hero-glow1),transparent 70%);animation:floaty 9s ease-in-out infinite}
-.orb--2{width:190px;height:190px;bottom:2%;left:0;background:radial-gradient(circle at 60% 40%,var(--hero-glow2),transparent 70%);animation:floaty 11s ease-in-out infinite reverse}
-.hero__ring{position:absolute;inset:8% 12%;border:2px dashed rgba(0,174,239,.28);border-radius:50%;animation:spin 46s linear infinite}
+.orb--1{width:250px;height:250px;top:-6%;right:2%;background:radial-gradient(circle at 32% 30%,var(--hero-glow1),transparent 70%);animation:pulse 10s ease-in-out infinite}
+.orb--2{width:190px;height:190px;bottom:2%;left:0;background:radial-gradient(circle at 60% 40%,var(--hero-glow2),transparent 70%);animation:pulse 13s ease-in-out infinite reverse}
+.hero__ring{
+  position:absolute;z-index:1;inset:0;margin:auto;
+  width:min(118%,566px);height:min(118%,566px);
+  border:2px dashed rgba(0,174,239,.3);border-radius:50%;
+  animation:spin 46s linear infinite;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero__dot{position:absolute;width:13px;height:13px;border-radius:50%;box-shadow:0 3px 10px rgba(23,32,58,.2)}
-
-/* Seletor de proposta de cor */
-.swatcher{
-  position:relative;z-index:3;max-width:var(--maxw);margin:0 auto;padding:0 24px 26px;
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
-.swatcher__lbl{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--hero-fg-soft)}
-.swatcher__set{display:inline-flex;gap:6px;padding:5px;border-radius:var(--r-full);background:var(--hero-card-bg);border:1px solid var(--hero-card-bd)}
-.sw{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:var(--r-full);font-size:13px;font-weight:800;color:var(--hero-fg-soft);transition:.22s var(--ease)}
-.sw i{width:15px;height:15px;border-radius:50%;display:block;border:1.5px solid rgba(255,255,255,.6);box-shadow:0 1px 4px rgba(0,0,0,.15)}
-.sw--ceu i{background:linear-gradient(135deg,#E4F5FF,#FFF4CF 55%,#F1EEFF)}
-.sw--aurora i{background:linear-gradient(135deg,#191C5C,#2E3192 45%,#00AEEF)}
-.sw--prisma i{background:conic-gradient(#E4003A,#FFD200,#7AC143,#00AEEF,#7B2E8E,#E4003A)}
-.sw:hover{color:var(--hero-fg)}
-.sw.is-on{background:var(--ink);color:#fff}
-[data-hero="aurora"] .sw.is-on{background:#fff;color:var(--navy-d)}
 
 /* --- Cards genéricos --------------------------------------- */
 .grid{display:grid;gap:24px}
@@ -546,17 +557,23 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 @keyframes enterArt{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
 
 /* --- Responsivo -------------------------------------------- */
-@media (max-width:1080px){
+@media (max-width:1180px){
   .nav a{padding:9px 9px;font-size:14px}
   .brand__img{height:54px}
   .cats{grid-template-columns:repeat(3,1fr)}
 }
-@media (max-width:940px){
+/* o menu completo + os dois CTAs precisam de ~1100px; abaixo disso vai para o burger */
+@media (max-width:1100px){
   .nav,.hdr__cta{display:none}
   .burger{display:flex}
+}
+@media (max-width:940px){
   .hero__in{grid-template-columns:1fr;gap:42px;padding:56px 24px 68px}
-  .hero__art{min-height:300px;order:-1}
-  .hero__logo{width:min(86%,380px)}
+  .hero__art{min-height:auto;order:-1;padding:10px 0 6px}
+  .hero__frame{width:min(72%,340px)}
+  .hero__badge{left:-22px;bottom:-10px;padding:11px 16px;border-radius:20px}
+  .hero__badge img{height:56px}
+  .hero__ring{width:min(126%,430px);height:min(126%,430px)}
   .estacao__in,.doe{grid-template-columns:1fr;gap:36px}
   .doe{padding:40px 32px}
   .grid--3{grid-template-columns:repeat(2,1fr)}
@@ -578,6 +595,12 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   .sec-head--row{flex-direction:column;align-items:flex-start}
   .hdr__in{padding:11px 18px}
   .brand__img{height:50px}
+  /* em tela estreita a entrada lateral estouraria a largura: usa a vertical */
+  [data-reveal="left"],[data-reveal="right"]{transform:translateY(24px)}
+  /* rótulos longos precisam quebrar em vez de forçar a largura da página */
+  .btn{white-space:normal;padding:13px 20px}
+  .btn--lg{padding:15px 24px;font-size:15.5px}
+  .btn--sm{padding:10px 16px}
   .pvbar{font-size:12px;padding:8px 16px;gap:6px}
   .pvbar > span:nth-child(n+2){display:none}
   .hero__chip{font-size:12px;padding:7px 13px 7px 8px}
@@ -591,7 +614,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 }
 </style>
 </head>
-<body data-hero="ceu">
+<body data-hero="prisma">
 
 <!-- ============ BARRA DE PRÉVIA (remover na publicação) ============ -->
 <div class="pvbar">
@@ -679,21 +702,21 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
       <div class="orb orb--1"></div>
       <div class="orb orb--2"></div>
       <div class="hero__ring"></div>
-      <span class="hero__dot" style="background:var(--red);top:12%;left:14%"></span>
-      <span class="hero__dot" style="background:var(--yellow);top:26%;right:6%"></span>
-      <span class="hero__dot" style="background:var(--green);bottom:18%;left:6%"></span>
-      <span class="hero__dot" style="background:var(--purple);bottom:8%;right:20%"></span>
-      <img class="hero__logo" src="assets/logo.png" alt="Logo do Clube Criacionista de Ciências" width="470">
-    </div>
-  </div>
+      <span class="hero__dot" style="background:var(--red);top:6%;left:8%"></span>
+      <span class="hero__dot" style="background:var(--yellow);top:20%;right:2%"></span>
+      <span class="hero__dot" style="background:var(--green);bottom:22%;right:6%"></span>
+      <span class="hero__dot" style="background:var(--purple);bottom:6%;left:20%"></span>
 
-  <!-- Seletor de proposta de cor (pedido do cliente no feedback) -->
-  <div class="swatcher">
-    <span class="swatcher__lbl">Proposta de cor da faixa</span>
-    <div class="swatcher__set" role="group" aria-label="Escolher proposta de cor do hero">
-      <button class="sw sw--ceu is-on" data-sw="ceu"><i></i>Céu claro</button>
-      <button class="sw sw--aurora" data-sw="aurora"><i></i>Aurora</button>
-      <button class="sw sw--prisma" data-sw="prisma"><i></i>Prisma</button>
+      <div class="hero__frame">
+        <figure class="hero__photo">
+          <img src="assets/hero-criancas.webp"
+               alt="Três crianças reunidas em volta de uma mesa lendo a Bíblia juntas"
+               width="1221" height="1830">
+        </figure>
+        <div class="hero__badge">
+          <img src="assets/logo.png" alt="Clube Criacionista de Ciências">
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1355,13 +1378,6 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
     counters.forEach(runCount);
   }
 
-  /* ---- Proposta de cor do hero ---- */
-  document.querySelectorAll('[data-sw]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.body.setAttribute('data-hero', btn.getAttribute('data-sw'));
-      document.querySelectorAll('[data-sw]').forEach(function(b){ b.classList.toggle('is-on', b === btn); });
-    });
-  });
 
   /* ---- Trilhos horizontais ---- */
   document.querySelectorAll('[data-rail]').forEach(function(nav){

@@ -102,8 +102,22 @@ terceiros no carregamento da página e melhora bastante o tempo de abertura.
 | `assets/wix/hero-banner.jpg` | `d49d42_548aac6a70fe4a63880f1ace26bddbc2~mv2.jpg` | faixa do hero — degradê amarelo→magenta→azul com a marca-d'água do logo |
 | `assets/wix/selo-pb.png` | `67f35a_e6aa4def7b984a0688b259d23d26d723~mv2.png` | selo no bloco "Acesso Rápido" |
 
-A faixa atual (`hero-banner.jpg`) é justamente a que o cliente pediu para trocar. As três
-propostas alternativas estão implementadas no seletor "Proposta de cor da faixa" do protótipo.
+A faixa atual (`hero-banner.jpg`) é justamente a que o cliente pediu para trocar. A proposta
+escolhida é a **Prisma** (branco com os tons do logo em degradês suaves), já aplicada como
+padrão. As outras duas continuam definidas no CSS: para rever a decisão, troque o atributo em
+`<body data-hero="prisma">` por `"ceu"` (Céu claro) ou `"aurora"` (Aurora Profunda) — nenhuma
+outra alteração é necessária.
+
+### Imagem do hero (não vem do Wix)
+
+| Arquivo | Origem | Observação |
+|---|---|---|
+| `assets/hero-criancas.webp` | fornecida pelo cliente (`medium_shot_kids_studying_bible_1.webp`, 1221×1830) | três crianças lendo a Bíblia; enquadrada em `object-position: 50% 22%` para manter os rostos no centro |
+
+> **Ponto em aberto.** O briefing principal diz que *"fotos de crianças estão vetadas"* e pede
+> uma biblioteca de ícones/ilustrações no lugar de foto. A restrição existe para proteger as
+> crianças do clube — se esta imagem for banco de imagens ou gerada, ela não conflita com a
+> regra, mas vale registrar o aceite do cliente por escrito antes de publicar.
 
 ## Como rebaixar as mídias novamente
 
@@ -120,7 +134,7 @@ Qualquer imagem do Wix pode ser puxada em tamanho original por
 - Canal principal de atendimento, horário e prazo de resposta (o rodapé está com um marcador "A DEFINIR").
 - Perfis oficiais de YouTube / Instagram / Facebook — o site atual **não** expõe nenhum link de rede
   social, então os ícones do rodapé estão apontando para as home pages das plataformas.
-- Escolha entre as três propostas de cor da faixa do hero.
+- Confirmação da paleta Prisma para a faixa do hero (já aplicada como padrão).
 - Aprovação do nome "Estação dos Por Ques" com a grafia separada.
 - Textos definitivos de FAQ, blocos de confiança e Estação — o protótipo usa redação baseada nas
   regras do briefing, para substituição pelo documento "Copy do Site" quando ele chegar.
