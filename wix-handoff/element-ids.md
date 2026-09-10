@@ -71,6 +71,20 @@ Use estes IDs ao criar os elementos no Editor. O código Velo será escrito cont
 | `#redeemButton` | Button dentro do Repeater |
 | `#redemptionFeedback` | Text |
 
+## Newsletter de pais e professores
+
+| ID | Elemento |
+|---|---|
+| `#subscriberTypeDropdown` | Dropdown — 6 opções (Pai ou mãe, Professor de classes bíblicas, Coordenador de classes bíblicas, Professor escolar, Coordenador escolar, Outro) |
+| `#subscriberTypeOtherInput` | Text Input — só aparece com Outro |
+| `#subscriberEmailInput` | Text Input (validação de e-mail) |
+| `#subscriberGenderGroup` | Radio Button Group |
+| `#subscriberConsentCheckbox` | Checkbox — obrigatório |
+| `#subscribeButton` | Button |
+| `#subscribeFeedback` | Text |
+| `#subscribeStateBox` | Multi-State Box — form, success, error |
+| `#educatorResourcesRepeater` | Repeater dos atalhos de recursos |
+
 ## Estados obrigatórios
 
 Cada painel deve prever no Multi-State Box ou em containers separados:

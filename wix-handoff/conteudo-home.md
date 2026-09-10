@@ -112,7 +112,14 @@ outra alteração é necessária.
 
 | Arquivo | Origem | Observação |
 |---|---|---|
-| `assets/hero-criancas.webp` | fornecida pelo cliente (`medium_shot_kids_studying_bible_1.webp`, 1221×1830) | três crianças lendo a Bíblia; enquadrada em `object-position: 50% 22%` para manter os rostos no centro |
+| `assets/hero-criancas.webp` | recorte da imagem fornecida pelo cliente | **duas** crianças lendo a Bíblia; 786×982, já em 4:5, entra no frame sem corte adicional |
+| `assets/hero-criancas-original.webp` | fornecida pelo cliente (`medium_shot_kids_studying_bible_1.webp`, 1221×1830) | arquivo íntegro, guardado para reversão |
+
+O cliente pediu **uma foto sem o rosário** (10/09/2026). Em vez de trocar a imagem, o rosário
+foi eliminado por enquadramento: recorte de 786×982 a partir de (x=435, y=20) do original, que
+deixa de fora a criança da esquerda — a que segura o terço — e centra a leitura da Bíblia entre
+as outras duas. Como o recorte já sai em 4:5, o `object-position` do frame virou `50% 50%`.
+Para refazer com outro enquadramento, o original continua em `assets/hero-criancas-original.webp`.
 
 > **Ponto em aberto.** O briefing principal diz que *"fotos de crianças estão vetadas"* e pede
 > uma biblioteca de ícones/ilustrações no lugar de foto. A restrição existe para proteger as
@@ -136,5 +143,8 @@ Qualquer imagem do Wix pode ser puxada em tamanho original por
   social, então os ícones do rodapé estão apontando para as home pages das plataformas.
 - Confirmação da paleta Prisma para a faixa do hero (já aplicada como padrão).
 - Aprovação do nome "Estação dos Por Ques" com a grafia separada.
+- Nova redação de títulos e textos anunciada pelo cliente em 10/09/2026 — o protótipo segue com a redação atual até chegar.
+- Newsletter de pais e professores: confirmar se entra o campo **Nome** (hoje o formulário coleta só tipo de inscrição, e-mail e gênero) e se as opções de gênero ficam como estão (Feminino / Masculino / Prefiro não informar).
+- Destino do consentimento LGPD e link da Política de Privacidade (hoje marcado como pendente na prévia).
 - Textos definitivos de FAQ, blocos de confiança e Estação — o protótipo usa redação baseada nas
   regras do briefing, para substituição pelo documento "Copy do Site" quando ele chegar.

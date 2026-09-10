@@ -26,6 +26,7 @@ Este documento transforma o protótipo `index.html` em um plano de construção 
 - O Clube
 - Como Funciona
 - Artigos e Estudos (CMS e página dinâmica)
+- Para quem ensina — recursos + newsletter (Wix Forms/CMS `EducatorSubscribers` + Automations)
 - Blog (Wix Blog)
 - Vídeos
 - Loja
@@ -60,6 +61,7 @@ Este documento transforma o protótipo `index.html` em um plano de construção 
 | Produtos por pontos | CMS + Velo | necessário |
 | Doações | app/plano de pagamento Wix validado no projeto | integração e painel |
 | Login e membros | Wix Members | papéis e redirecionamento |
+| Newsletter de educadores | Wix Forms + CMS + Automations | duplo opt-in e campo condicional "Outro" |
 | Descobertas | CMS + Upload Button | workflow em Velo |
 | Pontos | CMS | backend Velo obrigatório |
 | Painéis | repeaters/multi-state boxes | consultas via backend |
@@ -80,6 +82,7 @@ Este documento transforma o protótipo `index.html` em um plano de construção 
 - [ ] Transformar telas autenticadas em páginas separadas, não abas de demonstração.
 - [ ] Aplicar os IDs de `wix-handoff/element-ids.md` antes de ligar o código.
 - [ ] Configurar estados vazio, carregando, erro, sem permissão e sucesso.
+- [ ] Adicionar o link "Voltar ao topo" ao final de cada seção da Home e o botão flutuante global.
 - [ ] Configurar desktop, tablet e mobile no Editor.
 - [ ] Criar papéis: `responsavel`, `pesquisador`, `doador`, `validador`.
 - [ ] Validar permissões de cada coleção com contas de teste distintas.

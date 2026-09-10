@@ -144,6 +144,26 @@ Permissão: somente backend/admin.
 
 Permissão: leitura pública; escrita admin/editor.
 
+## EducatorSubscribers
+
+Inscrições da newsletter de pais, professores e coordenadores (seção **Para quem ensina** da Home).
+
+| Field ID | Tipo | Observação |
+|---|---|---|
+| `email` | Texto; único | Chave da inscrição |
+| `subscriberType` | Texto | parent, bible_teacher, bible_coordinator, school_teacher, school_coordinator, other |
+| `subscriberTypeOther` | Texto | Só quando `subscriberType = other` |
+| `gender` | Texto | female, male, undisclosed |
+| `consent` | Booleano | Aceite explícito de envio (LGPD) |
+| `consentAt` | Data/hora | Momento do aceite |
+| `source` | Texto | home_educators, ou a página de origem |
+| `status` | Texto | pending, confirmed, unsubscribed |
+| `createdAt` | Data/hora | |
+
+Permissão: escrita por qualquer visitante (formulário público), leitura somente admin.
+Confirmação por duplo opt-in via Wix Automations; o cancelamento grava `status = unsubscribed`
+em vez de apagar o registro.
+
 ## DonationProfiles
 
 | Field ID | Tipo |
