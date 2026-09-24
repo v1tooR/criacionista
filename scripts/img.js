@@ -27,6 +27,11 @@ if (!chrome) { console.error('Chrome não encontrado.'); process.exit(1); }
 
 const ext = path.extname(inFile).toLowerCase().replace('.', '') || 'png';
 const mime = ext === 'jpg' ? 'jpeg' : ext;
+
+// o formato de saída vem da extensão pedida: PNG para arte com transparência,
+// JPEG/WebP para foto (PNG de foto fica desnecessariamente pesado)
+const outExt = path.extname(outFile).toLowerCase().replace('.', '') || 'png';
+const outMime = outExt === 'jpg' ? 'jpeg' : outExt;
 const dataUrl = 'data:image/' + mime + ';base64,' + fs.readFileSync(inFile).toString('base64');
 
 const work = fs.mkdtempSync(path.join(os.tmpdir(), 'img-'));
@@ -83,7 +88,8 @@ img.onload = function(){
   octx.drawImage(c, minX, minY, cw, ch, 0, 0, ow, oh);
 
   window.__info = { src: w + 'x' + h, crop: cw + 'x' + ch, out: ow + 'x' + oh };
-  window.__out = o.toDataURL('image/png');
+  var fmt = ${JSON.stringify(outMime)};
+  window.__out = fmt === 'png' ? o.toDataURL('image/png') : o.toDataURL('image/' + fmt, 0.82);
   window.__done = true;
 };
 img.src = ${JSON.stringify(dataUrl)};

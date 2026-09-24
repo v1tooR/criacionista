@@ -71,11 +71,51 @@ As páginas novas deixaram de ser só layout com texto de exemplo:
 
 Todos os 20 links para o site atual foram verificados e respondem HTTP 200.
 
-**Loja:** as fotos de produto continuam como espaço reservado, de propósito. Usar imagem de post
-como foto de produto faria o cliente acreditar que aquele produto existe com aquela foto.
+**Loja:** as fotos são de banco de imagens com licença livre, marcadas como exemplo na própria
+página (ver abaixo). Nenhuma imagem de post do blog foi usada como foto de produto: isso faria o
+cliente acreditar que aquele produto existe com aquela foto.
 
 **Doe:** nenhum depoimento fictício foi escrito. Depoimento inventado em página de doação é
 problema de confiança, não detalhe de layout.
+
+## Fotos de exemplo da Loja
+
+Os seis produtos da vitrine agora têm foto, em `assets/loja/`. São imagens de banco com
+licença livre, escolhidas só para a vitrine não ficar vazia — **todas devem ser trocadas por
+fotos reais dos produtos antes de publicar**. A nota no topo da página diz isso ao cliente.
+
+| Arquivo | Licença | Origem |
+|---|---|---|
+| `livro-guia.jpg` | CC0 | "Spring daffodils and books" (Openverse) |
+| `caderno.jpg` | CC0 | "Notebook Paper" (Openverse) |
+| `microscopio.jpg` | Domínio público | "Free microscope science equipment image" (Openverse) |
+| `livro-ceu.jpg` | CC0 | "Blue sky clouds" (Openverse) |
+| `kit-agua.jpg` | CC BY 2.0 | "Red and blue liquids inside graduated tube" (Flickr, via Openverse) |
+| `jaleco.jpg` | CC BY 2.0 | [Lab coats](https://commons.wikimedia.org/wiki/File:Lab_coats.jpg) (Wikimedia Commons) |
+
+As duas CC BY exigem crédito, que está no rodapé da própria página da loja. As quatro CC0 não
+exigem nada. Nenhuma foto escolhida mostra rosto de criança — o primeiro resultado de
+"microscópio" mostrava, e foi descartado por causa da regra do projeto.
+
+A foto do jaleco é a mais fraca do conjunto: é o registro de uma instalação artística, com fundo
+escuro, e destoa do tom infantil. Serve para o cliente entender o lugar da imagem no card, mas é
+a primeira que deve sair.
+
+## Seções reforçadas (24/09/2026)
+
+Três blocos estavam só com texto em caixas brancas e ganharam tratamento visual:
+
+- **O Clube › Objetivos** — os 6 itens viraram cartões com faixa colorida no topo e ícone,
+  usando o componente `.path` que já existia na Home, numa variante compacta (`.path--sm`).
+- **Como funciona › O que pedimos / nunca pedimos** — as duas listas agora se opõem
+  visualmente: verde com marca de confirmação, vermelho com "x". O contraste é o argumento
+  de segurança da página, e ele estava invisível quando eram duas listas iguais.
+- **Como funciona › Missões** — os 3 tipos ganharam ícone e cor; o bloco de envio deixou de ser
+  parágrafo e passou a mostrar o botão "Enviar minha descoberta" como amostra de interface,
+  os quatro formatos aceitos e o aviso de segurança destacado.
+
+Componentes novos no `site.css`: `.path--sm`, `.chk`, `.box__hd`, `.box--sim`, `.box--nao`,
+`.alerta`, `.mockui`, `.mockbtn`, `.formato`.
 
 ## Vídeos: os canais não são do cliente
 
