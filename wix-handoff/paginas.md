@@ -197,6 +197,20 @@ O arquivo original do logo anterior ficou em `assets/logo-anterior.png`. As marg
 recortadas e o fundo externo virou transparente, preservando o branco de dentro do balão; o peso
 caiu de 1,2 MB para 125 KB.
 
+### Favicon
+
+O ícone apontava para `assets/logo.png`, o logo horizontal de 1000×411. Espremido no quadrado
+de 16px da aba, virava um borrão ilegível.
+
+`node scripts/favicon.js` resolve: ele encontra o símbolo (o balão com o globo) pela faixa
+vertical vazia que separa o símbolo do lettering, recorta em quadrado com respiro mínimo e
+exporta em 32, 64 e 180px. Rode de novo sempre que o logo mudar.
+
+As páginas declaram `favicon-32` e `favicon-64` como ícone e `favicon-180` como apple-touch-icon.
+O ícone fica legível a partir de 20px. Em 16px ainda é denso, o que é próprio de uma marca com
+globo, três figuras e contorno — se o cliente quiser nitidez total nesse tamanho, o caminho é um
+símbolo simplificado só para uso pequeno, o que é decisão de marca, não de implementação.
+
 Paleta oficial aplicada em todo o CSS, substituindo os valores aproximados anteriores:
 
 | Cor | Hex | Token |
