@@ -19,6 +19,46 @@ Ainda não construídas: cadastro e login (3 fluxos), área do sócio pesquisado
 área do responsável e área do doador. São telas autenticadas e dependem das decisões
 listadas em `flows.md`.
 
+## Dois modos de visualização na mesma página
+
+Toda página tem uma chave no topo: **Proposta completa** e **Piso Wix nativo**.
+
+O piso nativo mostra o que o Wix Studio entrega usando **só elementos nativos**, sem custom
+element e sem Velo — é o que dá para prometer ao cliente sem depender de código. Quando ligado,
+um painel abre listando as 10 diferenças em relação à proposta completa.
+
+O que muda no piso nativo:
+
+1. **Faixa do hero** — cinco degradês radiais viram um linear.
+2. **Animações contínuas** — foto flutuando, orbes e anel tracejado saem (o editor não faz loop).
+3. **Contadores** — números entram prontos; contar de 0 exige Velo.
+4. **Trilhos** — viram Slider nativo, andando por página pelas setas.
+5. **Vídeos** — o embed carrega junto com a página, em vez de só ao clicar.
+6. **Sublinhado do título** — entra desenhado, sem animar.
+7. **Tipografia** — tamanho por breakpoint, em degraus, não fluido.
+8. **Formulário** — padrão Wix Forms: opções empilhadas, cantos retos, botão de largura natural.
+9. **Cantos e sombras** — mais discretos.
+10. **Entrada ao rolar** — preset único, sem atraso card a card.
+
+A escolha fica salva no navegador, então dá para navegar o site inteiro no piso nativo e mostrar
+ao cliente a diferença página a página.
+
+### Por que uma chave e não uma segunda cópia de cada página
+
+Existia um `home-wix.html`, feito em 10/09/2026, que era a Home inteira duplicada na versão
+nativa. Em 13 dias ele já tinha ficado para trás: paleta antiga (`#2E3192`), sem o campo Nome na
+newsletter e sem o fluxo de cancelamento. Com 8 páginas, seriam 16 arquivos divergindo.
+
+A chave resolve isso com um arquivo a mais (`assets/wix-nativo.css`) e um atributo no `body`:
+uma fonte só de conteúdo, duas leituras. `home-wix.html` ficou obsoleto — vale apagar para
+ninguém mostrar a versão velha ao cliente por engano (ele está no histórico do git, commit `8b1433d`).
+
+### Onde isso é relevante
+
+Só se o caminho escolhido for **montar à mão no editor do Wix Studio**. Pelo caminho headless
+(ver `headless.md`), o site é o nosso próprio HTML e não existe degradação nenhuma — o piso
+nativo vira só um argumento de comparação para o cliente entender o que estaria perdendo.
+
 ## Conteúdo real aplicado (23/09/2026)
 
 As páginas novas deixaram de ser só layout com texto de exemplo:

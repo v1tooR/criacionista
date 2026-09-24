@@ -11,8 +11,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/wix-nativo.css">
 </head>
 <body data-hero="prisma">
+<script>/* aplica o modo salvo antes de pintar, para não piscar */try{if(localStorage.getItem('ccc-modo')==='nativo')document.body.setAttribute('data-wix','nativo');}catch(e){}</script>
 
 <!-- ============ BARRA DE PRÉVIA (remover na publicação) ============ -->
 <div class="pvbar">
@@ -21,6 +23,34 @@
   <span>Conteúdo, imagens e vídeos reais do site atual</span>
   <span>·</span>
   <a href="https://www.clubecriacionista.com/" target="_blank" rel="noopener">ver site atual</a>
+</div>
+
+<!-- ============ CHAVE DE MODO (remover na publicação) ============ -->
+<div class="wixbar">
+  <span class="wixbar__lbl">Ver esta página como:</span>
+  <span class="wixbar__set" id="wixset" role="group" aria-label="Modo de visualização">
+    <button type="button" data-modo="completo">Proposta completa</button>
+    <button type="button" data-modo="nativo">Piso Wix nativo</button>
+  </span>
+</div>
+<div class="wixnote">
+  <div class="wixnote__in">
+    <details>
+      <summary>Piso garantido: só elementos nativos do Wix Studio, sem custom element e sem Velo. Veja as 10 diferenças em relação à proposta completa.</summary>
+      <ol>
+        <li><b>Faixa do hero.</b> Cinco degradês radiais sobrepostos viram um degradê linear. Para chegar perto, exportar a faixa como imagem de fundo.</li>
+        <li><b>Animações contínuas.</b> Foto flutuando, orbes pulsando e o anel tracejado saem — o editor não faz animação em loop.</li>
+        <li><b>Contadores.</b> Os números entram prontos. Contar de 0 até o valor exige Velo.</li>
+        <li><b>Trilhos horizontais.</b> Viram Slider nativo: anda de página em página pelas setas, sem arrastar livre nem barra de rolagem.</li>
+        <li><b>Vídeos.</b> O embed do YouTube carrega junto com a página, com o botão da própria plataforma. Segurar o carregamento até o clique exige custom element.</li>
+        <li><b>Sublinhado do título.</b> Entra já desenhado, em vez de riscar sozinho depois da abertura.</li>
+        <li><b>Tipografia.</b> O tamanho é definido por breakpoint, então muda em degraus em vez de acompanhar a largura da janela.</li>
+        <li><b>Formulário.</b> Wix Forms: rótulo acima, campo em largura total, opções empilhadas com marcador clássico e botão de largura natural.</li>
+        <li><b>Cantos e sombras.</b> Raios muito arredondados e sombras longas ficam mais discretos, como costumam sair da montagem manual.</li>
+        <li><b>Entrada ao rolar.</b> O reveal é nativo, mas com presets: mesma duração para todos, sem atraso fino card a card.</li>
+      </ol>
+    </details>
+  </div>
 </div>
 
 <!-- ============ HEADER ============ -->

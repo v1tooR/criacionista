@@ -4,6 +4,9 @@
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* modo piso Wix nativo: sem animação em loop, sem contador, sem lazy no vídeo */
+  var wixNativo = document.body.getAttribute('data-wix') === 'nativo';
+
   /* ---- Header sticky ---- */
   var hdr = document.getElementById('hdr');
   var onScroll = function(){ hdr.classList.toggle('is-stuck', window.scrollY > 12); };
@@ -57,7 +60,7 @@
   var counters = document.querySelectorAll('[data-count]');
   var runCount = function(el){
     var target = parseInt(el.getAttribute('data-count'), 10) || 0;
-    if (reduce){ el.textContent = String(target); return; }
+    if (reduce || wixNativo){ el.textContent = String(target); return; }
     var dur = 1100, t0 = performance.now();
     var tick = function(now){
       var p = Math.min(1, (now - t0) / dur);
@@ -96,7 +99,8 @@
     };
     nav.querySelectorAll('button').forEach(function(b){
       b.addEventListener('click', function(){
-        rail.scrollBy({left: step() * parseInt(b.getAttribute('data-dir'),10) * 2, behavior: reduce ? 'auto' : 'smooth'});
+        var salto = wixNativo ? rail.clientWidth : step() * 2;
+        rail.scrollBy({left: salto * parseInt(b.getAttribute('data-dir'),10), behavior: reduce ? 'auto' : 'smooth'});
       });
     });
     rail.addEventListener('scroll', sync, {passive:true});
@@ -109,16 +113,18 @@
   });
 
   /* ---- Vídeos: só carrega o iframe ao clicar ---- */
+  var montarVideo = function(btn, autoplay){
+    var id = btn.getAttribute('data-yt');
+    var frame = document.createElement('iframe');
+    frame.src = 'https://www.youtube-nocookie.com/embed/' + id + (autoplay ? '?autoplay=1&rel=0' : '?rel=0');
+    frame.title = btn.getAttribute('aria-label') || 'Vídeo';
+    frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    frame.allowFullscreen = true;
+    btn.replaceWith(frame);
+  };
   document.querySelectorAll('.vthumb[data-yt]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var id = btn.getAttribute('data-yt');
-      var frame = document.createElement('iframe');
-      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
-      frame.title = btn.getAttribute('aria-label') || 'Vídeo';
-      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      frame.allowFullscreen = true;
-      btn.replaceWith(frame);
-    });
+    if (wixNativo){ montarVideo(btn, false); return; }
+    btn.addEventListener('click', function(){ montarVideo(btn, true); });
   });
 
   /* ---- FAQ ---- */
@@ -176,4 +182,17 @@
     e.preventDefault();
     showToast(el.getAttribute('data-wip') + ' ainda não está funcional nesta prévia. Entra na implementação do Wix.');
   });
+
+  /* ---- Chave: proposta completa x piso Wix nativo ---- */
+  var wixSet = document.getElementById('wixset');
+  if (wixSet){
+    wixSet.querySelectorAll('button').forEach(function(b){
+      b.classList.toggle('is-on', (b.getAttribute('data-modo') === 'nativo') === wixNativo);
+      b.addEventListener('click', function(){
+        var nativo = b.getAttribute('data-modo') === 'nativo';
+        try { localStorage.setItem('ccc-modo', nativo ? 'nativo' : 'completo'); } catch (e) {}
+        location.reload();
+      });
+    });
+  }
 })();
