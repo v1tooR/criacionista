@@ -121,10 +121,10 @@ deixa de fora a criança da esquerda — a que segura o terço — e centra a le
 as outras duas. Como o recorte já sai em 4:5, o `object-position` do frame virou `50% 50%`.
 Para refazer com outro enquadramento, o original continua em `assets/hero-criancas-original.webp`.
 
-> **Ponto em aberto.** O briefing principal diz que *"fotos de crianças estão vetadas"* e pede
-> uma biblioteca de ícones/ilustrações no lugar de foto. A restrição existe para proteger as
-> crianças do clube — se esta imagem for banco de imagens ou gerada, ela não conflita com a
-> regra, mas vale registrar o aceite do cliente por escrito antes de publicar.
+> **Resolvido (resposta do cliente ao questionário).** O briefing diz que *"fotos de crianças
+> estão vetadas"*; o cliente esclareceu por escrito que a troca pedida foi só por causa do
+> rosário e que **crianças de banco de imagens podem ser usadas**. A restrição continua valendo
+> para crianças do clube — nenhuma foto de sócio pesquisador entra no site.
 
 ## Como rebaixar as mídias novamente
 
@@ -144,7 +144,44 @@ Qualquer imagem do Wix pode ser puxada em tamanho original por
 - Confirmação da paleta Prisma para a faixa do hero (já aplicada como padrão).
 - Aprovação do nome "Estação dos Por Ques" com a grafia separada.
 - Nova redação de títulos e textos anunciada pelo cliente em 10/09/2026 — o protótipo segue com a redação atual até chegar.
-- Newsletter de pais e professores: confirmar se entra o campo **Nome** (hoje o formulário coleta só tipo de inscrição, e-mail e gênero) e se as opções de gênero ficam como estão (Feminino / Masculino / Prefiro não informar).
-- Destino do consentimento LGPD e link da Política de Privacidade (hoje marcado como pendente na prévia).
+- **Política de Privacidade.** O cliente não respondeu se já tem uma, e o site atual não publica
+  nenhuma (`/politica-de-privacidade`, `/privacidade` e variações dão 404). Precisa ser redigida —
+  e, como o site coleta dados de crianças (LGPD art. 14), com revisão jurídica. O link do
+  formulário segue marcado como pendente na prévia.
+- **Autenticação do domínio para e-mail.** `clubecriacionista.com` não tem registro SPF nem DMARC
+  (verificado em 18/09/2026). Sem isso, a newsletter enviada como `newsletter@` tende a cair no spam.
+  Ver "Newsletter" abaixo.
+- **Nome obrigatório ou opcional.** O cliente respondeu "precisa ter"; a prévia trata como obrigatório.
+
+## Newsletter de pais, professores e coordenadores
+
+Decisões do questionário respondido pelo cliente:
+
+| Tema | Decisão | Na prévia |
+|---|---|---|
+| Campo Nome | entra | obrigatório; o sucesso cumprimenta pelo primeiro nome |
+| Gênero | Feminino / Masculino / Prefiro não informar | sem mudança |
+| Autorização de envio (LGPD) | mantida | sem mudança |
+| Cancelar inscrição | pedido do cliente | link no card abre o fluxo de cancelamento (ver abaixo) |
+| Seção ou página | seção na Home agora; página própria com o acervo completo na versão final | seção |
+| Destino das inscrições | cliente não usa ferramenta de e-mail marketing | ficam no site (Wix) |
+
+**Cancelamento.** Dois caminhos, ambos gravando `status = unsubscribed` (nunca apagar o registro,
+para provar que o pedido foi atendido):
+
+1. Link de um clique no rodapé de toda edição — o Wix Email Marketing inclui automaticamente.
+2. Formulário no site: a pessoa informa o e-mail e recebe um link de confirmação. A resposta na
+   tela é a mesma exista ou não o e-mail na lista, para não revelar quem é inscrito nem permitir
+   que alguém descadastre o endereço de outra pessoa.
+
+**`newsletter@clubecriacionista.com`.** Viável: o domínio já tem e-mail na Hostinger
+(MX `mx1.hostinger.com.br`), então basta criar a caixa no painel que o cliente já usa. O papel
+dela é ser **remetente e endereço de resposta** da newsletter e receber o aviso de cada nova
+inscrição — **não** ser o lugar onde a lista vive. Se as inscrições chegarem só como e-mails
+nessa caixa, alguém precisa copiar cada uma para uma planilha e processar cancelamentos à mão,
+o que é trabalhoso e arriscado diante da LGPD. A lista fica no site, e o envio sai pelo
+Wix Email Marketing (conferir se o limite mensal do plano cobre o volume esperado). Antes do
+primeiro envio: publicar SPF, DKIM e DMARC para o domínio, cobrindo Hostinger e Wix — os valores
+exatos vêm dos painéis de cada um.
 - Textos definitivos de FAQ, blocos de confiança e Estação — o protótipo usa redação baseada nas
   regras do briefing, para substituição pelo documento "Copy do Site" quando ele chegar.

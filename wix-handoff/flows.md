@@ -49,6 +49,25 @@ Sem receber `guardianMemberId` do frontend:
 3. Calcula total de transações confirmadas.
 4. Retorna recorrência, próxima cobrança, histórico, comprovantes e relatórios públicos.
 
+## `subscribeNewsletter(input)`
+
+Entrada: `name`, `email`, `subscriberType`, `subscriberTypeOther`, `gender`, `consent`.
+
+1. Valida todos os campos no backend (nome ≥ 2 caracteres, e-mail válido, `consent === true`).
+2. Normaliza o e-mail (minúsculas, sem espaços) e busca inscrição existente.
+3. Nova: cria com `status = pending`, `consentAt` do servidor e dispara o e-mail de confirmação.
+4. Existente e `unsubscribed`: reativa como `pending` e registra novo `consentAt`.
+5. Existente e ativa: não duplica; responde como sucesso.
+6. Notifica `newsletter@clubecriacionista.com` da nova inscrição.
+
+## `requestUnsubscribe(email)` e `confirmUnsubscribe(token)`
+
+1. `requestUnsubscribe` sempre responde igual, exista ou não o e-mail — não revela quem é inscrito.
+2. Se existir inscrição ativa, envia ao próprio endereço um link com token de uso único e validade curta.
+3. `confirmUnsubscribe` valida o token e grava `status = unsubscribed`, `unsubscribedAt` e
+   `unsubscribeSource = site_form`. Token já usado ou vencido: mensagem neutra, sem erro técnico.
+4. O link de um clique do rodapé das edições (Wix Email Marketing) grava `unsubscribeSource = email_link`.
+
 ## Pendências que precisam de decisão no Wix
 
 - Qual app/API processará doação pontual e recorrente.

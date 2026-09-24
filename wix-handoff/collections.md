@@ -151,6 +151,7 @@ Inscrições da newsletter de pais, professores e coordenadores (seção **Para 
 | Field ID | Tipo | Observação |
 |---|---|---|
 | `email` | Texto; único | Chave da inscrição |
+| `name` | Texto | Obrigatório; usado para cumprimentar nos e-mails |
 | `subscriberType` | Texto | parent, bible_teacher, bible_coordinator, school_teacher, school_coordinator, other |
 | `subscriberTypeOther` | Texto | Só quando `subscriberType = other` |
 | `gender` | Texto | female, male, undisclosed |
@@ -158,11 +159,14 @@ Inscrições da newsletter de pais, professores e coordenadores (seção **Para 
 | `consentAt` | Data/hora | Momento do aceite |
 | `source` | Texto | home_educators, ou a página de origem |
 | `status` | Texto | pending, confirmed, unsubscribed |
+| `unsubscribedAt` | Data/hora | Preenchido ao cancelar |
+| `unsubscribeSource` | Texto | email_link, site_form |
 | `createdAt` | Data/hora | |
 
-Permissão: escrita por qualquer visitante (formulário público), leitura somente admin.
+Permissão: somente backend/admin. O formulário público grava por web module (não direto na
+coleção), o que impede leitura ou alteração de inscrições alheias pelo navegador.
 Confirmação por duplo opt-in via Wix Automations; o cancelamento grava `status = unsubscribed`
-em vez de apagar o registro.
+em vez de apagar o registro. Fluxos em `flows.md`.
 
 ## DonationProfiles
 

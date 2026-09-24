@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Loja | Clube Criacionista de Ciências</title>
+<meta name="description" content="Livros, kits de experimento e materiais educativos. Compre com dinheiro ou resgate com os pontos do sócio pesquisador.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-hero="prisma">
+
+<!-- ============ BARRA DE PRÉVIA (remover na publicação) ============ -->
+<div class="pvbar">
+  <span><b>PRÉVIA</b> · Página Loja (nova)</span>
+  <span>·</span>
+  <span>Clube Criacionista de Ciências</span>
+  <span>·</span>
+  <a href="https://www.clubecriacionista.com/">ver site atual</a>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="home.html" aria-label="Clube Criacionista de Ciências — início">
+      <img class="brand__img" src="assets/logo.png" alt="Clube Criacionista de Ciências">
+    </a>
+
+    <nav class="nav" aria-label="Menu principal">
+    <a href="home.html">Home</a>
+    <a href="o-clube.html">O Clube</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="estudos.html">Estudos</a>
+    <a href="https://www.clubecriacionista.com/blog">Blog</a>
+    <a href="loja.html" class="is-active">Loja</a>
+    <a href="concurso.html">Concurso</a>
+    <a href="contato.html">Contato</a>
+    </nav>
+
+    <div class="hdr__cta">
+      <a class="link-login" href="#entrar" data-wip="Entrar / Cadastrar">Entrar</a>
+      <a class="btn btn--yellow btn--sm" href="doe.html">Doe</a>
+      <a class="btn btn--primary btn--sm" href="#cadastro" data-wip="Cadastro do sócio pesquisador">Inscrever meu filho</a>
+    </div>
+
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mnav"><span></span></button>
+  </div>
+
+  <nav class="mnav" id="mnav" aria-label="Menu principal (mobile)">
+    <a href="home.html">Home</a>
+    <a href="o-clube.html">O Clube</a>
+    <a href="como-funciona.html">Como funciona</a>
+    <a href="estudos.html">Estudos</a>
+    <a href="https://www.clubecriacionista.com/blog">Blog</a>
+    <a href="loja.html" class="is-active">Loja</a>
+    <a href="concurso.html">Concurso</a>
+    <a href="contato.html">Contato</a>
+    <a href="doe.html">Doe</a>
+    <a href="#entrar" data-wip="Entrar / Cadastrar">Entrar / Cadastrar</a>
+    <div class="mnav__cta">
+      <a class="btn btn--yellow btn--sm" href="doe.html">Doe</a>
+      <a class="btn btn--primary btn--sm" href="#cadastro" data-wip="Cadastro do sócio pesquisador">Inscrever meu filho</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ TOPO ============ -->
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href="home.html">Home</a> <span>›</span> Loja</p>
+    <h1>Loja do clube</h1>
+    <p class="lead">Livros, kits de experimento e materiais educativos. Qualquer pessoa compra com dinheiro; o sócio pesquisador também pode resgatar com os pontos que ganhou. O que entra aqui volta para o projeto.</p>
+  </div>
+</section>
+
+<!-- ============ VITRINE ============ -->
+<section class="section" id="vitrine">
+  <div class="wrap">
+    <div class="note" data-reveal>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <div><b>Produtos, fotos e preços são exemplos</b>, para mostrar como a vitrine se comporta. O catálogo real entra pelo painel do Wix. Use o botão abaixo para ver a loja como um sócio logado — é assim que os preços em pontos aparecem.</div>
+    </div>
+
+    <div class="filters" data-reveal>
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5" stroke-linecap="round"/></svg>
+        <input type="search" id="busca-loja" placeholder="Buscar produto" aria-label="Buscar produto">
+      </label>
+      <div class="chips" id="chips-loja" role="group" aria-label="Filtrar por categoria">
+        <button class="chip is-on" data-cat="todos">Todos</button>
+        <button class="chip" data-cat="livros">Livros</button>
+        <button class="chip" data-cat="materiais">Materiais educativos</button>
+        <button class="chip" data-cat="kits">Kits de experimento</button>
+        <button class="chip" data-cat="clube">Itens do clube</button>
+        <button class="chip" data-cat="socios">Exclusivos para sócios</button>
+        <button class="chip" data-cat="novidades">Novidades</button>
+      </div>
+    </div>
+
+    <div class="box box--soft" data-reveal style="display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:26px">
+      <div>
+        <b id="modo-txt">Você está vendo a loja como visitante.</b>
+        <p style="margin:4px 0 0;font-size:14px" id="modo-sub">Os preços aparecem em reais. Sócios logados veem também o valor em pontos e o botão de resgate.</p>
+      </div>
+      <button class="btn btn--ghost btn--sm" id="modo-btn" type="button">Ver como sócio logado <span class="btn__arrow">→</span></button>
+    </div>
+
+    <p class="acard__meta" id="contagem-loja" style="margin:0 0 18px" aria-live="polite"></p>
+
+    <div class="grid grid--3" id="lista-loja">
+      <article class="prod" data-cat="livros" data-pts="450" data-reveal>
+        <div class="prod__tags"><span class="prod__tag prod__tag--pts">Você pode adquirir com pontos</span></div>
+        <div class="prod__media">Foto do produto</div>
+        <div class="prod__body">
+          <h3>Livro · Guia do jovem pesquisador</h3>
+          <p>Como observar, anotar e apresentar uma descoberta. Escrito para a faixa de 9 a 13 anos.</p>
+          <div class="prod__price"><span class="prod__brl">R$ 49,90</span><span class="prod__pts pts-only" hidden>ou 450 pontos</span></div>
+          <div class="prod__btns">
+            <a class="btn btn--primary btn--sm" href="#comprar" data-wip="Carrinho e checkout">Comprar</a>
+            <a class="btn btn--ghost btn--sm pts-only" href="#resgatar" data-wip="Resgate por pontos" hidden>Resgatar com pontos</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="kits" data-pts="700" data-reveal>
+        <div class="prod__tags">
+          <span class="prod__tag prod__tag--novo">Novidade</span>
+          <span class="prod__tag prod__tag--pts">Você pode adquirir com pontos</span>
+        </div>
+        <div class="prod__media">Foto do produto</div>
+        <div class="prod__body">
+          <h3>Kit de experimentos · Água e densidade</h3>
+          <p>Material para cinco experimentos em casa, com roteiro impresso e orientação de segurança.</p>
+          <div class="prod__price"><span class="prod__brl">R$ 89,00</span><span class="prod__pts pts-only" hidden>ou 700 pontos</span></div>
+          <div class="prod__btns">
+            <a class="btn btn--primary btn--sm" href="#comprar" data-wip="Carrinho e checkout">Comprar</a>
+            <a class="btn btn--ghost btn--sm pts-only" href="#resgatar" data-wip="Resgate por pontos" hidden>Resgatar com pontos</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="socios" data-pts="1200" data-reveal>
+        <div class="prod__tags"><span class="prod__tag prod__tag--socio">Exclusivo para sócios</span></div>
+        <div class="prod__media">Foto do produto</div>
+        <div class="prod__body">
+          <h3>Jaleco do sócio pesquisador</h3>
+          <p>Jaleco infantil com o emblema do clube. Só sai por pontos — não está à venda.</p>
+          <div class="prod__price"><span class="prod__brl">1.200 pontos</span></div>
+          <div class="prod__btns">
+            <a class="btn btn--primary btn--sm pts-only" href="#resgatar" data-wip="Resgate por pontos" hidden>Resgatar com pontos</a>
+            <span class="prod__off visitante-only">Entre como sócio pesquisador para resgatar.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="materiais" data-pts="300" data-reveal>
+        <div class="prod__tags"><span class="prod__tag prod__tag--pts">Você pode adquirir com pontos</span></div>
+        <div class="prod__media">Foto do produto</div>
+        <div class="prod__body">
+          <h3>Caderno de campo</h3>
+          <p>Caderno pautado com páginas de registro: o que observei, o que achei estranho, o que descobri.</p>
+          <div class="prod__price"><span class="prod__brl">R$ 34,90</span><span class="prod__pts pts-only" hidden>ou 300 pontos</span></div>
+          <div class="prod__btns">
+            <a class="btn btn--primary btn--sm" href="#comprar" data-wip="Carrinho e checkout">Comprar</a>
+            <a class="btn btn--ghost btn--sm pts-only" href="#resgatar" data-wip="Resgate por pontos" hidden>Resgatar com pontos</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="clube" data-pts="2500" data-reveal>
+        <div class="prod__tags"><span class="prod__tag prod__tag--ultimas">Últimas unidades</span></div>
+        <div class="prod__media">Foto do produto</div>
+        <div class="prod__body">
+          <h3>Microscópio infantil</h3>
+          <p>Microscópio de iniciação com lâminas prontas. O prêmio mais pedido de quem junta pontos.</p>
+          <div class="prod__price"><span class="prod__brl">R$ 289,00</span><span class="prod__pts pts-only" hidden>ou 2.500 pontos</span></div>
+          <div class="prod__btns">
+            <a class="btn btn--primary btn--sm" href="#comprar" data-wip="Carrinho e checkout">Comprar</a>
+            <span class="prod__off pts-only" hidden>Faltam 1.720 pontos para resgatar este item.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="prod" data-cat="livros" data-pts="380" data-reveal>
+        <div class="prod__tags"><span class="prod__tag prod__tag--pts">Você pode adquirir com pontos</span></div>
+        <div class="prod__media">Foto do produto</div>
+        <div class="prod__body">
+          <h3>Livro · Por que o céu é azul?</h3>
+          <p>Vinte perguntas que toda criança faz, respondidas sem encurtar a explicação.</p>
+          <div class="prod__price"><span class="prod__brl">R$ 42,00</span><span class="prod__pts pts-only" hidden>ou 380 pontos</span></div>
+          <div class="prod__btns">
+            <a class="btn btn--primary btn--sm" href="#comprar" data-wip="Carrinho e checkout">Comprar</a>
+            <a class="btn btn--ghost btn--sm pts-only" href="#resgatar" data-wip="Resgate por pontos" hidden>Resgatar com pontos</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="empty" id="vazio-loja" hidden>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5" stroke-linecap="round"/></svg>
+      <h3>Nenhum produto com esses termos</h3>
+      <p>Tente outra palavra ou volte para “Todos” para ver o catálogo inteiro.</p>
+    </div>
+  </div>
+  <div class="wrap totop"><a href="#top">Voltar ao topo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a></div>
+</section>
+
+<!-- ============ COMO FUNCIONA A LOJA ============ -->
+<section class="section section--soft">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">Regras</span>
+      <h2 class="h2">Três formas de levar um produto</h2>
+      <p class="lead">Elas convivem no mesmo carrinho, mas aparecem separadas para ninguém se confundir.</p>
+    </div>
+
+    <div class="grid grid--3">
+      <div class="card" data-reveal>
+        <div class="card__body">
+          <h3 class="card__title">Compra em dinheiro</h3>
+          <p class="card__txt">Aberta a qualquer pessoa, com ou sem cadastro. Pagamento por Pix, cartão ou boleto.</p>
+        </div>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__body">
+          <h3 class="card__title">Resgate por pontos</h3>
+          <p class="card__txt">Só para sócios pesquisadores logados. Se faltarem pontos, o botão fica desativado e a tela diz quantos faltam.</p>
+        </div>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__body">
+          <h3 class="card__title">Doação avulsa</h3>
+          <p class="card__txt">No fim da compra você pode somar uma doação ao projeto, do valor que quiser. É opcional.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box" style="margin-top:28px" data-reveal>
+      <h3>O carrinho separa o que é compra e o que é resgate</h3>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Item</th><th>Forma</th><th>Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Livro · Guia do jovem pesquisador</td><td>Compra em dinheiro</td><td>R$ 49,90</td></tr>
+            <tr><td>Caderno de campo</td><td>Resgate por pontos</td><td>300 pontos</td></tr>
+            <tr><td>Doação ao projeto</td><td>Opcional no checkout</td><td>R$ 20,00</td></tr>
+            <tr><td><b>Total a pagar</b></td><td>Pix, cartão ou boleto</td><td><b>R$ 69,90 + 300 pontos</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--muted)">Exemplo de como o carrinho se apresenta. O saldo de pontos é sempre calculado no servidor, nunca no navegador.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <h2 class="h2">Ainda não é sócio pesquisador?</h2>
+      <p class="lead">Quem participa do clube junta pontos a cada descoberta aprovada — e troca por itens desta loja.</p>
+      <div class="cta__btns">
+        <a class="btn btn--yellow btn--lg" href="#cadastro" data-wip="Cadastro do sócio pesquisador">Inscrever meu filho <span class="btn__arrow">→</span></a>
+        <a class="btn btn--ghost btn--lg" href="como-funciona.html">Entender os pontos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ RODAPÉ ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div>
+        <span class="ftr__logo"><img src="assets/logo.png" alt="Clube Criacionista de Ciências"></span>
+        <p>Explorando as evidências da nossa origem superior. Informações e curiosidades sobre o mundo que nos cerca, analisadas com pensamento crítico a partir da cosmovisão bíblica.</p>
+        <div class="ftr__soc">
+          <a href="#youtube" data-wip="Canal no YouTube" aria-label="YouTube — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.9-.5-5.7a3 3 0 0 0-2.1-2.1C18.6 3.6 12 3.6 12 3.6s-6.6 0-8.4.6A3 3 0 0 0 1.5 6.3C1 8.1 1 12 1 12s0 3.9.5 5.7a3 3 0 0 0 2.1 2.1c1.8.6 8.4.6 8.4.6s6.6 0 8.4-.6a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12ZM9.8 15.4V8.6l5.9 3.4-5.9 3.4Z"/></svg></a>
+          <a href="#instagram" data-wip="Perfil no Instagram" aria-label="Instagram — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/clubecriacionista/" target="_blank" rel="noopener" aria-label="Facebook do Clube Criacionista"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7.2c0-.9.2-1.3 1.5-1.3H17V3h-2.7C11.3 3 10.2 4.5 10.2 7v2H8v3h2.2v9H14v-9h2.6l.4-3H14Z"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="o-clube.html">O Clube</a></li>
+          <li><a href="como-funciona.html">Como funciona</a></li>
+          <li><a href="loja.html">Loja</a></li>
+          <li><a href="doe.html">Doe</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Conteúdo</h4>
+        <ul>
+          <li><a href="https://www.clubecriacionista.com/blog">Blog</a></li>
+          <li><a href="https://www.clubecriacionista.com/blog/categories/momento-criacionista">Momento Criacionista</a></li>
+          <li><a href="https://www.clubecriacionista.com/blog/categories/not%C3%ADcias">Notícias</a></li>
+          <li><a href="estudos.html">Artigos e Estudos</a></li>
+          <li><a href="home.html#educadores">Pais e Professores</a></li>
+          <li><a href="home.html#videos">Vídeos</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="https://www.clubecriacionista.com/s-projects-side-by-side">Parcerias</a></li>
+          <li><a href="concurso.html">Concurso Criacionista</a></li>
+          <li><a href="#transparencia" data-wip="Relatório de transparência">Transparência</a></li>
+          <li><a href="#entrar" data-wip="Entrar / Cadastrar">Entrar / Cadastrar</a></li>
+        </ul>
+        <p style="margin-top:16px"><span class="pill">A DEFINIR</span><br><span style="font-size:13px">Canal principal de atendimento, horário e prazo de resposta.</span></p>
+      </div>
+    </div>
+
+    <div class="ftr__bot">
+      <span>© 2026 Clube Criacionista de Ciências. Todos os direitos reservados.</span>
+      <span>Prévia de reformulação · <a href="https://www.clubecriacionista.com/">clubecriacionista.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<a class="fabtop" id="fabtop" href="#top" aria-label="Voltar ao topo da página"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  'use strict';
+  var lista = document.getElementById('lista-loja');
+  if (!lista) return;
+
+  /* ---- Filtro por categoria + busca ---- */
+  var prods = Array.prototype.slice.call(lista.querySelectorAll('.prod'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('#chips-loja .chip'));
+  var busca = document.getElementById('busca-loja');
+  var vazio = document.getElementById('vazio-loja');
+  var contagem = document.getElementById('contagem-loja');
+  var cat = 'todos';
+
+  var norm = function(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+
+  var aplicar = function(){
+    var termo = norm(busca.value.trim());
+    var n = 0;
+    prods.forEach(function(p){
+      var okCat = cat === 'todos' || p.getAttribute('data-cat') === cat;
+      var okTermo = !termo || norm(p.textContent).indexOf(termo) > -1;
+      var mostra = okCat && okTermo;
+      p.hidden = !mostra;
+      if (mostra) n++;
+    });
+    vazio.hidden = n > 0;
+    lista.hidden = n === 0;
+    contagem.textContent = n === 0 ? '' : n + (n === 1 ? ' produto' : ' produtos');
+  };
+
+  chips.forEach(function(ch){
+    ch.addEventListener('click', function(){
+      cat = ch.getAttribute('data-cat');
+      chips.forEach(function(o){ o.classList.toggle('is-on', o === ch); });
+      aplicar();
+    });
+  });
+  busca.addEventListener('input', aplicar);
+  aplicar();
+
+  /* ---- Alterna entre a visão do visitante e a do sócio logado ----
+     Demonstra a regra do briefing: preço em pontos e botão de resgate
+     só existem para sócio autenticado; sem saldo, o resgate fica bloqueado. */
+  var btn = document.getElementById('modo-btn');
+  var txt = document.getElementById('modo-txt');
+  var sub = document.getElementById('modo-sub');
+  var socio = false;
+  var SALDO = 780;
+
+  btn.addEventListener('click', function(){
+    socio = !socio;
+    document.querySelectorAll('.pts-only').forEach(function(el){ el.hidden = !socio; });
+    document.querySelectorAll('.visitante-only').forEach(function(el){ el.hidden = socio; });
+
+    // sem saldo suficiente o botão de resgate fica desabilitado, com a razão à vista
+    prods.forEach(function(p){
+      var custo = parseInt(p.getAttribute('data-pts'), 10) || 0;
+      var resgate = p.querySelector('[data-wip="Resgate por pontos"]');
+      if (!resgate || !socio) return;
+      if (custo > SALDO){
+        resgate.classList.add('is-off');
+        resgate.setAttribute('aria-disabled', 'true');
+        resgate.textContent = 'Faltam ' + (custo - SALDO).toLocaleString('pt-BR') + ' pontos';
+      } else {
+        resgate.classList.remove('is-off');
+        resgate.removeAttribute('aria-disabled');
+        resgate.textContent = 'Resgatar com pontos';
+      }
+    });
+
+    btn.textContent = socio ? 'Ver como visitante' : 'Ver como sócio logado';
+    txt.textContent = socio
+      ? 'Você está vendo a loja como Faraday 07, com 780 pontos.'
+      : 'Você está vendo a loja como visitante.';
+    sub.textContent = socio
+      ? 'Agora cada produto mostra o valor em pontos. Onde o saldo não alcança, o resgate aparece bloqueado com o que falta.'
+      : 'Os preços aparecem em reais. Sócios logados veem também o valor em pontos e o botão de resgate.';
+  });
+})();
+
+</script>
+</body>
+</html>

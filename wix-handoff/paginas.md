@@ -1,0 +1,139 @@
+# Páginas do protótipo
+
+Estado em 23/09/2026. Cada arquivo HTML na raiz é uma página independente que usa
+`assets/site.css` e `assets/site.js`. Mudança de cor, fonte ou componente é feita **uma vez**
+no `site.css` e vale para todas.
+
+| Arquivo | Página | Status no briefing | URL sugerida no Wix |
+|---|---|---|---|
+| `home.html` | Home | OTIMIZAR | `/` |
+| `o-clube.html` | O Clube | OTIMIZAR (era Institucional) | `/institucional` (preservar a URL) |
+| `como-funciona.html` | Como funciona | NOVA (absorve Programa de Recompensas) | `/como-funciona` |
+| `estudos.html` | Artigos e Estudos Científicos | NOVA | `/estudos` |
+| `loja.html` | Loja | NOVA | `/loja` |
+| `doe.html` | Doe | NOVA | `/doe` |
+| `concurso.html` | Concurso Criacionista | OTIMIZAR (era Eventos) | `/concurso` |
+| `contato.html` | Contato | MANTER (copy atualizada) | `/contact-9` ou `/contato` |
+
+Ainda não construídas: cadastro e login (3 fluxos), área do sócio pesquisador,
+área do responsável e área do doador. São telas autenticadas e dependem das decisões
+listadas em `flows.md`.
+
+## Conteúdo real aplicado (23/09/2026)
+
+As páginas novas deixaram de ser só layout com texto de exemplo:
+
+- **estudos.html** — os três primeiros cards são os artigos reais do site atual, com título,
+  resumo, imagem, autoria (Eliézer C. Militão) e data do próprio cliente, e o botão abre o post
+  no site no ar. Os demais seguem marcados como EXEMPLO, para mostrar os temas ainda sem conteúdo.
+- **o-clube.html** — seção "O que o clube já publica", com mosaico de 6 posts reais.
+- **doe.html** — bloco "Sua doação mantém isto no ar", com 3 publicações reais.
+
+Todos os 20 links para o site atual foram verificados e respondem HTTP 200.
+
+**Loja:** as fotos de produto continuam como espaço reservado, de propósito. Usar imagem de post
+como foto de produto faria o cliente acreditar que aquele produto existe com aquela foto.
+
+**Doe:** nenhum depoimento fictício foi escrito. Depoimento inventado em página de doação é
+problema de confiança, não detalhe de layout.
+
+## Vídeos: os canais não são do cliente
+
+Os 8 vídeos da home são de terceiros, confirmado pelo oEmbed do YouTube:
+
+| Canal | Vídeos |
+|---|---|
+| Origens NT (@OrigensNT) | 5 |
+| Igreja Presbiteriana Alvorada (@ip.alvorada) | 2 |
+| Michelson Borges (@michelsonborges) | 1 |
+
+O protótipo credita o canal em cada card, o que o site atual não faz. Antes de publicar, vale
+confirmar com o cliente se existe autorização ou se a curadoria por embed é suficiente.
+
+**Redes sociais:** o rodapé apontava para as home pages genéricas do YouTube, Instagram e
+Facebook. Agora o Facebook aponta para [/clubecriacionista](https://www.facebook.com/clubecriacionista/),
+encontrado na busca e corroborado por um post do próprio cliente, que cita "o Clube Criacionista
+do Facebook". YouTube e Instagram ficaram marcados como perfil a confirmar — não há indício de
+que o clube tenha canal próprio.
+
+## Pasta dist/ para o Wix Headless
+
+`node scripts/build-dist.js` monta a pasta `dist/`, pronta para arrastar em wix.com/headless/drop:
+renomeia `home.html` para `index.html`, reescreve os links, copia só os arquivos usados e confere
+os limites do Wix. O passo a passo completo está em `headless.md`.
+
+## Redirecionamentos obrigatórios na publicação
+
+| De | Para | Motivo |
+|---|---|---|
+| `/recompensas` | `/como-funciona` | Briefing, seção 5. Mantém o SEO da página antiga. |
+| `/eventos` | `/concurso` | Briefing, seção 5. |
+
+`/institucional` deve continuar existindo com esse endereço, mesmo com o nome "O Clube" no menu.
+Todos os posts do blog precisam seguir acessíveis nas URLs atuais.
+
+## Descoberta sobre o site atual
+
+Verificado em 23/09/2026: as páginas internas do site no ar **não são públicas**.
+`/institucional` e `/recompensas` pedem senha ("Área de convidados"); `/eventos` e `/contact-9`
+exigem login de membro. Só a Home e o blog abrem para visitantes.
+
+Duas consequências:
+
+1. Não foi possível reaproveitar a redação que já existe nessas páginas. O texto do protótipo
+   foi escrito a partir do briefing e está marcado como provisório dentro de cada página.
+2. Essas URLs provavelmente não têm tráfego de busca hoje, já que o Google não consegue indexá-las.
+   Vale conferir no Search Console antes de decidir quanto esforço investir em preservá-las.
+
+## O que cada página espera do cliente
+
+**o-clube.html** — textos definitivos de missão, visão, propósito, objetivos e diferenciais;
+marcos reais da linha do tempo; nome, foto/ilustração e mini-bio do fundador; referência de
+estilo dos vídeos animados (há um espaço reservado por bloco).
+
+**como-funciona.html** — quantos pontos vale cada tipo de descoberta; prazo de análise dos
+envios; se os pontos vencem; se a criança terá login próprio ou entrará pela conta do responsável.
+
+**estudos.html** — a versão em PDF dos três artigos que já existem, mais os artigos ainda não
+escritos para os temas que estão só com card de exemplo. Filtros e busca já funcionam no protótipo.
+
+**loja.html** — catálogo real com fotos, preços e equivalência em pontos; regra de quem pode
+pedir o resgate (criança, responsável ou os dois); gateway de pagamento.
+
+**doe.html** — números de impacto verificados e depoimentos reais. Nenhum depoimento fictício foi
+colocado: texto inventado em página de doação é problema de confiança. Falta também definir o
+gateway com suporte a assinatura recorrente.
+
+**concurso.html** — tema, prazos, premiação e o PDF do regulamento. A página já mostra os dois
+estados previstos no briefing: sem concurso ativo e com concurso aberto.
+
+**contato.html** — canal principal (WhatsApp, e-mail ou formulário), horário de atendimento e
+prazo de resposta. Hoje os quatro assuntos estão com marcador "A DEFINIR".
+
+## Identidade visual aplicada
+
+Logo novo (23/09/2026) em `assets/logo.png` (horizontal, 1000×411) e `assets/logo-vertical.png`.
+O arquivo original do logo anterior ficou em `assets/logo-anterior.png`. As margens brancas foram
+recortadas e o fundo externo virou transparente, preservando o branco de dentro do balão; o peso
+caiu de 1,2 MB para 125 KB.
+
+Paleta oficial aplicada em todo o CSS, substituindo os valores aproximados anteriores:
+
+| Cor | Hex | Token |
+|---|---|---|
+| Azul institucional | `#323D90` | `--navy` |
+| Azul médio | `#0385D6` | `--blue` |
+| Ciano | `#00A7E0` | `--cyan` |
+| Amarelo | `#FFD900` | `--yellow` |
+| Vermelho | `#E30134` | `--red` |
+| Verde | `#7EBA46` | `--green` |
+| Roxo | `#6D3389` | `--purple` |
+
+A referência em imagem está em `assets/paleta-oficial.png`.
+
+## Como verificar depois de mexer
+
+Os scripts de verificação ficam no diretório temporário da sessão, mas o essencial é:
+abrir cada página em 320, 390, 768, 1024 e 1440px e confirmar que não há rolagem horizontal
+(`document.documentElement.scrollWidth` igual a `clientWidth`), que o console não acusa erro e
+que nenhuma imagem quebrou. As oito páginas passaram nessa verificação em 23/09/2026.
