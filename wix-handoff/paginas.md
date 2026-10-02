@@ -15,7 +15,7 @@ no `site.css` e vale para todas.
 | `concurso.html` | Concurso Criacionista | OTIMIZAR (era Eventos) | `/concurso` |
 | `contato.html` | Contato | MANTER (copy atualizada) | `/contact-9` ou `/contato` |
 
-Ainda não construídas: cadastro e login (3 fluxos), área do sócio pesquisador,
+Ainda não construídas: cadastro e login (3 fluxos), área do membro pesquisador,
 área do responsável e área do doador. São telas autenticadas e dependem das decisões
 listadas em `flows.md`.
 

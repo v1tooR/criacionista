@@ -124,7 +124,7 @@ Para refazer com outro enquadramento, o original continua em `assets/hero-crianc
 > **Resolvido (resposta do cliente ao questionário).** O briefing diz que *"fotos de crianças
 > estão vetadas"*; o cliente esclareceu por escrito que a troca pedida foi só por causa do
 > rosário e que **crianças de banco de imagens podem ser usadas**. A restrição continua valendo
-> para crianças do clube — nenhuma foto de sócio pesquisador entra no site.
+> para crianças do clube — nenhuma foto de membro pesquisador entra no site.
 
 ## Como rebaixar as mídias novamente
 
