@@ -1,0 +1,118 @@
+/* ============================================================
+   MODO "PISO WIX NATIVO"
+   Degrada a proposta completa para o que o Wix Studio entrega
+   só com elementos nativos — sem custom element e sem Velo.
+
+   Ativado por <body data-wix="nativo">. Sem o atributo, nada aqui
+   se aplica e a página fica na proposta completa.
+
+   Mantido como camada separada de propósito: uma página só, com
+   uma chave, em vez de uma segunda cópia de cada arquivo.
+   ============================================================ */
+
+/* 1 — Faixa do hero: cinco degradês radiais viram um linear.
+       Para chegar perto no Wix, exportar a faixa como imagem de fundo. */
+[data-wix="nativo"] .hero,
+[data-wix="nativo"] .phero{
+  background:linear-gradient(135deg,#EAF6FF 0%,#FFF8E2 52%,#F3EFFF 100%);
+}
+
+/* 2 — Animações contínuas saem: o editor não faz animação em loop. */
+[data-wix="nativo"] .hero__photo,
+[data-wix="nativo"] .hero__badge,
+[data-wix="nativo"] .orb,
+[data-wix="nativo"] .hero__ring{animation:none!important}
+[data-wix="nativo"] .hero__ring{opacity:.5}
+
+/* 6 — Sublinhado do título entra pronto, sem riscar sozinho. */
+[data-wix="nativo"] .hero h1 .accent::after{animation:none;transform:scaleX(1)}
+
+/* Entrada do hero também é preset, sem escalonar item a item. */
+[data-wix="nativo"] .hero [data-enter],
+[data-wix="nativo"] .hero__art{animation-delay:0ms!important}
+
+/* 10 — Reveal nativo: mesma duração para todos, sem atraso card a card. */
+[data-wix="nativo"] [data-reveal]{transition-duration:.6s!important;transition-delay:0ms!important}
+
+/* 7 — Tipografia por breakpoint: muda em degraus, não acompanha a largura. */
+[data-wix="nativo"] .hero h1{font-size:44px}
+[data-wix="nativo"] .h2{font-size:34px}
+[data-wix="nativo"] .lead{font-size:17px}
+[data-wix="nativo"] .hero__sub{font-size:18px}
+[data-wix="nativo"] .phero h1{font-size:42px}
+[data-wix="nativo"] .estacao__big{font-size:56px}
+[data-wix="nativo"] .doe h2{font-size:32px}
+[data-wix="nativo"] .cta h2{font-size:36px}
+[data-wix="nativo"] .ibloc__tx h3{font-size:25px}
+@media (max-width:940px){
+  [data-wix="nativo"] .hero h1{font-size:34px}
+  [data-wix="nativo"] .h2{font-size:27px}
+  [data-wix="nativo"] .phero h1{font-size:32px}
+  [data-wix="nativo"] .estacao__big{font-size:40px}
+  [data-wix="nativo"] .cta h2{font-size:27px}
+}
+@media (max-width:640px){
+  [data-wix="nativo"] .hero h1{font-size:29px}
+  [data-wix="nativo"] .h2{font-size:24px}
+  [data-wix="nativo"] .phero h1{font-size:27px}
+}
+
+/* 4 — Trilho vira Slider nativo: anda por página pelas setas,
+       sem arrastar livre e sem barra de rolagem. */
+[data-wix="nativo"] .rail{
+  overflow-x:hidden;scroll-snap-type:none;scrollbar-width:none;
+}
+[data-wix="nativo"] .rail::-webkit-scrollbar{display:none}
+
+/* 8 — Wix Forms: rótulo acima, campo em largura total, opções empilhadas
+       com marcador clássico, botão de largura natural. */
+[data-wix="nativo"] .radios{flex-direction:column;gap:8px}
+[data-wix="nativo"] .radio{
+  border:0;background:none;padding:4px 0;border-radius:0;font-weight:600;color:var(--body);
+}
+[data-wix="nativo"] .radio.is-on,
+[data-wix="nativo"] .radio:has(input:checked){background:none;color:var(--body)}
+[data-wix="nativo"] .nl select,
+[data-wix="nativo"] .nl input[type="text"],
+[data-wix="nativo"] .nl input[type="email"],
+[data-wix="nativo"] .form select,
+[data-wix="nativo"] .form input,
+[data-wix="nativo"] .form textarea{border-radius:0;border-width:1px}
+[data-wix="nativo"] .nl button[type="submit"]{width:auto;border-radius:4px}
+[data-wix="nativo"] .doe__val{border-radius:4px}
+[data-wix="nativo"] .chip,
+[data-wix="nativo"] .search{border-radius:4px}
+
+/* Cantos muito arredondados e sombras longas são possíveis no editor,
+   mas raramente sobrevivem à montagem manual: aproximação honesta. */
+[data-wix="nativo"] .card,
+[data-wix="nativo"] .acard,
+[data-wix="nativo"] .prod,
+[data-wix="nativo"] .box,
+[data-wix="nativo"] .vcard,
+[data-wix="nativo"] .path{border-radius:8px}
+[data-wix="nativo"] .cta,
+[data-wix="nativo"] .doe{border-radius:10px}
+
+/* Barra da prévia: a chave de modo e o painel de diferenças */
+.wixbar{
+  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  background:#101733;color:#fff;padding:9px 16px;font-size:12.6px;font-weight:600;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.wixbar__set{display:inline-flex;gap:4px;padding:3px;background:rgba(255,255,255,.1);border-radius:999px}
+.wixbar__set button{
+  border:0;background:none;color:rgba(255,255,255,.72);cursor:pointer;
+  font:inherit;font-weight:700;padding:5px 13px;border-radius:999px;transition:.2s var(--ease);
+}
+.wixbar__set button:hover{color:#fff}
+.wixbar__set button.is-on{background:#fff;color:#101733}
+.wixbar__lbl{color:rgba(255,255,255,.62)}
+
+.wixnote{background:#FFFBEB;border-bottom:1px solid #F0DFA6;color:#6B5310;font-size:13.4px}
+.wixnote__in{max-width:var(--maxw);margin:0 auto;padding:14px 24px}
+.wixnote summary{cursor:pointer;font-weight:700;color:#4A3806}
+.wixnote ol{margin:12px 0 0;padding-left:22px;line-height:1.6}
+.wixnote li{margin-bottom:7px}
+.wixnote li b{color:#4A3806}
+body:not([data-wix="nativo"]) .wixnote{display:none}

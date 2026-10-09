@@ -13,12 +13,25 @@
 const { spawn } = require('child_process');
 const fs = require('fs'), path = require('path'), os = require('os');
 
-const ROOT = path.resolve(process.argv[2] || path.join(__dirname, '..'));
+/*
+ * Aceita uma pasta (abre por file://) ou uma URL base (abre por http://).
+ * A build do Astro usa caminhos absolutos — /assets, /o-clube —, que só
+ * resolvem servidos por HTTP; por isso o segundo modo existe.
+ *   node scripts/check.js                      -> protótipo na raiz
+ *   node scripts/check.js dist                 -> pacote do drop
+ *   node scripts/check.js http://localhost:4321 site/dist
+ */
+const ALVO = process.argv[2] || path.join(__dirname, '..');
+const VIA_HTTP = /^https?:\/\//.test(ALVO);
+const BASE = VIA_HTTP ? ALVO.replace(/\/$/, '') : null;
+const ROOT = path.resolve(VIA_HTTP ? (process.argv[3] || path.join(__dirname, '../site/dist')) : ALVO);
+
 const WIDTHS = [320, 390, 768, 1024, 1440];
 const PAGES = ['home.html', 'o-clube.html', 'como-funciona.html', 'estudos.html',
                'loja.html', 'doe.html', 'concurso.html', 'contato.html']
   .map((p) => (p === 'home.html' && !fs.existsSync(path.join(ROOT, 'home.html')) ? 'index.html' : p))
   .filter((p) => fs.existsSync(path.join(ROOT, p)));
+const urlDe = (page) => (VIA_HTTP ? BASE + '/' + page : 'file:///' + path.join(ROOT, page).replace(/\\/g, '/'));
 
 const chrome = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -77,17 +90,44 @@ function connect(u) {
       await cdp.send('Emulation.setDeviceMetricsOverride', { width: w, height: 900, deviceScaleFactor: 1, mobile: w < 768 });
       cdp.clearErrs();
       const loaded = cdp.once('Page.loadEventFired');
-      await cdp.send('Page.navigate', { url: 'file:///' + path.join(ROOT, page).replace(/\\/g, '/') });
-      await loaded; await sleep(w === WIDTHS[0] ? 1400 : 700);
-      const ev = async (e) => (await cdp.send('Runtime.evaluate', { expression: e, returnByValue: true })).result.value;
+      await cdp.send('Page.navigate', { url: urlDe(page) });
+      await loaded;
+      const ev = async (e) => (await cdp.send('Runtime.evaluate', { expression: e, returnByValue: true, awaitPromise: true })).result.value;
+
+      /* Espera a página assentar de verdade em vez de dormir um tempo fixo.
+         Sobre HTTP a espera fixa media antes das fontes e das imagens, e isso
+         produzia estouro e "imagem quebrada" que não existiam. */
+      await ev(`new Promise(function(r){
+        var pronto = function(){
+          Promise.all([
+            document.fonts ? document.fonts.ready : Promise.resolve(),
+            Promise.all(Array.from(document.images)
+              .filter(function(i){ return i.getAttribute('loading') !== 'lazy'; })
+              .map(function(i){ return i.complete ? null : new Promise(function(ok){ i.addEventListener('load', ok); i.addEventListener('error', ok); }); }))
+          ]).then(function(){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ setTimeout(r, 250); }); }); });
+        };
+        if (document.readyState === 'complete') pronto(); else window.addEventListener('load', pronto);
+      })`);
       await ev("document.querySelectorAll('[data-reveal]').forEach(function(e){e.classList.add('is-in')}); true");
+      await sleep(120);
 
       const m = JSON.parse(await ev("JSON.stringify({sw:document.documentElement.scrollWidth,cw:document.documentElement.clientWidth})"));
       checks++;
       if (m.sw > m.cw) { problemas.push(w + 'px ESTOURO(' + m.sw + ')'); fails++; }
 
       if (w === 1440) {
-        const quebradas = await ev("Array.from(document.images).filter(function(i){return i.complete && i.naturalWidth===0}).map(function(i){return i.getAttribute('src')}).join(', ')");
+        /* Força as imagens lazy a carregar e espera todas, para que a conferência
+           cubra o catálogo inteiro — e não só o que está na primeira dobra. */
+        await ev(`new Promise(function(r){
+          var imgs = Array.from(document.images);
+          imgs.forEach(function(i){ i.loading = 'eager'; });
+          Promise.all(imgs.map(function(i){
+            return i.complete ? null : new Promise(function(ok){
+              i.addEventListener('load', ok); i.addEventListener('error', ok); setTimeout(ok, 8000);
+            });
+          })).then(function(){ setTimeout(r, 150); });
+        })`);
+        const quebradas = await ev("Array.from(document.images).filter(function(i){return i.complete && i.naturalWidth === 0}).map(function(i){return i.getAttribute('src')}).join(', ')");
         checks++;
         if (quebradas) { problemas.push('IMG QUEBRADA: ' + quebradas); fails++; }
 
@@ -99,7 +139,8 @@ function connect(u) {
         checks++;
         if (errs.length) { problemas.push('JS: ' + errs.join(' | ').slice(0, 160)); fails++; }
 
-        const hrefs = await ev("Array.from(document.querySelectorAll('a[href]')).map(function(a){return a.getAttribute('href')}).filter(function(h){return /\\.html($|#)/.test(h)}).join('\\n')");
+        // aceita tanto "o-clube.html" (protótipo) quanto "/o-clube" (rotas do Astro)
+        const hrefs = await ev("Array.from(document.querySelectorAll('a[href]')).map(function(a){return a.getAttribute('href')}).filter(function(h){return !/^(https?:|#|mailto:)/.test(h) && /^\\/?[a-z0-9-]+(\\.html)?($|#)/.test(h)}).join('\\n')");
         hrefs.split('\n').filter(Boolean).forEach((h) => links.add(h.split('#')[0]));
       }
     }
@@ -109,7 +150,9 @@ function connect(u) {
   console.log('\n--- links internos ---');
   for (const l of [...links].sort()) {
     checks++;
-    if (!fs.existsSync(path.join(ROOT, l))) { console.log('FALHA destino inexistente: ' + l); fails++; }
+    const limpo = l.replace(/^\//, '');
+    const alvo = limpo === '' ? 'index.html' : (/\.html$/.test(limpo) ? limpo : limpo + '.html');
+    if (!fs.existsSync(path.join(ROOT, alvo))) { console.log('FALHA destino inexistente: ' + l + ' (-> ' + alvo + ')'); fails++; }
     else console.log('ok    ' + l);
   }
 

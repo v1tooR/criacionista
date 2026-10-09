@@ -176,11 +176,16 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){ toast.classList.remove('is-on'); }, 4600);
   };
+  // a barra de prévia só existe na versão interna; sem ela, quem clica é o
+  // visitante, e "entra na implementação do Wix" não é recado para ele
+  var previaInterna = !!document.querySelector('.pvbar');
   document.addEventListener('click', function(e){
     var el = e.target.closest && e.target.closest('[data-wip]');
     if (!el) return;
     e.preventDefault();
-    showToast(el.getAttribute('data-wip') + ' ainda não está funcional nesta prévia. Entra na implementação do Wix.');
+    showToast(previaInterna
+      ? el.getAttribute('data-wip') + ' ainda não está funcional nesta prévia. Entra na implementação do Wix.'
+      : 'Estamos finalizando esta área. Em breve ela entra no ar.');
   });
 
   /* ---- Chave: proposta completa x piso Wix nativo ---- */

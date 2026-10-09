@@ -1,0 +1,206 @@
+---
+/**
+ * Casca comum a todas as páginas: head, barra de prévia, chave de modo Wix,
+ * cabeçalho, rodapé e os scripts compartilhados.
+ *
+ * O markup veio do protótipo sem alteração. A única diferença é que o item
+ * ativo do menu passou a ser calculado a partir da rota, em vez de escrito à mão.
+ */
+import { MOSTRAR_ANDAIMES } from '../andaimes';
+
+interface Props {
+  title: string;
+  desc: string;
+  pvbar: string;
+  rota: string;
+}
+const { title, desc, pvbar, rota } = Astro.props;
+
+/**
+ * Endereço público, usado para montar as URLs absolutas que o WhatsApp e o
+ * Facebook exigem nas metatags de compartilhamento. Troca no dia em que este
+ * projeto virar o site definitivo.
+ */
+const SITE = 'https://instant-fernowjrmjwg-vtorsilvasantos-140f.wix-site-host.com';
+// a home é servida na raiz: apontar o canônico para /index.html criaria um
+// segundo endereço para a mesma página, que é exatamente o que o canônico evita
+const urlDaPagina = SITE + Astro.url.pathname.replace(/index\.html$/, '');
+
+const ALT_OG = 'Clube Criacionista de Ciências — duas crianças lendo juntas, com o texto '
+             + '"Ciência, descobertas e fé em um só lugar".';
+
+const MENU = [
+  { href: '/',              rota: 'index',         label: 'Home' },
+  { href: '/o-clube',       rota: 'o-clube',       label: 'O Clube' },
+  { href: '/como-funciona', rota: 'como-funciona', label: 'Como funciona' },
+  { href: '/estudos',       rota: 'estudos',       label: 'Artigos' },
+  { href: 'https://www.clubecriacionista.com/blog', rota: 'blog', label: 'Blog' },
+  { href: '/loja',          rota: 'loja',          label: 'Loja' },
+  { href: '/concurso',      rota: 'concurso',      label: 'Concurso' },
+  { href: '/contato',       rota: 'contato',       label: 'Contato' },
+];
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>{title}</title>
+<meta name="description" content={desc} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Clube Criacionista de Ciências" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={desc} />
+<meta property="og:url" content={urlDaPagina} />
+<meta property="og:image" content={SITE + '/assets/og.jpg'} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={ALT_OG} />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href={urlDaPagina} />
+
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png" />
+<link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/site.css" />
+<link rel="stylesheet" href="/assets/wix-nativo.css" />
+</head>
+<body data-hero="prisma">
+<script is:inline>/* aplica o modo salvo antes de pintar, para não piscar */try{if(localStorage.getItem('ccc-modo')==='nativo')document.body.setAttribute('data-wix','nativo');}catch(e){}</script>
+
+{MOSTRAR_ANDAIMES && (
+<>
+<!-- ============ BARRA DE PRÉVIA (só na prévia interna) ============ -->
+<div class="pvbar" set:html={pvbar}></div>
+<!-- ============ CHAVE DE MODO (remover na publicação) ============ -->
+<div class="wixbar">
+  <span class="wixbar__lbl">Ver esta página como:</span>
+  <span class="wixbar__set" id="wixset" role="group" aria-label="Modo de visualização">
+    <button type="button" data-modo="completo">Proposta completa</button>
+    <button type="button" data-modo="nativo">Piso Wix nativo</button>
+  </span>
+</div>
+<div class="wixnote">
+  <div class="wixnote__in">
+    <details>
+      <summary>Piso garantido: só elementos nativos do Wix Studio, sem custom element e sem Velo. Veja as 10 diferenças em relação à proposta completa.</summary>
+      <ol>
+        <li><b>Faixa do hero.</b> Cinco degradês radiais sobrepostos viram um degradê linear. Para chegar perto, exportar a faixa como imagem de fundo.</li>
+        <li><b>Animações contínuas.</b> Foto flutuando, orbes pulsando e o anel tracejado saem — o editor não faz animação em loop.</li>
+        <li><b>Contadores.</b> Os números entram prontos. Contar de 0 até o valor exige Velo.</li>
+        <li><b>Trilhos horizontais.</b> Viram Slider nativo: anda de página em página pelas setas, sem arrastar livre nem barra de rolagem.</li>
+        <li><b>Vídeos.</b> O embed do YouTube carrega junto com a página, com o botão da própria plataforma. Segurar o carregamento até o clique exige custom element.</li>
+        <li><b>Sublinhado do título.</b> Entra já desenhado, em vez de riscar sozinho depois da abertura.</li>
+        <li><b>Tipografia.</b> O tamanho é definido por breakpoint, então muda em degraus em vez de acompanhar a largura da janela.</li>
+        <li><b>Formulário.</b> Wix Forms: rótulo acima, campo em largura total, opções empilhadas com marcador clássico e botão de largura natural.</li>
+        <li><b>Cantos e sombras.</b> Raios muito arredondados e sombras longas ficam mais discretos, como costumam sair da montagem manual.</li>
+        <li><b>Entrada ao rolar.</b> O reveal é nativo, mas com presets: mesma duração para todos, sem atraso fino card a card.</li>
+      </ol>
+    </details>
+  </div>
+</div>
+</>
+)}
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="/" aria-label="Clube Criacionista de Ciências — início">
+      <img class="brand__img" src="/assets/logo.png" alt="Clube Criacionista de Ciências" />
+    </a>
+
+    <nav class="nav" aria-label="Menu principal">
+      {MENU.map((m) => <a href={m.href} class={m.rota === rota ? 'is-active' : undefined}>{m.label}</a>)}
+    </nav>
+
+    <div class="hdr__cta">
+      <a class="link-login" href="#entrar" data-wip="Entrar / Cadastrar">Entrar</a>
+      <a class="btn btn--yellow btn--sm" href="/doe">Doe</a>
+      <a class="btn btn--primary btn--sm" href="#cadastro" data-wip="Cadastro do membro pesquisador">Inscrever meu filho</a>
+    </div>
+
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mnav"><span></span></button>
+  </div>
+
+  <nav class="mnav" id="mnav" aria-label="Menu principal (mobile)">
+    {MENU.map((m) => <a href={m.href} class={m.rota === rota ? 'is-active' : undefined}>{m.label}</a>)}
+    <a href="/doe">Doe</a>
+    <a href="#entrar" data-wip="Entrar / Cadastrar">Entrar / Cadastrar</a>
+    <div class="mnav__cta">
+      <a class="btn btn--yellow btn--sm" href="/doe">Doe</a>
+      <a class="btn btn--primary btn--sm" href="#cadastro" data-wip="Cadastro do membro pesquisador">Inscrever meu filho</a>
+    </div>
+  </nav>
+</header>
+
+<slot />
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div>
+        <span class="ftr__logo"><img src="/assets/logo.png" alt="Clube Criacionista de Ciências"></span>
+        <p>Explorando as evidências da nossa origem superior. Informações e curiosidades sobre o mundo que nos cerca, analisadas com pensamento crítico a partir da cosmovisão bíblica.</p>
+        <div class="ftr__soc">
+          <a href="#youtube" data-wip="Canal no YouTube" aria-label="YouTube — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.9-.5-5.7a3 3 0 0 0-2.1-2.1C18.6 3.6 12 3.6 12 3.6s-6.6 0-8.4.6A3 3 0 0 0 1.5 6.3C1 8.1 1 12 1 12s0 3.9.5 5.7a3 3 0 0 0 2.1 2.1c1.8.6 8.4.6 8.4.6s6.6 0 8.4-.6a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12ZM9.8 15.4V8.6l5.9 3.4-5.9 3.4Z"/></svg></a>
+          <a href="#instagram" data-wip="Perfil no Instagram" aria-label="Instagram — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/clubecriacionista/" target="_blank" rel="noopener" aria-label="Facebook do Clube Criacionista"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7.2c0-.9.2-1.3 1.5-1.3H17V3h-2.7C11.3 3 10.2 4.5 10.2 7v2H8v3h2.2v9H14v-9h2.6l.4-3H14Z"/></svg></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/o-clube">O Clube</a></li>
+          <li><a href="/como-funciona">Como funciona</a></li>
+          <li><a href="/loja">Loja</a></li>
+          <li><a href="/doe">Doe</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Conteúdo</h4>
+        <ul>
+          <li><a href="https://www.clubecriacionista.com/blog">Blog</a></li>
+          <li><a href="https://www.clubecriacionista.com/blog/categories/momento-criacionista">Momento Criacionista</a></li>
+          <li><a href="https://www.clubecriacionista.com/blog/categories/not%C3%ADcias">Notícias</a></li>
+          <li><a href="/estudos">Artigos científicos</a></li>
+          <li><a href="/#educadores">Pais e Professores</a></li>
+          <li><a href="/#videos">Vídeos</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="/contato">Contato</a></li>
+          <li><a href="https://www.clubecriacionista.com/s-projects-side-by-side">Parcerias</a></li>
+          <li><a href="/concurso">Concurso Criacionista</a></li>
+          <li><a href="#transparencia" data-wip="Relatório de transparência">Transparência</a></li>
+          <li><a href="#entrar" data-wip="Entrar / Cadastrar">Entrar / Cadastrar</a></li>
+        </ul>
+        <p style="margin-top:16px"><span class="pill">A DEFINIR</span><br><span style="font-size:13px">Canal principal de atendimento, horário e prazo de resposta.</span></p>
+      </div>
+    </div>
+
+    <div class="ftr__bot">
+      <span>© 2026 Clube Criacionista de Ciências. Todos os direitos reservados.</span>
+      <span>Prévia de reformulação · <a href="https://www.clubecriacionista.com/">clubecriacionista.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<a class="fabtop" id="fabtop" href="#top" aria-label="Voltar ao topo da página"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script is:inline src="/assets/site.js"></script>
+<slot name="script" />
+</body>
+</html>

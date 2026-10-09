@@ -102,7 +102,11 @@ function connect(url) {
       width, height, deviceScaleFactor: 1, mobile: width < 768,
     });
 
-    const url = 'file:///' + path.resolve(file).replace(/\\/g, '/');
+    // aceita caminho de arquivo ou URL — a build do Astro usa caminhos
+    // absolutos e só renderiza corretamente servida por HTTP
+    const url = /^https?:\/\//.test(file)
+      ? file
+      : 'file:///' + path.resolve(file).replace(/\\/g, '/');
     const loaded = cdp.once('Page.loadEventFired');
     await cdp.send('Page.navigate', { url });
     await loaded;

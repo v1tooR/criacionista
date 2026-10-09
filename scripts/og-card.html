@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+  Fonte do cartão de compartilhamento (Open Graph), 1200x630.
+  Não é uma página do site: existe só para ser fotografada.
+
+    node scripts/shot.js scripts/og-card.html 1200 630 assets/og.png
+    node scripts/img.js assets/og.png assets/og.jpg 1200
+
+  Refazer sempre que a logo ou a foto do hero mudarem.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:opsz,wght@6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#323D90; --blue:#0385D6; --cyan:#00A7E0;
+    --yellow:#FFD900; --green:#7EBA46;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{
+    display:flex;
+    font-family:'Nunito Sans',system-ui,sans-serif;
+    background:var(--navy);
+  }
+
+  /* lado do texto */
+  .txt{
+    width:672px;flex:none;
+    padding:62px 56px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    background:
+      radial-gradient(760px 520px at -8% 8%, rgba(0,167,224,.42), transparent 62%),
+      linear-gradient(152deg, #3B47A6 0%, var(--navy) 52%, #26307A 100%);
+    position:relative;
+  }
+  /* faixa da paleta oficial, à esquerda */
+  .faixa{position:absolute;left:0;top:0;bottom:0;width:11px;display:flex;flex-direction:column}
+  .faixa i{flex:1}
+
+  /* "Criacionista" é azul-marinho e sumiria sobre o fundo escuro. A placa
+     branca é a mesma solução que o cabeçalho do site já usa. */
+  .placa{
+    align-self:flex-start;
+    background:#fff;border-radius:22px;
+    padding:17px 26px;
+    box-shadow:0 10px 30px rgba(0,0,0,.22);
+  }
+  .placa img{height:72px;width:auto;display:block}
+
+  h1{
+    font-family:'Baloo 2',system-ui,sans-serif;
+    font-weight:800;font-size:60px;line-height:1.04;color:#fff;
+    letter-spacing:-.015em;
+    text-shadow:0 3px 20px rgba(0,0,0,.26);
+  }
+  h1 em{font-style:normal;color:var(--yellow)}
+  p{margin-top:18px;font-size:25px;line-height:1.38;font-weight:600;color:rgba(255,255,255,.9)}
+
+  .pe{display:flex;align-items:center;gap:13px}
+  .pe b{
+    font-family:'Baloo 2',system-ui,sans-serif;font-weight:700;
+    font-size:21px;color:var(--navy);background:var(--yellow);
+    padding:9px 19px;border-radius:999px;
+  }
+  .pe span{font-size:20px;font-weight:700;color:rgba(255,255,255,.72)}
+
+  /* lado da foto */
+  .foto{position:relative;flex:1;overflow:hidden}
+  .foto img{width:100%;height:100%;object-fit:cover;object-position:52% 32%}
+  /* emenda suave entre os dois lados, sem linha dura */
+  .foto::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg, var(--navy) 0%, rgba(50,61,144,.55) 16%, transparent 44%);
+  }
+</style>
+</head>
+<body>
+  <div class="txt">
+    <span class="faixa">
+      <i style="background:var(--cyan)"></i>
+      <i style="background:var(--green)"></i>
+      <i style="background:var(--yellow)"></i>
+      <i style="background:var(--blue)"></i>
+    </span>
+
+    <span class="placa"><img src="../assets/logo.png" alt=""></span>
+
+    <h1>Ciência, descobertas<br>e fé em <em>um só lugar</em></h1>
+
+    <div>
+      <p>Um clube para crianças de 9 a 13 anos que investigam o mundo com pensamento crítico.</p>
+      <div class="pe" style="margin-top:26px">
+        <b>clubecriacionista.com</b>
+        <span>Membro pesquisador</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="foto"><img src="../assets/hero-criancas.webp" alt=""></div>
+</body>
+</html>
