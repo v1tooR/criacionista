@@ -1,0 +1,61 @@
+---
+/**
+ * Página de erro.
+ *
+ * Não é gerada pelo portador — não existe no protótipo, foi escrita aqui.
+ *
+ * Ela importa por causa da virada. Hoje quem serve clubecriacionista.com é o
+ * site do cliente, com os endereços dele. Depois que o nosso frontend assumir
+ * o domínio, tudo que não estiver no mapa de REDIRECTS cai aqui: link antigo
+ * compartilhado no WhatsApp, endereço salvo por um pai, resultado velho do
+ * Google. Essas pessoas chegaram querendo algo específico, e o mínimo é não
+ * devolver a elas uma tela de erro cru do servidor.
+ *
+ * `naoIndexar` é explícito porque o acerto não pode depender do host: servida
+ * com status 404 ela já ficaria fora do índice, mas em build estática o
+ * arquivo também responde em /404.html, com status 200.
+ */
+import Base from '../layouts/Base.astro';
+import { caminho } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
+---
+<Base
+  title={"Página não encontrada | Clube Criacionista de Ciências"}
+  desc={"O endereço que você procurou não existe mais ou mudou. Veja por onde continuar."}
+  pvbar={"<span><b>PRÉVIA</b> · Página de erro</span> <span>·</span> <span>Clube Criacionista de Ciências</span>"}
+  rota={"404"}
+  naoIndexar={true}
+>
+
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Página não encontrada</p>
+    <h1>Esta página não está aqui</h1>
+    <p class="lead">O endereço pode ter mudado quando renovamos o site, ou o link que te trouxe pode estar incompleto. Nada se perdeu — é só pegar um dos caminhos abaixo.</p>
+  </div>
+</section>
+
+<section class="section" id="caminhos">
+  <div class="wrap">
+    <h2 class="h2">Por onde continuar</h2>
+    <p class="lead" style="margin-bottom:22px">As quatro páginas mais procuradas.</p>
+
+    <p>
+      <a class="btn btn--primary" href={caminho("index")}>Ir para a home <span class="btn__arrow">→</span></a>
+      <a class="btn btn--ghost" href={caminho("estudos")}>Artigos e estudos</a>
+      <a class="btn btn--ghost" href={caminho("como-funciona")}>Como funciona o clube</a>
+      <a class="btn btn--ghost" href={caminho("contato")}>Falar com a gente</a>
+    </p>
+
+    <div class="note" style="margin-top:26px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <div><b>Procurava um artigo?</b> Os endereços dos artigos não mudaram — continuam em <code>/post/</code> seguido do nome. Se o seu link quebrou, a lista completa está em <a href={caminho("estudos")}>Artigos e Contribuições Científicas</a>.</div>
+    </div>
+  </div>
+</section>
+
+</Base>

@@ -1,0 +1,36 @@
+{
+  "forms": [
+    {
+      "name": "Contato do site",
+      "submitText": "Enviar mensagem",
+      "thankYou": "Mensagem enviada. Obrigado! Vamos responder no e-mail que você informou.",
+      "requiredIndicator": "ASTERISK",
+      "fields": [
+        { "label": "Assunto", "kind": "select", "required": true, "placeholder": "Selecione uma opção",
+          "choices": ["Dúvida sobre a inscrição", "Sou professor ou coordenador", "Doações e comprovantes", "Concurso Criacionista", "Parceria", "Imprensa", "Outro assunto"] },
+        { "label": "Nome", "kind": "firstName", "required": true, "placeholder": "Seu nome" },
+        { "label": "E-mail", "kind": "email", "required": true, "placeholder": "voce@exemplo.com" },
+        { "label": "Mensagem", "kind": "textarea", "required": true, "placeholder": "Conte o que você precisa" },
+        { "label": "Autorizo o uso dos meus dados para responder esta mensagem.", "kind": "checkbox", "required": true }
+      ]
+    },
+    {
+      "name": "Newsletter para educadores",
+      "submitText": "Quero receber",
+      "thankYou": "Inscrição registrada. Obrigado! Os próximos artigos, experimentos e roteiros chegam no e-mail que você informou, e todo e-mail traz o link para cancelar quando quiser.",
+      "requiredIndicator": "ASTERISK",
+      "fields": [
+        { "label": "Tipo de inscrição", "kind": "select", "required": true, "placeholder": "Selecione uma opção",
+          "choices": ["Pai ou mãe", "Professor de classes bíblicas", "Coordenador de classes bíblicas", "Professor escolar", "Coordenador escolar", "Outro"] },
+        { "label": "Qual é a sua função?", "kind": "text", "hidden": true, "placeholder": "Descreva em poucas palavras" },
+        { "label": "Nome", "kind": "firstName", "required": true, "placeholder": "Seu nome" },
+        { "label": "E-mail", "kind": "email", "required": true, "placeholder": "voce@exemplo.com" },
+        { "label": "Gênero", "kind": "radio", "required": true, "choices": ["Feminino", "Masculino", "Prefiro não informar"] },
+        { "label": "Autorizo o Clube Criacionista de Ciências a me enviar e-mails com conteúdos e materiais. Posso cancelar a qualquer momento.", "kind": "subscribe", "required": true }
+      ],
+      "rules": [
+        { "when": { "field": "Tipo de inscrição", "is": "Outro" }, "show": ["Qual é a sua função?"], "require": ["Qual é a sua função?"] }
+      ]
+    }
+  ]
+}

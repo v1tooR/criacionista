@@ -1,0 +1,62 @@
+---
+/**
+ * Página de aviso do pré-lançamento (pedido do cliente, 28/10/2026): o nome do
+ * clube em destaque, sem logo, o recado e um campo de e-mail para avisar da data
+ * do lançamento formal.
+ *
+ * O formulário é o "Aviso de lançamento" do Wix Forms (só e-mail + aceite; ver
+ * src/formularios.ts). Quem se inscreve entra na lista de e-mail marketing do
+ * Wix, de onde sai o aviso no dia.
+ *
+ * Usada por src/pages/lancamento.astro (a raiz, indexável) e
+ * src/pages/em-breve.astro (qualquer outro endereço, noindex).
+ */
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { esquemaNaBuild } from '../formularios';
+
+interface Props {
+  /** true na raiz: vai para o Google, com o endereço oficial "/" */
+  principal?: boolean;
+}
+const { principal = false } = Astro.props;
+
+const esquema = await esquemaNaBuild('lancamento');
+const json = (x: unknown) => JSON.stringify(x ?? null).replace(/</g, '\\u003c');
+---
+<Base
+  title={"Clube Criacionista de Ciências | Lançamento em breve"}
+  desc={"Estamos finalizando os preparativos para o lançamento do Clube Criacionista de Ciências. Informe o seu e-mail para saber a data."}
+  pvbar={"<span><b>PRÉVIA</b> · Aviso de lançamento</span>"}
+  rota={"lancamento"}
+  naoIndexar={!principal}
+  canonico={SITE + '/'}
+  simples={true}
+  semCabecalho={true}
+>
+<main class="lanc">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="lanc__in">
+    <h1 class="lanc__nome">Clube Criacionista de Ciências</h1>
+
+    <p class="lanc__ola">Obrigado por sua visita!</p>
+    <p>Estamos finalizando os preparativos para o lançamento do <b>Clube Criacionista de Ciências</b>, muito em breve!</p>
+    <p>Se desejar ser informado da data do lançamento, por favor informe o seu e-mail.</p>
+
+    <form class="nl lanc__form" novalidate data-form-wix="lancamento"
+          data-ok-padrao="Obrigado! Vamos avisar no e-mail que você informou assim que o site for lançado.">
+      <script is:inline type="application/json" data-esquema set:html={json(esquema)}></script>
+      <div data-campos></div>
+      <p class="nl__msg" role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="lanc__fim">Obrigado.</p>
+  </div>
+</main>
+
+<script>
+  import { montarTodos } from '../formulario-wix';
+  montarTodos();
+</script>
+</Base>

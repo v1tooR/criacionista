@@ -1,0 +1,11 @@
+---
+/**
+ * A raiz no pré-lançamento: src/middleware.ts reescreve "/" para cá
+ * (PRODUCAO + SOMENTE_HOME). Indexável, com o endereço oficial "/".
+ * Fora desse modo esta rota fica fora do sitemap e não tem link.
+ */
+import Lancamento from '../components/Lancamento.astro';
+
+export const prerender = true;
+---
+<Lancamento principal />

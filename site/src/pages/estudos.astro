@@ -1,5 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import AbasDeCategoria from '../components/AbasDeCategoria.astro';
+import ArtigosDePost from '../components/ArtigosDePost.astro';
+import { caminho, caminhoPost, PRODUCAO } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
 ---
 <Base
   title={"Artigos e Contribuições Científicas | Clube Criacionista de Ciências"}
@@ -13,7 +19,7 @@ import Base from '../layouts/Base.astro';
   <div class="orb orb--1"></div>
   <div class="orb orb--2"></div>
   <div class="phero__in">
-    <p class="crumb"><a href="/">Home</a> <span>›</span> Artigos</p>
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Artigos</p>
     <h1>Artigos e Contribuições Científicas</h1>
     <p class="lead">Aqui ficam os artigos e recursos para pesquisadores, educadores e líderes de ministério.</p>
   </div>
@@ -22,9 +28,9 @@ import Base from '../layouts/Base.astro';
 <!-- ============ ACERVO ============ -->
 <section class="section" id="acervo">
   <div class="wrap">
-    <div class="note" data-reveal>
+    <div class="note" data-reveal data-previa hidden={PRODUCAO}>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-      <div><b>Os três primeiros artigos são reais</b>, publicados no site atual, com texto, imagem, autoria e data do próprio cliente — clicar abre o artigo no site no ar. Os demais estão marcados como exemplo e existem para mostrar os temas que ainda não têm conteúdo. Filtros e busca já funcionam nesta prévia.</div>
+      <div><b>Os artigos vêm do blog do site atual</b>, buscados ao vivo: texto, imagem, autoria e data são do próprio cliente, e clicar abre o artigo no site no ar. Os temas são as categorias do próprio blog — aparecem só as que já têm artigo. Filtros e busca funcionam nesta prévia.</div>
     </div>
 
     <div class="filters" data-reveal>
@@ -33,20 +39,19 @@ import Base from '../layouts/Base.astro';
         <input type="search" id="busca" placeholder="Buscar por título, autor ou palavra-chave" aria-label="Buscar no acervo">
       </label>
       <div class="chips" id="chips" role="group" aria-label="Filtrar por tema">
-        <button class="chip is-on" data-cat="todos">Todos</button>
+      <AbasDeCategoria>
+<button class="chip is-on" data-cat="todos">Todos</button>
         <button class="chip" data-cat="origens">Origens</button>
         <button class="chip" data-cat="pensamento">Pensamento crítico infantil</button>
-        <button class="chip" data-cat="stem">Metodologia STEM criacionista</button>
-        <button class="chip" data-cat="educacao">Educação cristã</button>
-        <button class="chip" data-cat="divulgacao">Divulgação científica</button>
+      </AbasDeCategoria>
       </div>
     </div>
 
     <p class="acard__meta" id="contagem" style="margin:0 0 18px" aria-live="polite"></p>
 
     <div class="grid grid--3" id="lista">
-
-      <!-- ---- Artigos reais, publicados no site atual ---- -->
+      <ArtigosDePost limite={12}>
+<!-- ---- Artigos reais, publicados no site atual ---- -->
       <article class="acard" data-cat="origens" data-reveal>
         <div class="acard__media">
           <img src="/assets/wix/post-criterios-animais.png" alt="Planta carnívora Sarracenia" loading="lazy">
@@ -55,7 +60,7 @@ import Base from '../layouts/Base.astro';
           <h3>Critérios de classificação dos animais</h3>
           <p class="acard__meta">Eliézer C. Militão · 10 out 2023 · 2 min de leitura</p>
           <p class="acard__abs">A classificação dos animais depende fortemente dos critérios adotados para a mesma. Neste artigo vamos ver como esses critérios mudaram ao longo do tempo.</p>
-          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="https://www.clubecriacionista.com/post/crit%C3%A9rios-de-classifica%C3%A7%C3%A3o-dos-animais">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href={caminhoPost("critérios-de-classificação-dos-animais")}>Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
           </div>
         </div>
       </article>
@@ -68,7 +73,7 @@ import Base from '../layouts/Base.astro';
           <h3>Trapaceando com o acaso</h3>
           <p class="acard__meta">Eliézer C. Militão · 18 jul 2023 · 5 min de leitura</p>
           <p class="acard__abs">Defensores da teoria da evolução têm argumentado que o surgimento da vida ocorreu ao acaso, por processos naturais, e usam várias analogias para sustentar o argumento.</p>
-          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="https://www.clubecriacionista.com/post/trapaceando-com-o-acaso">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href={caminhoPost("trapaceando-com-o-acaso")}>Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
           </div>
         </div>
       </article>
@@ -81,41 +86,11 @@ import Base from '../layouts/Base.astro';
           <h3>O universo é finamente ajustado para a vida</h3>
           <p class="acard__meta">Eliézer C. Militão · 18 jul 2023 · 4 min de leitura</p>
           <p class="acard__abs">O fato de que o sol tem a cor, o tamanho e a distância certos para favorecer a existência de vida na Terra é um entre muitos ajustes observáveis no universo.</p>
-          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="https://www.clubecriacionista.com/post/o-universo-%C3%A9-finamente-ajustado-para-a-vida">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href={caminhoPost("o-universo-é-finamente-ajustado-para-a-vida")}>Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
           </div>
         </div>
       </article>
-
-      <!-- ---- Temas ainda sem conteúdo: cards de exemplo ---- -->
-      <article class="acard acard--nomedia" data-cat="stem" data-reveal>
-        <div class="acard__in"> <span class="tag tag--news">Metodologia STEM criacionista</span>
-          <h3>Roteiro de experimentos domésticos com material de baixo custo</h3>
-          <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
-          <p class="acard__abs">Proposta de sequência didática para reproduzir observações científicas em casa, com lista de materiais, orientação de segurança e critérios de registro.</p>
-          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="acard acard--nomedia" data-cat="educacao" data-reveal>
-        <div class="acard__in"> <span class="tag tag--art">Educação cristã</span>
-          <h3>Ciência na classe bíblica: o que funciona com pré-adolescentes</h3>
-          <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
-          <p class="acard__abs">Relato de práticas em classes bíblicas infantis, com foco em como introduzir conteúdo científico sem transformar a aula em palestra.</p>
-          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="acard acard--nomedia" data-cat="divulgacao" data-reveal>
-        <div class="acard__in"> <span class="tag tag--mc">Divulgação científica</span>
-          <h3>Traduzir sem distorcer: linguagem científica para leitores de 9 anos</h3>
-          <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
-          <p class="acard__abs">Discussão sobre simplificação de conteúdo técnico para público infantil e os limites entre tornar acessível e tornar impreciso.</p>
-          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
-          </div>
-        </div>
-      </article>
+      </ArtigosDePost>
     </div>
 
     <div class="empty" id="vazio" hidden>
@@ -124,6 +99,45 @@ import Base from '../layouts/Base.astro';
       <p>Tente uma busca mais ampla, com uma palavra só, ou volte para “Todos” e navegue pelos temas.</p>
     </div>
   </div>
+
+  <div class="wrap" id="propostas" data-previa hidden={PRODUCAO}>
+    <div class="sec-head" data-reveal> <span class="eyebrow">Em aberto</span>
+      <h2 class="h2">Temas propostos, ainda sem conteúdo</h2>
+      <p class="lead">Não são artigos publicados: são assuntos que o clube pode cobrir e que hoje não têm texto. Ficam fora da busca e dos filtros acima, para não se misturarem com o acervo real.</p>
+    </div>
+    <div class="grid grid--3">
+        <article class="acard acard--nomedia" data-cat="stem" data-reveal>
+          <div class="acard__in"> <span class="tag tag--news">Metodologia STEM criacionista</span>
+            <h3>Roteiro de experimentos domésticos com material de baixo custo</h3>
+            <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
+            <p class="acard__abs">Proposta de sequência didática para reproduzir observações científicas em casa, com lista de materiais, orientação de segurança e critérios de registro.</p>
+            <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="acard acard--nomedia" data-cat="educacao" data-reveal>
+          <div class="acard__in"> <span class="tag tag--art">Educação cristã</span>
+            <h3>Ciência na classe bíblica: o que funciona com pré-adolescentes</h3>
+            <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
+            <p class="acard__abs">Relato de práticas em classes bíblicas infantis, com foco em como introduzir conteúdo científico sem transformar a aula em palestra.</p>
+            <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="acard acard--nomedia" data-cat="divulgacao" data-reveal>
+          <div class="acard__in"> <span class="tag tag--mc">Divulgação científica</span>
+            <h3>Traduzir sem distorcer: linguagem científica para leitores de 9 anos</h3>
+            <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
+            <p class="acard__abs">Discussão sobre simplificação de conteúdo técnico para público infantil e os limites entre tornar acessível e tornar impreciso.</p>
+            <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
+            </div>
+          </div>
+        </article>
+    </div>
+  </div>
+
   <div class="wrap totop"><a href="#top">Voltar ao topo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a></div>
 </section>
 
@@ -149,9 +163,8 @@ import Base from '../layouts/Base.astro';
 <section class="section">
   <div class="wrap">
     <div class="cta" data-reveal>
-      <h2 class="h2">Este acervo existe porque alguém sustenta</h2>
-      <p class="lead">Pesquisa, redação e revisão levam tempo. Quem apoia o clube mantém esse material aberto e gratuito.</p>
-      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href="/doe">Apoiar o projeto <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href="/#educadores">Receber a newsletter</a>
+      <h2 class="h2">Você pode fazer parte deste projeto!</h2>
+      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href={caminho("doe")}>Apoiar o projeto <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href={caminho("index", "#educadores")}>Receber a newsletter</a>
       </div>
     </div>
   </div>

@@ -1,0 +1,43 @@
+---
+/**
+ * Cards do acervo de artigos, lidos do blog do cliente.
+ *
+ * É o primo do CardsDePost, com o markup do `.acard` em vez do `.card`: a
+ * página de artigos tem outro formato de card, com autoria visível e botão.
+ *
+ * O `data-cat` sai da categoria do post, e é por ele que o filtro da página
+ * encontra o card. Post sem categoria vira "sem-categoria": aparece em "Todos"
+ * e em mais nenhuma aba, que é o comportamento honesto enquanto o cliente não
+ * classificar esses posts.
+ *
+ * Sem Wix, renderiza o <slot> — os cards fixos do protótipo.
+ */
+import { listarPosts } from '../dados/blog';
+
+interface Props {
+  limite?: number;
+  categoria?: string;
+}
+
+const { limite = 12, categoria } = Astro.props;
+const posts = await listarPosts(limite, categoria);
+---
+{posts ? posts.map((p) => (
+  <article class={'acard' + (p.capa ? '' : ' acard--nomedia')} data-cat={p.categoriaSlug} data-reveal>
+    {p.capa && (
+      <div class="acard__media">
+        <img src={p.capa} alt="" loading="lazy" width={720} height={450} />
+      </div>
+    )}
+    <div class="acard__in">
+      {p.categoria && <span class="tag tag--art">{p.categoria}</span>}
+      <h3>{p.titulo}</h3>
+      <p class="acard__meta">{[p.autor, p.data, p.minutos + ' min de leitura'].filter(Boolean).join(' · ')}</p>
+      <p class="acard__abs">{p.resumo}</p>
+      <div class="acard__foot">
+        <a class="btn btn--ghost btn--sm" href={p.link}>Ler artigo <span class="btn__arrow">→</span></a>
+        <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+      </div>
+    </div>
+  </article>
+)) : <slot />}

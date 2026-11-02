@@ -1,0 +1,70 @@
+{
+  "forms": [
+    {
+      "name": "Contato do site",
+      "formId": "16c3777a-7c4b-4aa8-a568-00f529732da1",
+      "created": true,
+      "fields": [
+        {
+          "target": "assunto_yjc3gt",
+          "label": "Assunto"
+        },
+        {
+          "target": "nome_el66rv",
+          "label": "Nome"
+        },
+        {
+          "target": "e_mail_0w2hzq",
+          "label": "E-mail"
+        },
+        {
+          "target": "mensagem_803ksj",
+          "label": "Mensagem"
+        },
+        {
+          "target": "autorizo_o_uso_dos_meus_dados_para_respo_rgnncg",
+          "label": "Autorizo o uso dos meus dados para responder esta mensagem."
+        }
+      ],
+      "fieldsLive": 5,
+      "steps": 1,
+      "rules": 0,
+      "degraded": []
+    },
+    {
+      "name": "Newsletter para educadores",
+      "formId": "c6673ac9-792b-40fe-99d5-a4f31acf355b",
+      "created": true,
+      "fields": [
+        {
+          "target": "tipo_de_inscri_o_rxex39",
+          "label": "Tipo de inscrição"
+        },
+        {
+          "target": "qual_a_sua_fun_o_a0z73q",
+          "label": "Qual é a sua função?"
+        },
+        {
+          "target": "nome_qsr6nq",
+          "label": "Nome"
+        },
+        {
+          "target": "e_mail_6yovlj",
+          "label": "E-mail"
+        },
+        {
+          "target": "g_nero_y0emuk",
+          "label": "Gênero"
+        },
+        {
+          "target": "autorizo_o_clube_criacionista_de_ci_ncia_l4v88y",
+          "label": "Autorizo o Clube Criacionista de Ciências a me enviar e-mails com conteúdos e materiais. Posso cancelar a qualquer momento."
+        }
+      ],
+      "fieldsLive": 6,
+      "steps": 1,
+      "rules": 1,
+      "degraded": []
+    }
+  ]
+}

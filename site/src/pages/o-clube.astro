@@ -1,5 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import { caminho, caminhoPost, PRODUCAO } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
 ---
 <Base
   title={"O Clube | Clube Criacionista de Ciências"}
@@ -13,7 +17,7 @@ import Base from '../layouts/Base.astro';
   <div class="orb orb--1"></div>
   <div class="orb orb--2"></div>
   <div class="phero__in">
-    <p class="crumb"><a href="/">Home</a> <span>›</span> O Clube</p>
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> O Clube</p>
     <h1>O Clube</h1>
     <p class="lead">Um clube de ciências para crianças de 9 a 13 anos que investigam o mundo com pensamento crítico e a cosmovisão bíblica. Aqui você conhece o que nos move, quem está por trás e como o projeto se sustenta.</p>
   </div>
@@ -22,7 +26,7 @@ import Base from '../layouts/Base.astro';
 <!-- ============ MISSÃO, VISÃO, PROPÓSITO ============ -->
 <section class="section">
   <div class="wrap">
-    <div class="note" data-reveal>
+    <div class="note" data-reveal data-previa hidden={PRODUCAO}>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
       <div><b>Texto provisório.</b> A redação desta página foi escrita a partir do briefing para você aprovar a estrutura e o visual. Os textos definitivos virão do documento “Copy do Site — Página 2”. As páginas internas do site atual estão protegidas por senha, então não foi possível reaproveitar a redação que já existe.</div>
     </div>
@@ -100,7 +104,7 @@ import Base from '../layouts/Base.astro';
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6.5v5c0 4.7 3.3 8.9 8 9.9 4.7-1 8-5.2 8-9.9v-5L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
         </div>
         <h3>Um lugar seguro para publicar</h3>
-        <p>A criança mostra o que descobriu identificada só pelo apelido, e o rosto dela nunca aparece.</p>
+        <p>A criança mostra o que descobriu identificada só pelo apelido. O rosto não é exigido, e o responsável borra a imagem se não quiser mostrá-lo.</p>
       </article>
 
       <article class="path path--sm" style="--pc:var(--blue)" data-reveal>
@@ -132,7 +136,7 @@ import Base from '../layouts/Base.astro';
 </section>
 
 <!-- ============ HISTÓRIA ============ -->
-<section class="section">
+<section class="section" data-previa hidden={PRODUCAO}>
   <div class="wrap">
     <div class="sec-head" data-reveal> <span class="eyebrow">História</span>
       <h2 class="h2">Como o clube chegou até aqui</h2>
@@ -176,20 +180,20 @@ import Base from '../layouts/Base.astro';
       <div> <span class="eyebrow">Na prática</span>
         <h2 class="h2">O que o clube já publica</h2>
         <p class="lead">Não é promessa: este é o conteúdo que já está no ar hoje, assinado pelo clube. Clique em qualquer um para abrir no site atual.</p>
-      </div> <a class="btn btn--ghost btn--sm" href="https://www.clubecriacionista.com/blog">Ver o blog <span class="btn__arrow">→</span></a>
+      </div> <a class="btn btn--ghost btn--sm" href={caminho("estudos")}>Ver o blog <span class="btn__arrow">→</span></a>
     </div>
 
-    <div class="mosaic" data-reveal> <a class="mtile" href="https://www.clubecriacionista.com/post/a-despensa-do-pica-pau">
+    <div class="mosaic" data-reveal> <a class="mtile" href={caminhoPost("a-despensa-do-pica-pau")}>
         <img src="/assets/wix/post-pica-pau.jpg" alt="Pica-pau e sua despensa de sementes" loading="lazy"> <span>A despensa do pica-pau</span>
-      </a> <a class="mtile" href="https://www.clubecriacionista.com/post/as-aranhas-sentem-dor">
+      </a> <a class="mtile" href={caminhoPost("as-aranhas-sentem-dor")}>
         <img src="/assets/wix/post-aranhas.jpg" alt="Aranha em sua teia" loading="lazy"> <span>As aranhas sentem dor?</span>
-      </a> <a class="mtile" href="https://www.clubecriacionista.com/post/arvore-extinta-esta-florescendo">
+      </a> <a class="mtile" href={caminhoPost("arvore-extinta-esta-florescendo")}>
         <img src="/assets/wix/post-arvore-extinta.jpg" alt="Árvore extinta voltando a florescer" loading="lazy"> <span>Árvore extinta está florescendo</span>
-      </a> <a class="mtile" href="https://www.clubecriacionista.com/post/doutora-ra">
+      </a> <a class="mtile" href={caminhoPost("doutora-ra")}>
         <img src="/assets/wix/post-doutora-ra.jpg" alt="Rã sobre folhagem" loading="lazy"> <span>Doutora rã</span>
-      </a> <a class="mtile" href="https://www.clubecriacionista.com/post/eras-de-petrificacao">
+      </a> <a class="mtile" href={caminhoPost("eras-de-petrificacao")}>
         <img src="/assets/wix/post-eras-petrificacao.jpg" alt="Formação rochosa petrificada" loading="lazy"> <span>Eras de Petrificação</span>
-      </a> <a class="mtile" href="https://www.clubecriacionista.com/post/astronauta-da-nasa-cre-no-relato-biblico-da-criacao">
+      </a> <a class="mtile" href={caminhoPost("astronauta-da-nasa-cre-no-relato-biblico-da-criacao")}>
         <img src="/assets/wix/post-astronauta-nasa.jpg" alt="Astronauta da NASA" loading="lazy"> <span>Astronauta da NASA crê no relato bíblico</span>
       </a>
     </div>
@@ -198,7 +202,7 @@ import Base from '../layouts/Base.astro';
 </section>
 
 <!-- ============ QUEM ESTÁ POR TRÁS ============ -->
-<section class="section section--soft" id="quem">
+<section class="section section--soft" id="quem" data-previa hidden={PRODUCAO}>
   <div class="wrap">
     <div class="sec-head" data-reveal> <span class="eyebrow">Quem está por trás</span>
       <h2 class="h2">As pessoas do clube</h2>
@@ -237,7 +241,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="tcard" data-reveal> <span class="tcard__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="10.5" width="17" height="10.5" rx="2.6"/><path d="M7.5 10.5V7a4.5 4.5 0 0 1 9 0v3.5"/></svg></span>
         <h3>Segurança pensada desde o começo</h3>
-        <p>Apelido no lugar do nome, rosto que nunca aparece, autorização assinada pelo responsável e um painel onde ele acompanha tudo.</p>
+        <p>Apelido no lugar do nome, rosto só se o responsável quiser, autorização assinada por ele e um painel onde acompanha tudo.</p>
       </div>
       <div class="tcard" data-reveal> <span class="tcard__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>
         <h3>Duas linguagens, dois públicos</h3>
@@ -259,12 +263,12 @@ import Base from '../layouts/Base.astro';
       <div class="box" data-reveal>
         <h3>Doações</h3>
         <p>Pessoas que acreditam no projeto contribuem uma vez ou todo mês. É o que paga a produção de conteúdo, a manutenção do site e os prêmios trocados pelos pontos.</p>
-        <p>Quem doa escolhe o valor, recebe o comprovante por e-mail e pode cancelar quando quiser.</p> <a class="btn btn--primary" href="/doe">Apoiar o projeto <span class="btn__arrow">→</span></a>
+        <p>Quem doa escolhe o valor, recebe o comprovante por e-mail e pode cancelar quando quiser.</p> <a class="btn btn--primary" href={caminho("doe")}>Apoiar o projeto <span class="btn__arrow">→</span></a>
       </div>
       <div class="box" data-reveal>
         <h3>Loja</h3>
         <p>Livros, kits de experimento e itens do clube vendidos a preço acessível. A margem volta para o projeto, e os mesmos produtos podem ser resgatados com pontos pelos membros pesquisadores.</p>
-        <p>Comprar na loja é apoiar o clube e levar material para casa.</p> <a class="btn btn--ghost" href="/loja">Ver a loja <span class="btn__arrow">→</span></a>
+        <p>Comprar na loja é apoiar o clube e levar material para casa.</p> <a class="btn btn--ghost" href={caminho("loja")}>Ver a loja <span class="btn__arrow">→</span></a>
       </div>
     </div>
   </div>
@@ -276,7 +280,7 @@ import Base from '../layouts/Base.astro';
     <div class="cta" data-reveal>
       <h2 class="h2">Quer fazer parte?</h2>
       <p class="lead">A inscrição é gratuita e leva poucos minutos. Quem cadastra é sempre o responsável.</p>
-      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href="#cadastro" data-wip="Cadastro do membro pesquisador">Inscrever meu filho <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href="/como-funciona">Ver como funciona</a>
+      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href={caminho("cadastro")}>Inscrever meu filho <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href={caminho("como-funciona")}>Ver como funciona</a>
       </div>
     </div>
   </div>

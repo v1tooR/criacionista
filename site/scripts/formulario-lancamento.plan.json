@@ -1,0 +1,23 @@
+{
+  "forms": [
+    {
+      "name": "Aviso de lançamento",
+      "submitText": "Quero ser avisado",
+      "thankYou": "Obrigado! Vamos avisar no e-mail que você informou assim que o site for lançado.",
+      "requiredIndicator": "ASTERISK",
+      "fields": [
+        {
+          "label": "Seu e-mail",
+          "kind": "email",
+          "required": true,
+          "placeholder": "voce@exemplo.com"
+        },
+        {
+          "label": "Autorizo o Clube Criacionista de Ciências a me enviar por e-mail o aviso de lançamento e as novidades do clube. Posso cancelar a qualquer momento.",
+          "kind": "subscribe",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

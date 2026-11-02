@@ -27,11 +27,30 @@ const BASE = VIA_HTTP ? ALVO.replace(/\/$/, '') : null;
 const ROOT = path.resolve(VIA_HTTP ? (process.argv[3] || path.join(__dirname, '../site/dist')) : ALVO);
 
 const WIDTHS = [320, 390, 768, 1024, 1440];
+/**
+ * As páginas de post são geradas a partir do blog do cliente, então a lista
+ * não pode ser fixa: ela cresce quando ele publica. Duas bastam para cobrir o
+ * gabarito — a primeira e a última, por ordem de nome — e evitam multiplicar
+ * o tempo da verificação por doze.
+ */
+const posts = (() => {
+  const dir = path.join(ROOT, 'post');
+  if (!fs.existsSync(dir)) return [];
+  const todos = fs.readdirSync(dir).filter((f) => f.endsWith('.html')).sort();
+  const escolhidos = todos.length <= 2 ? todos : [todos[0], todos[todos.length - 1]];
+  return escolhidos.map((f) => 'post/' + f);
+})();
+
 const PAGES = ['home.html', 'o-clube.html', 'como-funciona.html', 'estudos.html',
                'loja.html', 'doe.html', 'concurso.html', 'contato.html']
   .map((p) => (p === 'home.html' && !fs.existsSync(path.join(ROOT, 'home.html')) ? 'index.html' : p))
-  .filter((p) => fs.existsSync(path.join(ROOT, p)));
-const urlDe = (page) => (VIA_HTTP ? BASE + '/' + page : 'file:///' + path.join(ROOT, page).replace(/\\/g, '/'));
+  .filter((p) => fs.existsSync(path.join(ROOT, p)))
+  .concat(posts);
+
+// o caminho precisa ir codificado: os slugs do cliente têm acento
+const urlDe = (page) => (VIA_HTTP
+  ? BASE + '/' + page.split('/').map(encodeURIComponent).join('/')
+  : 'file:///' + path.join(ROOT, page).replace(/\\/g, '/'));
 
 const chrome = [
   'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -79,6 +98,25 @@ function connect(u) {
 }
 
 (async () => {
+  /**
+   * O servidor está mesmo de pé?
+   *
+   * Sem esta porta de entrada, um `npm run preview` que morreu produzia
+   * "TUDO OK em 80 verificações" em vez das 88: as páginas não carregavam,
+   * as checagens delas simplesmente não aconteciam, e a contagem menor
+   * passava despercebida. Suíte que aprova quando nada responde é pior do
+   * que suíte nenhuma — dá confiança falsa justo antes de publicar.
+   */
+  if (VIA_HTTP) {
+    let viva = false;
+    try { viva = (await fetch(BASE + '/', { method: 'HEAD' })).ok; } catch (e) { viva = false; }
+    if (!viva) {
+      console.error('Nada responde em ' + BASE + '.');
+      console.error('Suba o servidor antes:  cd site && npm run preview');
+      process.exit(1);
+    }
+  }
+
   const cdp = await connect(await target());
   await cdp.send('Page.enable'); await cdp.send('Runtime.enable');
   let fails = 0, checks = 0;

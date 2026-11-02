@@ -31,7 +31,8 @@ const urlDe = (arq) => (arq === 'home.html' ? BASE + '/' : BASE + '/' + arq);
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 const PAGINAS = ['home.html', 'o-clube.html', 'como-funciona.html', 'estudos.html',
-                 'loja.html', 'doe.html', 'concurso.html', 'contato.html'];
+                 'loja.html', 'doe.html', 'concurso.html', 'contato.html',
+                 'politica-de-privacidade.html'];
 
 let n = 0;
 for (const arq of PAGINAS) {

@@ -1,0 +1,351 @@
+---
+/**
+ * Página de login e cadastro.
+ *
+ * Não é gerada pelo portador: não existe no protótipo, foi escrita aqui, no
+ * design system do site. Rodar `port-astro.js` não a apaga.
+ *
+ * O login é o NOSSO formulário, como manda o kit do Wix
+ * (.agents/skills/wix-headless-templates/members/INSTRUCTIONS.md): os dados vão
+ * para as rotas da integração (POST /api/auth/login, /signup, /verify-email),
+ * que gravam a sessão. Quem conversa com essas rotas é o código do kit
+ * (src/wix/members/member-store.ts), copiado sem alteração — esta página só
+ * desenha a tela e traduz as respostas.
+ *
+ * Quatro respostas possíveis, todas tratadas: sucesso (o navegador segue para a
+ * etapa de autorização do Wix e volta logado), verificação de e-mail (pede o
+ * código), aprovação do dono (avisa que a conta espera liberação) e falha.
+ *
+ * "Esqueci minha senha" não existe nas rotas da integração; usa a API de
+ * recuperação do Wix (@wix/identity, recovery.sendRecoveryEmail), que manda um
+ * link para a página de nova senha do próprio Wix.
+ *
+ * Na prévia estática do ZIP não há servidor: a página abre, e ao enviar a rota
+ * responde 404 — a tela diz que ali o login não funciona.
+ */
+import Base from '../layouts/Base.astro';
+import { caminho } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
+---
+<Base
+  title={"Entrar | Clube Criacionista de Ciências"}
+  desc={"Entre ou crie a conta de responsável no Clube Criacionista de Ciências."}
+  pvbar={"<span><b>PRÉVIA</b> · Login</span> <span>·</span> <span>Clube Criacionista de Ciências</span>"}
+  rota={"entrar"}
+  naoIndexar={true}
+>
+
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Entrar</p>
+    <h1>Entrar no clube</h1>
+    <p class="lead">A conta é do responsável. É por ela que a criança participa do clube.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2">
+
+      <div>
+        <h2 class="h2">Uma conta, sempre de um adulto</h2>
+        <p class="lead">Quem cria a conta é o pai, a mãe ou o responsável legal. A criança não faz cadastro sozinha e não informa os próprios dados.</p>
+        <ul style="margin:18px 0 0;padding-left:20px;line-height:1.75">
+          <li>Use o seu e-mail — é nele que chegam os avisos do clube.</li>
+          <li>Você pode apagar a conta e os dados quando quiser.</li>
+          <li>Tudo isso está na <a href={caminho("politica-de-privacidade")}>Política de privacidade</a>.</li>
+        </ul>
+      </div>
+
+      <div class="nl" id="caixa-login">
+
+        <!-- já logado -->
+        <div class="nl__ok" id="lg-logado" hidden>
+          <h3 id="lg-logado-txt">Você já está conectado</h3>
+          <p class="nl__sub">Para entrar com outra conta, saia primeiro.</p>
+          <p style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0 0">
+            <a class="btn btn--primary btn--sm" id="lg-voltar" href={caminho("index")}>Continuar</a>
+            <a class="btn btn--ghost btn--sm" href="#sair" data-sair>Sair</a>
+          </p>
+        </div>
+
+        <!-- entrar / criar conta -->
+        <div id="lg-principal">
+          <div class="radios" id="lg-modos" style="margin-bottom:20px">
+            <label class="radio is-on"><input type="radio" name="lg-modo" value="entrar" checked><span>Já tenho conta</span></label>
+            <label class="radio"><input type="radio" name="lg-modo" value="criar"><span>Criar conta</span></label>
+          </div>
+
+          <form class="form" id="form-login" novalidate>
+            <h3 id="lg-titulo">Entrar</h3>
+
+            <div class="field">
+              <label for="lg-email">E-mail</label>
+              <input type="email" id="lg-email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+            </div>
+
+            <div class="field">
+              <label for="lg-senha">Senha</label>
+              <input type="password" id="lg-senha" name="senha" autocomplete="current-password" required>
+            </div>
+
+            <div class="field" id="lg-confirma-w" hidden>
+              <label for="lg-confirma">Repita a senha</label>
+              <input type="password" id="lg-confirma" name="confirma" autocomplete="new-password">
+            </div>
+
+            <label class="check" id="lg-resp" hidden>
+              <input type="checkbox" id="lg-resp-in" required>
+              <span>Sou maior de idade e responsável pela criança que vai participar. Li a <a href={caminho("politica-de-privacidade")}>Política de privacidade</a>.</span>
+            </label>
+
+            <!-- reCAPTCHA "Não sou um robô" — este site exige (ver src/captcha.ts) -->
+            <div id="lg-captcha" style="margin:0 0 18px;min-height:78px"></div>
+
+            <button class="btn btn--primary" type="submit" id="lg-enviar">Entrar <span class="btn__arrow">→</span></button>
+            <p class="nl__msg" id="lg-msg" role="status" aria-live="polite"></p>
+            <p class="nl__note" style="margin-top:10px">Protegido por reCAPTCHA do Google — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacidade</a> e <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Termos</a>.</p>
+            <p class="nl__out" id="lg-esqueci-w"><button type="button" class="linkbtn" id="lg-esqueci">Esqueci minha senha</button></p>
+          </form>
+        </div>
+
+        <!-- código de verificação -->
+        <form class="form" id="form-codigo" novalidate hidden>
+          <h3>Confira seu e-mail</h3>
+          <p class="nl__sub">Enviamos um código para <b id="lg-codigo-email"></b>. Digite aqui para concluir.</p>
+          <div class="field">
+            <label for="lg-codigo">Código</label>
+            <input type="text" id="lg-codigo" inputmode="numeric" autocomplete="one-time-code" required>
+          </div>
+          <button class="btn btn--primary" type="submit">Confirmar <span class="btn__arrow">→</span></button>
+          <p class="nl__msg" id="lg-codigo-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <!-- aguardando aprovação do dono do site -->
+        <div class="nl__ok" id="lg-aprovacao" hidden>
+          <h3>Conta criada</h3>
+          <p class="nl__sub">A equipe do clube precisa aprovar o cadastro antes do primeiro acesso. Você recebe um e-mail quando estiver liberado.</p>
+        </div>
+
+        <!-- esqueci a senha -->
+        <form class="form" id="form-recuperar" novalidate hidden>
+          <h3>Criar uma nova senha</h3>
+          <p class="nl__sub">Informe o e-mail da conta. Mandamos um link para você escolher uma senha nova.</p>
+          <div class="field">
+            <label for="lg-rec-email">E-mail</label>
+            <input type="email" id="lg-rec-email" autocomplete="email" required>
+          </div>
+          <button class="btn btn--primary" type="submit">Enviar link <span class="btn__arrow">→</span></button>
+          <p class="nl__msg" id="lg-rec-msg" role="status" aria-live="polite"></p>
+          <p class="nl__out"><button type="button" class="linkbtn" id="lg-rec-voltar">← Voltar para o login</button></p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { verifyEmail, subscribeMember, getMemberState } from '../wix/members/member-store';
+  import { papelNoCookie } from '../sessao';
+  import { enviarCredenciais } from '../login-captcha';
+  import { mostrarCaixa, tokenDaCaixa, zerarCaixa } from '../captcha';
+  import { recovery } from '@wix/identity';
+  import { WIX_CLIENT_ID } from 'astro:env/client';
+
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  /* para onde voltar depois de entrar — só caminho do próprio site */
+  const pedida = new URLSearchParams(location.search).get('volta') || '/';
+  const volta = pedida.startsWith('/') && !pedida.startsWith('//') ? pedida : '/';
+  ($('lg-voltar') as HTMLAnchorElement).href = volta;
+
+  /* as mensagens do Wix vêm em inglês; aqui elas viram texto para o visitante */
+  const TRADUZ: Record<string, string> = {
+    invalidCredentials: 'E-mail ou senha incorretos.',
+    invalidPassword: 'E-mail ou senha incorretos.',
+    invalidEmail: 'Esse e-mail não é aceito. Confira se está certo.',
+    emailAlreadyExists: 'Já existe uma conta com esse e-mail. Use “Já tenho conta”.',
+    resetPassword: 'Você precisa criar uma senha nova antes de entrar. Use “Esqueci minha senha”.',
+    captchaRequired: 'Marque a caixa “Não sou um robô” e envie de novo.',
+    missingCaptchaToken: 'A verificação anti-robô não carregou. Se você usa bloqueador de anúncios, libere o reCAPTCHA nesta página e tente de novo.',
+    invalidCaptchaToken: 'A verificação anti-robô falhou. Tente de novo.',
+    ALREADY_LOGGED_IN: 'Você já está conectado.',
+    AUTH_SERVICE_ERROR: 'Não conseguimos processar agora. Tente de novo em instantes.',
+    VERIFICATION_FAILED: 'Esse código não confere. Confira o e-mail e tente de novo.',
+    VERIFICATION_STATE_EXPIRED: 'O código expirou. Entre de novo para receber outro.',
+    INVALID_REQUEST: 'Algo no formulário não foi aceito. Confira os campos.',
+    authRoutesMissing: 'Nesta prévia o login não funciona — ele só roda na hospedagem do Wix.',
+  };
+  const traduz = (r: { errorCode?: string }) =>
+    TRADUZ[r.errorCode ?? ''] ?? 'Não foi possível entrar. Tente de novo.';
+
+  const marcar = (el: HTMLElement, on: boolean) => el.classList.toggle('is-error', on);
+  const msg = (el: HTMLElement, tipo: '' | 'ok' | 'bad', texto: string) => {
+    el.className = 'nl__msg' + (tipo ? ' ' + tipo : '');
+    el.textContent = texto;
+  };
+  const mostra = (qual: 'principal' | 'codigo' | 'aprovacao' | 'recuperar' | 'logado') => {
+    $('lg-principal').hidden = qual !== 'principal';
+    $('form-codigo').hidden = qual !== 'codigo';
+    $('lg-aprovacao').hidden = qual !== 'aprovacao';
+    $('form-recuperar').hidden = qual !== 'recuperar';
+    $('lg-logado').hidden = qual !== 'logado';
+  };
+
+  /* já logado? a mesma dica do cabeçalho, confirmada pelo Wix */
+  const papel = papelNoCookie();
+  if (papel === 'member' || papel === 'desconhecido') {
+    subscribeMember(() => {
+      const s = getMemberState();
+      if (s.loading || !s.loggedIn) return;
+      const nome = (s.member?.displayName || '').split(/\s+/)[0];
+      $('lg-logado-txt').textContent = nome ? 'Você já está conectado, ' + nome : 'Você já está conectado';
+      mostra('logado');
+    });
+  }
+
+  /* entrar ↔ criar conta */
+  let modo: 'entrar' | 'criar' = 'entrar';
+  const fEmail = $('lg-email') as HTMLInputElement;
+  const fSenha = $('lg-senha') as HTMLInputElement;
+  const fConf = $('lg-confirma') as HTMLInputElement;
+  const fResp = $('lg-resp-in') as HTMLInputElement;
+  const enviar = $('lg-enviar') as HTMLButtonElement;
+  const status = $('lg-msg');
+
+  $('lg-modos').addEventListener('change', (e) => {
+    const alvo = e.target as HTMLInputElement;
+    if (alvo.name !== 'lg-modo') return;
+    modo = alvo.value === 'criar' ? 'criar' : 'entrar';
+    $('lg-modos').querySelectorAll('.radio').forEach((l) =>
+      l.classList.toggle('is-on', (l.querySelector('input') as HTMLInputElement).checked));
+    const criar = modo === 'criar';
+    $('lg-titulo').textContent = criar ? 'Criar conta de responsável' : 'Entrar';
+    $('lg-confirma-w').hidden = !criar;
+    $('lg-resp').hidden = !criar;
+    $('lg-esqueci-w').hidden = criar;
+    fSenha.autocomplete = criar ? 'new-password' : 'current-password';
+    enviar.firstChild!.textContent = criar ? 'Criar conta ' : 'Entrar ';
+    msg(status, '', '');
+    [fEmail, fSenha, fConf].forEach((f) => marcar(f, false));
+    $('lg-resp').classList.remove('is-error');
+  });
+
+  [fEmail, fSenha, fConf].forEach((f) => f.addEventListener('input', () => marcar(f, false)));
+  fResp.addEventListener('change', () => $('lg-resp').classList.remove('is-error'));
+
+  const trata = (r: { state: string; errorCode?: string }, alvoMsg: HTMLElement, emailUsado: string) => {
+    if (r.state === 'SUCCESS') { msg(alvoMsg, 'ok', 'Entrando…'); return; } // o navegador já está saindo
+    if (r.state === 'EMAIL_VERIFICATION_REQUIRED') {
+      $('lg-codigo-email').textContent = emailUsado;
+      mostra('codigo');
+      ($('lg-codigo') as HTMLInputElement).focus();
+      return;
+    }
+    if (r.state === 'OWNER_APPROVAL_REQUIRED') { mostra('aprovacao'); return; }
+    msg(alvoMsg, 'bad', traduz(r));
+  };
+
+  let emailAtual = '';
+
+  /* a caixa "Não sou um robô". Se o Google não carregar (bloqueador, rede), o
+     envio não é barrado aqui: segue sem token e a resposta do Wix explica — e
+     na prévia estática, sem servidor, é ela que diz que ali não há login */
+  let caixaCarregou = false;
+  mostrarCaixa($('lg-captcha'), () => { if (tokenDaCaixa()) msg(status, '', ''); })
+    .then(() => { caixaCarregou = true; })
+    .catch(() => { $('lg-captcha').style.minHeight = '0'; });
+
+  $('form-login').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const problemas: string[] = [];
+    let primeiro: HTMLElement | null = null;
+    const falha = (el: HTMLElement, texto: string) => {
+      problemas.push(texto); marcar(el, true); if (!primeiro) primeiro = el;
+    };
+    const email = fEmail.value.trim();
+    if (!reEmail.test(email)) falha(fEmail, 'informe um e-mail válido');
+    if (!fSenha.value) falha(fSenha, 'informe a senha');
+    if (modo === 'criar') {
+      if (fConf.value !== fSenha.value) falha(fConf, 'as duas senhas não são iguais');
+      if (!fResp.checked) {
+        problemas.push('confirme que você é o responsável');
+        $('lg-resp').classList.add('is-error');
+        if (!primeiro) primeiro = fResp;
+      }
+    }
+    if (problemas.length) {
+      msg(status, 'bad', 'Falta pouco: ' + problemas.join('; ') + '.');
+      (primeiro as HTMLElement | null)?.focus();
+      return;
+    }
+
+    emailAtual = email;
+    enviar.disabled = true;
+    msg(status, '', modo === 'criar' ? 'Criando a conta…' : 'Entrando…');
+    const token = tokenDaCaixa();
+    if (caixaCarregou && !token) {
+      msg(status, 'bad', 'Marque a caixa “Não sou um robô” antes de enviar.');
+      enviar.disabled = false;
+      return;
+    }
+    try {
+      const r = await enviarCredenciais(modo, email, fSenha.value, volta, token);
+      if (r.state !== 'SUCCESS') zerarCaixa(); // o token valeu um envio; para tentar de novo, marca de novo
+      trata(r, status, email);
+      if (r.state !== 'SUCCESS') enviar.disabled = false;
+    } catch {
+      zerarCaixa();
+      msg(status, 'bad', 'Não conseguimos falar com o servidor. Confira a conexão e tente de novo.');
+      enviar.disabled = false;
+    }
+  });
+
+  $('form-codigo').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const campo = $('lg-codigo') as HTMLInputElement;
+    const alvoMsg = $('lg-codigo-msg');
+    const codigo = campo.value.trim();
+    if (!codigo) { marcar(campo, true); msg(alvoMsg, 'bad', 'Digite o código que chegou no e-mail.'); campo.focus(); return; }
+    msg(alvoMsg, '', 'Conferindo…');
+    try { trata(await verifyEmail(codigo), alvoMsg, emailAtual); }
+    catch { msg(alvoMsg, 'bad', 'Não conseguimos conferir agora. Tente de novo.'); }
+  });
+
+  /* esqueci a senha — a resposta é a mesma exista ou não a conta, para não
+     revelar quem é cadastrado */
+  $('lg-esqueci').addEventListener('click', () => {
+    ($('lg-rec-email') as HTMLInputElement).value = fEmail.value.trim();
+    msg($('lg-rec-msg'), '', '');
+    mostra('recuperar');
+    ($('lg-rec-email') as HTMLInputElement).focus();
+  });
+  $('lg-rec-voltar').addEventListener('click', () => { mostra('principal'); fEmail.focus(); });
+
+  $('form-recuperar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const campo = $('lg-rec-email') as HTMLInputElement;
+    const alvoMsg = $('lg-rec-msg');
+    const email = campo.value.trim();
+    if (!reEmail.test(email)) { marcar(campo, true); msg(alvoMsg, 'bad', 'Informe um e-mail válido.'); campo.focus(); return; }
+    msg(alvoMsg, '', 'Enviando…');
+    try {
+      await recovery.sendRecoveryEmail(email, {
+        language: 'pt',
+        // depois da senha nova, volta para esta página, com o mesmo destino
+        redirect: { url: location.origin + location.pathname + '?volta=' + encodeURIComponent(volta), clientId: WIX_CLIENT_ID },
+      });
+      msg(alvoMsg, 'ok', 'Se esse e-mail tiver conta, o link chega em instantes. Confira também o spam.');
+    } catch {
+      msg(alvoMsg, 'bad', 'Não conseguimos enviar agora. Tente de novo em instantes.');
+    }
+  });
+</script>
+
+</Base>

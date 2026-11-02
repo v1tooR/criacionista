@@ -1,0 +1,226 @@
+---
+import Base from '../layouts/Base.astro';
+import AbasDeCategoria from '../components/AbasDeCategoria.astro';
+import ArtigosDePost from '../components/ArtigosDePost.astro';
+import { caminho, caminhoPost, PRODUCAO } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
+---
+<Base
+  title={"Artigos e Contribuições Científicas | Clube Criacionista de Ciências"}
+  desc={"Repositório de artigos, estudos e materiais de pesquisa sobre origens, pensamento crítico infantil e metodologia STEM criacionista."}
+  pvbar={"<span><b>PRÉVIA</b> · Página Artigos e Contribuições Científicas (nova)</span> <span>·</span> <span>Clube Criacionista de Ciências</span> <span>·</span> <a href=\"https://www.clubecriacionista.com/\">ver site atual</a>"}
+  rota={"estudos"}
+>
+
+<!-- ============ TOPO ============ -->
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Artigos</p>
+    <h1>Artigos e Contribuições Científicas</h1>
+    <p class="lead">Aqui ficam os artigos e recursos para pesquisadores, educadores e líderes de ministério.</p>
+  </div>
+</section>
+
+<!-- ============ ACERVO ============ -->
+<section class="section" id="acervo">
+  <div class="wrap">
+    <div class="note" data-reveal>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <div><b>Os artigos vêm do blog do site atual</b>, buscados ao vivo: texto, imagem, autoria e data são do próprio cliente, e clicar abre o artigo no site no ar. Os temas são as categorias do próprio blog — aparecem só as que já têm artigo. Filtros e busca funcionam nesta prévia.</div>
+    </div>
+
+    <div class="filters" data-reveal>
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5" stroke-linecap="round"/></svg>
+        <input type="search" id="busca" placeholder="Buscar por título, autor ou palavra-chave" aria-label="Buscar no acervo">
+      </label>
+      <div class="chips" id="chips" role="group" aria-label="Filtrar por tema">
+      <AbasDeCategoria>
+<button class="chip is-on" data-cat="todos">Todos</button>
+        <button class="chip" data-cat="origens">Origens</button>
+        <button class="chip" data-cat="pensamento">Pensamento crítico infantil</button>
+      </AbasDeCategoria>
+      </div>
+    </div>
+
+    <p class="acard__meta" id="contagem" style="margin:0 0 18px" aria-live="polite"></p>
+
+    <div class="grid grid--3" id="lista">
+      <ArtigosDePost limite={12}>
+<!-- ---- Artigos reais, publicados no site atual ---- -->
+      <article class="acard" data-cat="origens" data-reveal>
+        <div class="acard__media">
+          <img src="/assets/wix/post-criterios-animais.png" alt="Planta carnívora Sarracenia" loading="lazy">
+        </div>
+        <div class="acard__in"> <span class="tag tag--art">Origens</span>
+          <h3>Critérios de classificação dos animais</h3>
+          <p class="acard__meta">Eliézer C. Militão · 10 out 2023 · 2 min de leitura</p>
+          <p class="acard__abs">A classificação dos animais depende fortemente dos critérios adotados para a mesma. Neste artigo vamos ver como esses critérios mudaram ao longo do tempo.</p>
+          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href={caminhoPost("critérios-de-classificação-dos-animais")}>Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="acard" data-cat="pensamento" data-reveal>
+        <div class="acard__media">
+          <img src="/assets/wix/post-trapaceando-acaso.jpg" alt="Dados e probabilidade" loading="lazy">
+        </div>
+        <div class="acard__in"> <span class="tag tag--art">Pensamento crítico</span>
+          <h3>Trapaceando com o acaso</h3>
+          <p class="acard__meta">Eliézer C. Militão · 18 jul 2023 · 5 min de leitura</p>
+          <p class="acard__abs">Defensores da teoria da evolução têm argumentado que o surgimento da vida ocorreu ao acaso, por processos naturais, e usam várias analogias para sustentar o argumento.</p>
+          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href={caminhoPost("trapaceando-com-o-acaso")}>Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="acard" data-cat="origens" data-reveal>
+        <div class="acard__media">
+          <img src="/assets/wix/post-universo-ajustado.jpg" alt="O universo e o ajuste fino" loading="lazy">
+        </div>
+        <div class="acard__in"> <span class="tag tag--art">Origens</span>
+          <h3>O universo é finamente ajustado para a vida</h3>
+          <p class="acard__meta">Eliézer C. Militão · 18 jul 2023 · 4 min de leitura</p>
+          <p class="acard__abs">O fato de que o sol tem a cor, o tamanho e a distância certos para favorecer a existência de vida na Terra é um entre muitos ajustes observáveis no universo.</p>
+          <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href={caminhoPost("o-universo-é-finamente-ajustado-para-a-vida")}>Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF a gerar</span>
+          </div>
+        </div>
+      </article>
+      </ArtigosDePost>
+    </div>
+
+    <div class="empty" id="vazio" hidden>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5" stroke-linecap="round"/></svg>
+      <h3>Nada encontrado com esses termos</h3>
+      <p>Tente uma busca mais ampla, com uma palavra só, ou volte para “Todos” e navegue pelos temas.</p>
+    </div>
+  </div>
+
+  <div class="wrap" id="propostas" data-previa hidden={PRODUCAO}>
+    <div class="sec-head" data-reveal> <span class="eyebrow">Em aberto</span>
+      <h2 class="h2">Temas propostos, ainda sem conteúdo</h2>
+      <p class="lead">Não são artigos publicados: são assuntos que o clube pode cobrir e que hoje não têm texto. Ficam fora da busca e dos filtros acima, para não se misturarem com o acervo real.</p>
+    </div>
+    <div class="grid grid--3">
+        <article class="acard acard--nomedia" data-cat="stem" data-reveal>
+          <div class="acard__in"> <span class="tag tag--news">Metodologia STEM criacionista</span>
+            <h3>Roteiro de experimentos domésticos com material de baixo custo</h3>
+            <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
+            <p class="acard__abs">Proposta de sequência didática para reproduzir observações científicas em casa, com lista de materiais, orientação de segurança e critérios de registro.</p>
+            <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="acard acard--nomedia" data-cat="educacao" data-reveal>
+          <div class="acard__in"> <span class="tag tag--art">Educação cristã</span>
+            <h3>Ciência na classe bíblica: o que funciona com pré-adolescentes</h3>
+            <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
+            <p class="acard__abs">Relato de práticas em classes bíblicas infantis, com foco em como introduzir conteúdo científico sem transformar a aula em palestra.</p>
+            <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="acard acard--nomedia" data-cat="divulgacao" data-reveal>
+          <div class="acard__in"> <span class="tag tag--mc">Divulgação científica</span>
+            <h3>Traduzir sem distorcer: linguagem científica para leitores de 9 anos</h3>
+            <p class="acard__meta">Autoria a definir · <span class="pill pill--soft">EXEMPLO</span></p>
+            <p class="acard__abs">Discussão sobre simplificação de conteúdo técnico para público infantil e os limites entre tornar acessível e tornar impreciso.</p>
+            <div class="acard__foot"> <a class="btn btn--ghost btn--sm" href="#artigo" data-wip="Página do artigo">Ler artigo <span class="btn__arrow">→</span></a> <span class="acard__pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg> PDF</span>
+            </div>
+          </div>
+        </article>
+    </div>
+  </div>
+
+  <div class="wrap totop"><a href="#top">Voltar ao topo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a></div>
+</section>
+
+<!-- ============ COMO PUBLICAR ============ -->
+<section class="section section--soft">
+  <div class="wrap">
+    <div class="grid grid--2">
+      <div class="box" data-reveal>
+        <h3>Todo artigo tem PDF</h3>
+        <p>Cada item do acervo traz o texto na página e um arquivo em PDF para baixar, imprimir e usar em aula ou em estudo de grupo.</p>
+        <p style="margin-bottom:0">A página individual do artigo mostra categoria, título, autoria, data, tempo de leitura, resumo, o conteúdo completo e uma lista de artigos relacionados no fim.</p>
+      </div>
+      <div class="box" data-reveal>
+        <h3>Quem publica</h3>
+        <p>O cliente sobe os PDFs e preenche os dados pelo painel — sem depender de programador para cada publicação nova.</p>
+        <p style="margin-bottom:0">A busca varre título, autoria e palavras-chave de todo o acervo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <h2 class="h2">Este acervo existe porque alguém sustenta</h2>
+      <p class="lead">Pesquisa, redação e revisão levam tempo. Quem apoia o clube mantém esse material aberto e gratuito.</p>
+      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href={caminho("doe")}>Apoiar o projeto <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href={caminho("index", "#educadores")}>Receber a newsletter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ RODAPÉ ============ -->
+
+<script is:inline slot="script">
+(function(){
+  'use strict';
+  /* ---- Filtro por tema + busca no acervo ---- */
+  var lista = document.getElementById('lista');
+  if (!lista) return;
+  var cards   = Array.prototype.slice.call(lista.querySelectorAll('.acard'));
+  var chips   = Array.prototype.slice.call(document.querySelectorAll('#chips .chip'));
+  var busca   = document.getElementById('busca');
+  var vazio   = document.getElementById('vazio');
+  var contagem = document.getElementById('contagem');
+  var cat = 'todos';
+
+  var norm = function(s){
+    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  };
+
+  var aplicar = function(){
+    var termo = norm(busca.value.trim());
+    var visiveis = 0;
+
+    cards.forEach(function(c){
+      var okCat = cat === 'todos' || c.getAttribute('data-cat') === cat;
+      var okTermo = !termo || norm(c.textContent).indexOf(termo) > -1;
+      var mostra = okCat && okTermo;
+      c.hidden = !mostra;
+      if (mostra) visiveis++;
+    });
+
+    vazio.hidden = visiveis > 0;
+    lista.hidden = visiveis === 0;
+    contagem.textContent = visiveis === 0
+      ? ''
+      : visiveis + (visiveis === 1 ? ' artigo encontrado' : ' artigos encontrados');
+  };
+
+  chips.forEach(function(ch){
+    ch.addEventListener('click', function(){
+      cat = ch.getAttribute('data-cat');
+      chips.forEach(function(o){ o.classList.toggle('is-on', o === ch); });
+      aplicar();
+    });
+  });
+  busca.addEventListener('input', aplicar);
+
+  aplicar();
+})();
+
+</script>
+</Base>

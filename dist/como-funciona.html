@@ -32,6 +32,43 @@
 <body data-hero="prisma">
 <script>/* aplica o modo salvo antes de pintar, para não piscar */try{if(localStorage.getItem('ccc-modo')==='nativo')document.body.setAttribute('data-wix','nativo');}catch(e){}</script>
 
+<!-- ============ BARRA DE PRÉVIA (remover na publicação) ============ -->
+<div class="pvbar">
+  <span><b>PRÉVIA</b> · Página Como funciona (nova · absorve o Programa de Recompensas)</span>
+  <span>·</span>
+  <span>Clube Criacionista de Ciências</span>
+  <span>·</span>
+  <a href="https://www.clubecriacionista.com/">ver site atual</a>
+</div>
+
+<!-- ============ CHAVE DE MODO (remover na publicação) ============ -->
+<div class="wixbar">
+  <span class="wixbar__lbl">Ver esta página como:</span>
+  <span class="wixbar__set" id="wixset" role="group" aria-label="Modo de visualização">
+    <button type="button" data-modo="completo">Proposta completa</button>
+    <button type="button" data-modo="nativo">Piso Wix nativo</button>
+  </span>
+</div>
+<div class="wixnote">
+  <div class="wixnote__in">
+    <details>
+      <summary>Piso garantido: só elementos nativos do Wix Studio, sem custom element e sem Velo. Veja as 10 diferenças em relação à proposta completa.</summary>
+      <ol>
+        <li><b>Faixa do hero.</b> Cinco degradês radiais sobrepostos viram um degradê linear. Para chegar perto, exportar a faixa como imagem de fundo.</li>
+        <li><b>Animações contínuas.</b> Foto flutuando, orbes pulsando e o anel tracejado saem — o editor não faz animação em loop.</li>
+        <li><b>Contadores.</b> Os números entram prontos. Contar de 0 até o valor exige Velo.</li>
+        <li><b>Trilhos horizontais.</b> Viram Slider nativo: anda de página em página pelas setas, sem arrastar livre nem barra de rolagem.</li>
+        <li><b>Vídeos.</b> O embed do YouTube carrega junto com a página, com o botão da própria plataforma. Segurar o carregamento até o clique exige custom element.</li>
+        <li><b>Sublinhado do título.</b> Entra já desenhado, em vez de riscar sozinho depois da abertura.</li>
+        <li><b>Tipografia.</b> O tamanho é definido por breakpoint, então muda em degraus em vez de acompanhar a largura da janela.</li>
+        <li><b>Formulário.</b> Wix Forms: rótulo acima, campo em largura total, opções empilhadas com marcador clássico e botão de largura natural.</li>
+        <li><b>Cantos e sombras.</b> Raios muito arredondados e sombras longas ficam mais discretos, como costumam sair da montagem manual.</li>
+        <li><b>Entrada ao rolar.</b> O reveal é nativo, mas com presets: mesma duração para todos, sem atraso fino card a card.</li>
+      </ol>
+    </details>
+  </div>
+</div>
+
 <!-- ============ HEADER ============ -->
 <header class="hdr" id="hdr">
   <div class="hdr__in">
@@ -91,7 +128,7 @@
 <!-- ============ OS TRÊS PASSOS ============ -->
 <section class="section">
   <div class="wrap">
-    <div class="note" data-reveal>
+    <div class="note" data-reveal data-previa>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
       <div><b>Esta página substitui o “Programa de Recompensas”.</b> A mecânica dos pontos, que hoje é uma página estática, passa a morar aqui; o resgate fica na <a href="loja.html">Loja</a>. Na publicação, o endereço <code>/recompensas</code> deve redirecionar para cá, para não perder os links antigos. Valores de pontos e regras de nível ainda dependem de confirmação do cliente.</div>
     </div>
@@ -166,8 +203,8 @@
   <div class="wrap">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Passo 2</span>
-      <h2 class="h2">As missões da semana</h2>
-      <p class="lead">Cada mês tem um tema na Estação dos Por Ques. As missões saem desse tema e ficam abertas por um período.</p>
+      <h2 class="h2">Temas sugeridos</h2>
+      <p class="lead">A cada mês será sugerido um novo tema para pesquisa, mas os temas anteriores poderão continuar a ser usados como referência.</p>
     </div>
 
     <div class="grid grid--3">
@@ -221,7 +258,7 @@
 
       <div class="alerta">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-        <p><b>Antes de enviar, a tela avisa:</b> não mostre o rosto, não diga o nome completo, não mostre a fachada de casa nem o uniforme da escola. O envio fica em análise até alguém da equipe conferir.</p>
+        <p><b>Antes de enviar, a tela avisa:</b> caso não deseje mostrar o rosto da criança, borre a imagem que será enviada (atente para não mostrar o seu endereço ou fachada da casa, uniforme escolar ou outro item que não desejar mostrar). O envio fica em análise até alguém da equipe conferir.</p>
       </div>
     </div>
   </div>
@@ -234,19 +271,31 @@
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Passo 3</span>
       <h2 class="h2">Como os pontos funcionam</h2>
-      <p class="lead">Ponto não cai do céu nem some sem explicação: cada crédito vem de uma descoberta aprovada e cada débito, de um resgate.</p>
+      <p class="lead">Ponto não cai do céu nem some sem explicação: cada crédito vem de uma atividade conferida pela equipe e cada débito, de um resgate. São três áreas: produção científica, participação em atividades e desempenho acadêmico.</p>
     </div>
 
     <div class="tbl" data-reveal>
       <table>
         <thead>
-          <tr><th>O que a criança faz</th><th>Quando os pontos entram</th><th>Quantos pontos</th></tr>
+          <tr><th>O que a criança faz</th><th>Quando os pontos entram</th><th>Pontos</th></tr>
         </thead>
         <tbody>
-          <tr><td>Envia uma descoberta de observação</td><td>Depois da aprovação da equipe</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-          <tr><td>Envia um experimento feito em casa</td><td>Depois da aprovação da equipe</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-          <tr><td>Completa todas as missões do mês</td><td>No fechamento do mês</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-          <tr><td>Participa do Concurso Criacionista</td><td>Na confirmação da inscrição</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
+          <tr class="tbl__grupo"><td colspan="3">Produção científica</td></tr>
+          <tr><td>Vídeo autoral</td><td>Depois da aprovação da equipe</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Texto autoral</td><td>Depois da aprovação da equipe</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Foto autoral</td><td>Depois da aprovação da equipe</td><td><b>5 pontos</b></td></tr>
+          <tr><td>Link de postagem</td><td>Depois da aprovação da equipe</td><td><b>1 ponto</b></td></tr>
+          <tr><td>Link de artigo ou reportagem</td><td>Depois da aprovação da equipe</td><td><b>1 ponto</b></td></tr>
+          <tr><td>Link de vídeo</td><td>Depois da aprovação da equipe</td><td><b>1 ponto</b></td></tr>
+          <tr class="tbl__grupo"><td colspan="3">Participação em atividades</td></tr>
+          <tr><td>Palestra presencial</td><td>Na confirmação da presença</td><td><b>20 pontos</b></td></tr>
+          <tr><td>Palestra online, com o quiz respondido</td><td>Na confirmação da presença</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Exposição</td><td>Na confirmação da presença</td><td><b>5 pontos</b></td></tr>
+          <tr><td>Oficina</td><td>Na confirmação da presença</td><td><b>15 pontos</b></td></tr>
+          <tr><td>Curso concluído, com as avaliações</td><td>Na confirmação da presença</td><td><b>50 pontos</b></td></tr>
+          <tr class="tbl__grupo"><td colspan="3">Desempenho acadêmico</td></tr>
+          <tr><td>Média do bimestre igual ou maior que 8,0</td><td>Depois da conferência da equipe</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Média final do ano igual ou maior que 8,0</td><td>Depois da conferência da equipe</td><td><b>10 pontos</b></td></tr>
         </tbody>
       </table>
     </div>
@@ -267,7 +316,7 @@
       <div class="card" data-reveal>
         <div class="card__body">
           <h3 class="card__title">Precisa de ajuste</h3>
-          <p class="card__txt">Algo impede a aprovação — o rosto apareceu, faltou explicar. Vem um recado dizendo o que mudar, e ela reenvia.</p>
+          <p class="card__txt">Algo impede a aprovação — faltou explicar, o arquivo não abriu. Vem um recado dizendo o que mudar, e ela reenvia.</p>
         </div>
       </div>
     </div>
@@ -303,7 +352,7 @@
       <div class="tcard" data-reveal>
         <span class="tcard__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6.5v5c0 4.7 3.3 8.9 8 9.9 4.7-1 8-5.2 8-9.9v-5L12 3Z"/></svg></span>
         <h3>Você autoriza</h3>
-        <p>Sem o seu aceite no termo de participação e no de imagem, a criança não consegue enviar nada. E você pode revogar depois.</p>
+        <p>Sem o seu aceite no termo de participação, a criança não consegue enviar nada. Foto e vídeo dependem também da autorização de imagem. E você pode revogar depois.</p>
       </div>
       <div class="tcard" data-reveal>
         <span class="tcard__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
@@ -329,11 +378,11 @@
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Meu filho precisa de e-mail próprio?<span class="acc__ico"></span></button>
-        <div class="acc__a"><div>Não. O cadastro fica na conta do responsável, e a criança entra por ali. <span class="pill pill--soft">A CONFIRMAR</span> Se o cliente preferir dar login próprio à criança, isso muda na implementação.</div></div>
+        <div class="acc__a"><div>Não. O cadastro fica na conta do responsável, e a criança participa por ali: é o responsável quem registra as atividades e pede os resgates.</div></div>
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Quanto tempo leva para o envio ser aprovado?<span class="acc__ico"></span></button>
-        <div class="acc__a"><div>O prazo depende do volume de envios e da equipe disponível. <span class="pill pill--soft">A DEFINIR</span> Assim que o cliente fechar o prazo, ele aparece aqui e na tela de envio.</div></div>
+        <div class="acc__a"><div>Até 48 horas. Quando a equipe aprova, os pontos entram no extrato na hora; se recusar, o responsável vê o motivo no painel.</div></div>
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Posso cadastrar mais de um filho?<span class="acc__ico"></span></button>
@@ -345,7 +394,7 @@
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Os pontos vencem?<span class="acc__ico"></span></button>
-        <div class="acc__a"><div><span class="pill pill--soft">A DEFINIR</span> Precisa de decisão do cliente. A recomendação é que não vençam, para não gerar frustração em quem junta pontos por vários meses.</div></div>
+        <div class="acc__a"><div>Não. Os pontos não vencem: o que a criança junta fica no extrato até ela resgatar.</div></div>
       </div>
     </div>
   </div>
@@ -374,8 +423,6 @@
         <span class="ftr__logo"><img src="assets/logo.png" alt="Clube Criacionista de Ciências"></span>
         <p>Explorando as evidências da nossa origem superior. Informações e curiosidades sobre o mundo que nos cerca, analisadas com pensamento crítico a partir da cosmovisão bíblica.</p>
         <div class="ftr__soc">
-          <a href="#youtube" data-wip="Canal no YouTube" aria-label="YouTube — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.9-.5-5.7a3 3 0 0 0-2.1-2.1C18.6 3.6 12 3.6 12 3.6s-6.6 0-8.4.6A3 3 0 0 0 1.5 6.3C1 8.1 1 12 1 12s0 3.9.5 5.7a3 3 0 0 0 2.1 2.1c1.8.6 8.4.6 8.4.6s6.6 0 8.4-.6a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12ZM9.8 15.4V8.6l5.9 3.4-5.9 3.4Z"/></svg></a>
-          <a href="#instagram" data-wip="Perfil no Instagram" aria-label="Instagram — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://www.facebook.com/clubecriacionista/" target="_blank" rel="noopener" aria-label="Facebook do Clube Criacionista"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7.2c0-.9.2-1.3 1.5-1.3H17V3h-2.7C11.3 3 10.2 4.5 10.2 7v2H8v3h2.2v9H14v-9h2.6l.4-3H14Z"/></svg></a>
         </div>
       </div>
@@ -407,18 +454,19 @@
         <h4>Institucional</h4>
         <ul>
           <li><a href="contato.html">Contato</a></li>
-          <li><a href="https://www.clubecriacionista.com/s-projects-side-by-side">Parcerias</a></li>
+          <li><a href="contato.html#parcerias">Parcerias</a></li>
           <li><a href="concurso.html">Concurso Criacionista</a></li>
-          <li><a href="#transparencia" data-wip="Relatório de transparência">Transparência</a></li>
+          <li data-previa><a href="#transparencia" data-wip="Relatório de transparência">Transparência</a></li>
+          <li><a href="politica-de-privacidade.html">Política de privacidade</a></li>
           <li><a href="#entrar" data-wip="Entrar / Cadastrar">Entrar / Cadastrar</a></li>
         </ul>
-        <p style="margin-top:16px"><span class="pill">A DEFINIR</span><br><span style="font-size:13px">Canal principal de atendimento, horário e prazo de resposta.</span></p>
+        <p class="ftr__atend"><b>Atendimento</b><br><a href="mailto:contato@clubecriacionista.org">contato@clubecriacionista.org</a><br>Seg. a qui., 9h às 18h<br>Sex., 9h às 12h<br>Respondemos em até 48 horas.</p>
       </div>
     </div>
 
     <div class="ftr__bot">
       <span>© 2026 Clube Criacionista de Ciências. Todos os direitos reservados.</span>
-      <span>Prévia de reformulação · <a href="https://www.clubecriacionista.com/">clubecriacionista.com</a></span>
+      <span data-previa>Prévia de reformulação · <a href="https://www.clubecriacionista.com/">clubecriacionista.com</a></span>
     </div>
   </div>
 </footer>

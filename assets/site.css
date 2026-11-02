@@ -6,6 +6,13 @@
    Conteúdo, imagens e links reais extraídos de clubecriacionista.com
    ============================================================ */
 
+/* --- Atributo hidden ----------------------------------------
+   O navegador esconde [hidden] com uma regra fraca, que qualquer `display`
+   do site vence — `.mnav a{display:block}`, por exemplo. O cabeçalho
+   alterna "Entrar" e "Sair" por esse atributo (src/sessao.ts); sem isto, o
+   menu do celular mostrava os dois juntos. */
+[hidden]{display:none !important}
+
 /* --- Tokens ------------------------------------------------ */
 :root{
   --navy:#323D90; --navy-d:#232A62; --navy-l:#4C59BE;
@@ -188,6 +195,10 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .hdr__cta{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:10px}
 .link-login{font-size:14.5px;font-weight:800;color:var(--navy);padding:9px 6px;white-space:nowrap}
 .link-login:hover{color:var(--cyan-d)}
+/* "Olá, Nome" logado: nome longo (ex.: apelido tirado do e-mail) não pode
+   empurrar o botão Inscrever para fora; abaixo de 1400px some e fica só "Sair" */
+[data-sessao-ola]{max-width:120px;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:1400px){ .hdr__cta [data-sessao-ola]{display:none !important} }
 
 .burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);margin-left:auto;align-items:center;justify-content:center;background:#fff}
 .burger span{display:block;width:19px;height:2px;background:var(--navy);border-radius:2px;position:relative;transition:.25s var(--ease)}
@@ -619,7 +630,7 @@ a.res:hover .res__go{transform:translateX(4px)}
   border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
   transform:translateY(-72%) rotate(45deg);pointer-events:none;
 }
-.nl select,.nl input[type="text"],.nl input[type="email"],.form select,.form input[type="text"],.form input[type="email"],.form input[type="tel"],.form input[type="number"],.form textarea{
+.nl select,.nl input[type="text"],.nl input[type="email"],.nl input[type="password"],.form select,.form input[type="text"],.form input[type="email"],.form input[type="password"],.form input[type="tel"],.form input[type="number"],.form input[type="url"],.form input[type="date"],.form input[type="file"],.form textarea{
   width:100%;font:inherit;font-size:15px;color:var(--ink);
   padding:12px 14px;border-radius:var(--r-s);
   border:1.5px solid var(--line);background:#fff;
@@ -645,6 +656,12 @@ a.res:hover .res__go{transform:translateX(4px)}
 .check.is-error{color:var(--red)}
 .err{display:block;font-size:12.5px;font-weight:700;color:var(--red);margin-top:6px}
 .nl button[type="submit"]{width:100%}
+/* formulários do Wix Forms (site/src/formulario-wix.ts) */
+.field--check{margin:0}
+.field--check .err{margin:-14px 0 16px}
+.field__help{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.5}
+.form__acoes{display:flex;gap:10px}
+.form__acoes .btn{flex:1}
 .nl__msg{margin:16px 0 0;font-size:14.5px;font-weight:700;line-height:1.5}
 .nl__msg.ok{color:var(--green-d)}
 .nl__msg.bad{color:var(--red)}
@@ -874,6 +891,9 @@ a.res:hover .res__go{transform:translateX(4px)}
 .tbl th{font-weight:800;color:var(--ink);background:var(--bg-soft);font-size:13px;letter-spacing:.02em}
 .tbl tr:last-child td{border-bottom:0}
 .tbl td{color:var(--body)}
+.tbl tr.tbl__grupo td{font-weight:800;color:var(--navy);background:var(--bg-soft);font-size:13px;letter-spacing:.02em;text-transform:uppercase}
+.ftr__atend{margin-top:16px;font-size:13px;line-height:1.6}
+.ftr__atend a{text-decoration:underline;text-underline-offset:2px}
 
 /* --- Estado vazio ------------------------------------------- */
 .empty{
@@ -984,3 +1004,147 @@ a.res:hover .res__go{transform:translateX(4px)}
   border-radius:var(--r-full);padding:8px 15px;font-size:13.4px;font-weight:700;color:var(--body);
 }
 .formato svg{color:var(--navy)}
+
+/* --- Página de post -----------------------------------------
+   Coluna estreita para leitura corrida: a medida larga do resto do site
+   funciona para cards, mas cansa num texto de cinco minutos. */
+.wrap--txt{max-width:760px}
+
+.post{padding:40px 0 72px}
+.post h1{font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-.015em;margin:10px 0 14px}
+.post__meta{font-size:14px;font-weight:700;color:var(--muted);margin:0 0 28px}
+.post__capa{width:100%;height:auto;border-radius:var(--r-l);margin:0 0 34px;display:block}
+
+.post__corpo{font-size:17.5px;line-height:1.72;color:var(--body);
+  /* os posts citam fontes colando a URL inteira como texto do link. Sem isto a
+     linha não quebra, estoura a coluna e o fim do endereço some na borda. */
+  overflow-wrap:anywhere}
+.post__corpo > :first-child{margin-top:0}
+.post__corpo p{margin:0 0 20px}
+.post__corpo h2,.post__corpo h3,.post__corpo h4{color:var(--ink);line-height:1.2;margin:38px 0 14px}
+.post__corpo h2{font-size:27px}
+.post__corpo h3{font-size:22px}
+.post__corpo h4{font-size:19px}
+.post__corpo ul,.post__corpo ol{margin:0 0 20px;padding-left:26px}
+.post__corpo li{margin:0 0 9px}
+.post__corpo a{color:var(--blue-d);text-decoration:underline;text-underline-offset:2px}
+.post__corpo a:hover{color:var(--navy)}
+.post__corpo blockquote{
+  margin:0 0 22px;padding:4px 0 4px 20px;border-left:4px solid var(--yellow);
+  font-style:italic;color:var(--ink)}
+.post__corpo hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+
+/* figuras: a largura vem do próprio post, então o limite é só não vazar */
+.post__fig{margin:0 0 26px;max-width:100%}
+.post__fig img{max-width:100%;height:auto;border-radius:var(--r-m);display:block}
+.post__fig figcaption{
+  font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:9px;font-weight:600}
+.post__fig--center{margin-left:auto;margin-right:auto}
+.post__fig--center img,.post__fig--center figcaption{margin-left:auto;margin-right:auto;text-align:center}
+.post__fig--right{margin-left:auto}
+.post__fig--right figcaption{text-align:right}
+
+.post__origem{
+  margin:36px 0 0;padding:16px 18px;border-radius:var(--r-m);
+  background:var(--bg-soft);font-size:14.5px;color:var(--body)}
+.post__origem a{color:var(--blue-d);font-weight:700}
+.post__volta{margin:26px 0 0}
+
+@media (max-width:600px){
+  .post{padding:26px 0 52px}
+  .post__corpo{font-size:16.5px}
+}
+
+/* ============ Inscrição do membro pesquisador (site/src/pages/cadastro.astro) ============ */
+.cad{align-items:start}
+.cad__lista{margin:18px 0 0;padding-left:20px;line-height:1.75}
+.cad__lista li{margin-bottom:6px}
+.cad__bloco{border:0;padding:0;margin:0 0 26px;min-width:0}
+.cad__bloco[hidden]{display:none}
+.cad__titulo{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px;color:var(--navy);margin:0 0 14px;padding:0}
+.cad__avatares{display:flex;flex-wrap:wrap;gap:10px}
+.cad__av{display:flex;align-items:center;justify-content:center;width:58px;height:58px;flex:0 0 58px;border-radius:50%;color:#fff;cursor:pointer;
+  border:3px solid transparent;transition:transform .15s var(--ease),border-color .15s var(--ease);position:relative}
+.cad__av input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.cad__av:hover{transform:scale(1.05)}
+.cad__av:has(input:checked){border-color:var(--navy);box-shadow:0 0 0 3px #fff inset}
+.cad__av:has(input:focus-visible){outline:3px solid var(--cyan);outline-offset:2px}
+.av--atomo{background:var(--navy)} .av--lupa{background:var(--cyan-d)} .av--telescopio{background:var(--purple)}
+.av--folha{background:var(--green-d)} .av--planeta{background:#C77700} .av--foguete{background:var(--red)}
+.av--borboleta{background:#B0357A} .av--fossil{background:#6B5B4B}
+fieldset.field.is-error .cad__avatares{outline:2px solid var(--red);outline-offset:6px;border-radius:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cad__criancas{list-style:none;margin:0 0 20px;padding:0}
+.cad__crianca{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.cad__crianca > .cad__av{width:56px;height:56px;flex:0 0 56px;cursor:default}
+.cad__crianca > .cad__av:hover{transform:none}
+.cad__apelido{font-weight:800;font-size:17px;color:var(--ink);margin:0}
+.cad__auts{list-style:none;margin:0;padding:0;font-size:13.5px;line-height:1.7}
+.pill--ok{background:rgba(94,150,51,.14);color:var(--green-d);vertical-align:middle;margin-left:6px}
+@media (max-width:520px){ .cad__avatares{gap:8px} }
+/* pontos no painel do responsável e painel da equipe (passo 4b) */
+.cad__info{flex:1;min-width:0}
+.cad__info > .btn{margin:10px 0 4px}
+.cad__saldo{margin:2px 0 8px;font-size:14px;color:var(--body)}
+.cad__saldo b{font-family:'Baloo 2',sans-serif;font-size:26px;color:var(--navy);margin-right:2px}
+.cad__hist{margin:8px 0 0;font-size:13.5px}
+.cad__hist summary{cursor:pointer;font-weight:800;color:var(--navy)}
+.cad__hist ul{margin:8px 0 0;padding-left:18px;line-height:1.6}
+.cad__hist li{margin-bottom:6px}
+.cad__sit{font-weight:800}
+.cad__sit--pending{color:#8A6A00} .cad__sit--approved{color:var(--green-d)} .cad__sit--rejected{color:var(--red)}
+.eq__item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
+.eq__item > .cad__av{width:48px;height:48px;flex:0 0 48px;cursor:default}
+.eq__item > .cad__av:hover{transform:none}
+.eq__acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.eq__acoes input{flex:1 1 220px;min-width:0}
+.eq__vazio{padding:18px 0;color:var(--muted)}
+/* resgate de prêmios (site/src/pages/cadastro.astro) */
+.cad__botoes{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.resg__premios{display:grid;gap:10px}
+.resg__premio{display:flex;gap:12px;align-items:center;padding:12px;border:1.5px solid var(--line);border-radius:var(--r-m);background:#fff;cursor:pointer;font-size:14px;line-height:1.45}
+.resg__premio input{accent-color:var(--navy);margin:0;flex:0 0 auto}
+.resg__premio img,.resg__semfoto{width:72px;height:72px;border-radius:12px;object-fit:cover;flex:0 0 72px;background:var(--bg-soft)}
+.resg__premio:has(input:checked){border-color:var(--navy);background:rgba(50,61,144,.05)}
+.resg__premio.is-off{opacity:.55;cursor:not-allowed}
+.resg__preco{font-weight:800;color:var(--navy)}
+.resg__dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){ .resg__dupla{grid-template-columns:1fr} }
+.cad__sit--requested{color:#8A6A00} .cad__sit--shipped{color:var(--cyan-d)} .cad__sit--delivered{color:var(--green-d)} .cad__sit--cancelled{color:var(--red)}
+/* apelido da lista: quem foi a pessoa escolhida */
+.cad__quem{margin:10px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--soft,#F6F7FB);font-size:13.5px;line-height:1.55}
+.cad__quem p{margin:0 0 6px}
+.cad__quem p:last-child{margin:0}
+/* aviso dentro do formulário de registro (foto e vídeo) */
+.form .note--aviso{margin:4px 0 16px}
+
+/* --- Pré-lançamento: página de aviso e casca enxuta (28/10/2026) --- */
+.lanc{
+  position:relative;overflow:hidden;background:var(--hero-bg);
+  min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);
+  display:flex;align-items:center;justify-content:center;padding:56px 20px;
+}
+.lanc__in{position:relative;z-index:2;width:100%;max-width:560px;text-align:center}
+.lanc__nome{
+  font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(34px,6vw,56px);line-height:1.04;color:var(--navy);margin:0 0 28px;
+}
+.lanc__in > p{font-size:17px;line-height:1.6;color:var(--body);margin:0 0 12px}
+.lanc__in > p b{color:var(--ink)}
+.lanc__in > .lanc__ola{font-family:'Baloo 2',system-ui,sans-serif;font-weight:700;font-size:22px;color:var(--ink);margin-bottom:14px}
+.lanc__form{margin:26px 0 22px;text-align:left}
+.lanc__form .nl__msg:empty{display:none}
+.lanc__in > .lanc__fim{font-weight:700;color:var(--ink);margin:0}
+
+.hdr-simples{padding:18px 20px;border-bottom:1px solid var(--line-s);background:#fff}
+.hdr-simples a{
+  display:block;max-width:var(--maxw);margin:0 auto;text-decoration:none;
+  font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:22px;color:var(--navy);
+}
+.ftr-simples{
+  display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;
+  padding:20px;border-top:1px solid var(--line-s);background:#fff;
+  font-size:13px;color:var(--muted);
+}
+.ftr-simples a{color:var(--muted)}
+.ftr-simples a:hover{color:var(--navy)}

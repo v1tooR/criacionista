@@ -1,3 +1,14 @@
 node_modules/
 dist/
 .astro/
+.env
+
+# local env (pulled from Wix)
+.env.local
+.env
+
+# gerado pela integração e pelo adaptador do Wix (caminhos locais da máquina)
+.wix/
+.wrangler/
+npm-install.log
+.install-exit

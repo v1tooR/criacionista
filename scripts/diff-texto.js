@@ -20,6 +20,7 @@ const PARES = [
   ['doe.html', '/doe'],
   ['concurso.html', '/concurso'],
   ['contato.html', '/contato'],
+  ['politica-de-privacidade.html', '/politica-de-privacidade'],
 ];
 
 const chrome = ['C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -46,6 +47,9 @@ function connect(u) { return new Promise((res, rej) => { const ws = new WebSocke
     // e saem da build publicada. Comparar com elas acusaria divergência em toda
     // página, escondendo a divergência de conteúdo que é o que interessa aqui.
     await ev("document.querySelectorAll('.pvbar,.wixbar').forEach(function(e){e.remove()})");
+    // as seções de blog agora vêm do Wix na build e são fixas no protótipo:
+    // divergir ali é o comportamento certo, não uma quebra de fidelidade
+    await ev("document.querySelectorAll('#rail-momento,#noticias .grid,#chips,#lista,#contagem').forEach(function(e){e.remove()})");
     // normaliza só espaços: diferença de quebra de linha não é diferença de conteúdo
     return (await ev("document.body.innerText")).replace(/\s+/g, ' ').trim();
   };

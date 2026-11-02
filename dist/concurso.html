@@ -32,6 +32,43 @@
 <body data-hero="prisma">
 <script>/* aplica o modo salvo antes de pintar, para não piscar */try{if(localStorage.getItem('ccc-modo')==='nativo')document.body.setAttribute('data-wix','nativo');}catch(e){}</script>
 
+<!-- ============ BARRA DE PRÉVIA (remover na publicação) ============ -->
+<div class="pvbar">
+  <span><b>PRÉVIA</b> · Página Concurso (era Eventos)</span>
+  <span>·</span>
+  <span>Clube Criacionista de Ciências</span>
+  <span>·</span>
+  <a href="https://www.clubecriacionista.com/">ver site atual</a>
+</div>
+
+<!-- ============ CHAVE DE MODO (remover na publicação) ============ -->
+<div class="wixbar">
+  <span class="wixbar__lbl">Ver esta página como:</span>
+  <span class="wixbar__set" id="wixset" role="group" aria-label="Modo de visualização">
+    <button type="button" data-modo="completo">Proposta completa</button>
+    <button type="button" data-modo="nativo">Piso Wix nativo</button>
+  </span>
+</div>
+<div class="wixnote">
+  <div class="wixnote__in">
+    <details>
+      <summary>Piso garantido: só elementos nativos do Wix Studio, sem custom element e sem Velo. Veja as 10 diferenças em relação à proposta completa.</summary>
+      <ol>
+        <li><b>Faixa do hero.</b> Cinco degradês radiais sobrepostos viram um degradê linear. Para chegar perto, exportar a faixa como imagem de fundo.</li>
+        <li><b>Animações contínuas.</b> Foto flutuando, orbes pulsando e o anel tracejado saem — o editor não faz animação em loop.</li>
+        <li><b>Contadores.</b> Os números entram prontos. Contar de 0 até o valor exige Velo.</li>
+        <li><b>Trilhos horizontais.</b> Viram Slider nativo: anda de página em página pelas setas, sem arrastar livre nem barra de rolagem.</li>
+        <li><b>Vídeos.</b> O embed do YouTube carrega junto com a página, com o botão da própria plataforma. Segurar o carregamento até o clique exige custom element.</li>
+        <li><b>Sublinhado do título.</b> Entra já desenhado, em vez de riscar sozinho depois da abertura.</li>
+        <li><b>Tipografia.</b> O tamanho é definido por breakpoint, então muda em degraus em vez de acompanhar a largura da janela.</li>
+        <li><b>Formulário.</b> Wix Forms: rótulo acima, campo em largura total, opções empilhadas com marcador clássico e botão de largura natural.</li>
+        <li><b>Cantos e sombras.</b> Raios muito arredondados e sombras longas ficam mais discretos, como costumam sair da montagem manual.</li>
+        <li><b>Entrada ao rolar.</b> O reveal é nativo, mas com presets: mesma duração para todos, sem atraso fino card a card.</li>
+      </ol>
+    </details>
+  </div>
+</div>
+
 <!-- ============ HEADER ============ -->
 <header class="hdr" id="hdr">
   <div class="hdr__in">
@@ -91,7 +128,7 @@
 <!-- ============ ESTADO: SEM CONCURSO ATIVO ============ -->
 <section class="section" id="ativo">
   <div class="wrap">
-    <div class="note" data-reveal>
+    <div class="note" data-reveal data-previa>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
       <div><b>Esta página substitui “Eventos”</b>, que hoje aparece vazia no site. Na publicação, <code>/eventos</code> deve redirecionar para cá. Abaixo estão os dois estados da página: sem concurso ativo e com concurso aberto. O cliente ainda precisa definir tema, prazos e premiação.</div>
     </div>
@@ -119,17 +156,17 @@
     </div>
 
     <div class="box" data-reveal>
-      <span class="tag tag--news">Inscrições abertas <span class="pill pill--soft">EXEMPLO</span></span>
-      <h3 style="font-size:26px;margin:12px 0 10px">Tema do concurso <span class="pill pill--soft">A DEFINIR</span></h3>
+      <span class="tag tag--news">Inscrições em breve</span>
+      <h3 style="font-size:26px;margin:12px 0 10px">As digitais do Criador</h3>
       <p>Uma frase que explica o desafio para a criança, na linguagem dela. O tema sai da Estação dos Por Ques e vale para todas as faixas.</p>
       <div class="tbl" style="margin-top:18px">
         <table>
           <thead><tr><th>Etapa</th><th>Quando</th></tr></thead>
           <tbody>
-            <tr><td>Inscrições e envio das participações</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-            <tr><td>Avaliação da comissão</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-            <tr><td>Divulgação do resultado</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-            <tr><td>Entrega da premiação</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
+            <tr><td>Inscrições e envio das participações</td><td>A divulgar</td></tr>
+            <tr><td>Avaliação da comissão</td><td>A divulgar</td></tr>
+            <tr><td>Divulgação do resultado</td><td>A divulgar</td></tr>
+            <tr><td>Entrega da premiação</td><td>A divulgar</td></tr>
           </tbody>
         </table>
       </div>
@@ -167,18 +204,22 @@
             <li>Participam membros pesquisadores com cadastro ativo e autorização do responsável em dia.</li>
             <li>Uma participação por membro pesquisador.</li>
             <li>O trabalho precisa ser feito pela criança; o adulto ajuda na gravação e na segurança, não no conteúdo.</li>
-            <li>Vale a regra de sempre: o rosto da criança não aparece e o nome real não é usado.</li>
+            <li>Vale a regra de sempre: o nome real não é usado, e o rosto não é exigido. Se o responsável não quiser mostrá-lo, borra a imagem antes de enviar.</li>
             <li>Trabalhos copiados de outra fonte são desclassificados.</li>
             <li>A comissão avalia por critérios publicados no regulamento completo.</li>
           </ul>
-          <a class="btn btn--ghost btn--sm" style="margin-top:16px" href="#regulamento" data-wip="Regulamento completo em PDF">
+          <a class="btn btn--ghost btn--sm" style="margin-top:16px" href="#regulamento" data-wip="Regulamento completo em PDF" data-previa>
             Baixar o regulamento completo (PDF) <span class="btn__arrow">→</span>
           </a>
         </div>
 
         <div class="box box--soft" data-reveal>
-          <h3>Premiação <span class="pill pill--soft">A DEFINIR</span></h3>
-          <p style="margin-bottom:0">O que os vencedores recebem, quantas colocações são premiadas e se há premiação por faixa etária. Precisa de decisão do cliente antes da publicação.</p>
+          <h3>Premiação</h3>
+          <ul style="margin:0;padding-left:20px;line-height:1.8">
+            <li><b>1º lugar:</b> R$ 3.000,00</li>
+            <li><b>2º lugar:</b> R$ 1.500,00</li>
+            <li><b>3º lugar:</b> R$ 500,00</li>
+          </ul>
         </div>
       </div>
 
@@ -196,7 +237,7 @@
           </div>
         </div>
 
-        <p class="nl__note">Depois do login, o formulário pede: título do trabalho, formato (vídeo, foto, texto ou link), o arquivo, uma descrição e o aceite do regulamento — com o mesmo aviso de segurança sobre não mostrar o rosto.</p>
+        <p class="nl__note">Depois do login, o formulário pede: título do trabalho, formato (vídeo, foto, texto ou link), o arquivo, uma descrição e o aceite do regulamento — com o mesmo aviso sobre borrar o rosto, se o responsável preferir não mostrá-lo.</p>
       </div>
     </div>
   </div>
@@ -225,8 +266,6 @@
         <span class="ftr__logo"><img src="assets/logo.png" alt="Clube Criacionista de Ciências"></span>
         <p>Explorando as evidências da nossa origem superior. Informações e curiosidades sobre o mundo que nos cerca, analisadas com pensamento crítico a partir da cosmovisão bíblica.</p>
         <div class="ftr__soc">
-          <a href="#youtube" data-wip="Canal no YouTube" aria-label="YouTube — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.9-.5-5.7a3 3 0 0 0-2.1-2.1C18.6 3.6 12 3.6 12 3.6s-6.6 0-8.4.6A3 3 0 0 0 1.5 6.3C1 8.1 1 12 1 12s0 3.9.5 5.7a3 3 0 0 0 2.1 2.1c1.8.6 8.4.6 8.4.6s6.6 0 8.4-.6a3 3 0 0 0 2.1-2.1C23 15.9 23 12 23 12ZM9.8 15.4V8.6l5.9 3.4-5.9 3.4Z"/></svg></a>
-          <a href="#instagram" data-wip="Perfil no Instagram" aria-label="Instagram — perfil a confirmar"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://www.facebook.com/clubecriacionista/" target="_blank" rel="noopener" aria-label="Facebook do Clube Criacionista"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7.2c0-.9.2-1.3 1.5-1.3H17V3h-2.7C11.3 3 10.2 4.5 10.2 7v2H8v3h2.2v9H14v-9h2.6l.4-3H14Z"/></svg></a>
         </div>
       </div>
@@ -258,18 +297,19 @@
         <h4>Institucional</h4>
         <ul>
           <li><a href="contato.html">Contato</a></li>
-          <li><a href="https://www.clubecriacionista.com/s-projects-side-by-side">Parcerias</a></li>
+          <li><a href="contato.html#parcerias">Parcerias</a></li>
           <li><a href="concurso.html">Concurso Criacionista</a></li>
-          <li><a href="#transparencia" data-wip="Relatório de transparência">Transparência</a></li>
+          <li data-previa><a href="#transparencia" data-wip="Relatório de transparência">Transparência</a></li>
+          <li><a href="politica-de-privacidade.html">Política de privacidade</a></li>
           <li><a href="#entrar" data-wip="Entrar / Cadastrar">Entrar / Cadastrar</a></li>
         </ul>
-        <p style="margin-top:16px"><span class="pill">A DEFINIR</span><br><span style="font-size:13px">Canal principal de atendimento, horário e prazo de resposta.</span></p>
+        <p class="ftr__atend"><b>Atendimento</b><br><a href="mailto:contato@clubecriacionista.org">contato@clubecriacionista.org</a><br>Seg. a qui., 9h às 18h<br>Sex., 9h às 12h<br>Respondemos em até 48 horas.</p>
       </div>
     </div>
 
     <div class="ftr__bot">
       <span>© 2026 Clube Criacionista de Ciências. Todos os direitos reservados.</span>
-      <span>Prévia de reformulação · <a href="https://www.clubecriacionista.com/">clubecriacionista.com</a></span>
+      <span data-previa>Prévia de reformulação · <a href="https://www.clubecriacionista.com/">clubecriacionista.com</a></span>
     </div>
   </div>
 </footer>

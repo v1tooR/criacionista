@@ -1,0 +1,21 @@
+---
+/**
+ * Abas de filtro do acervo, montadas a partir das categorias reais do blog.
+ *
+ * Só entram as categorias que têm post. O blog do cliente tem três criadas e
+ * nunca usadas (Kids Lab, Pensamento Critico, Sobre) — uma aba que não devolve
+ * nada é pior do que aba nenhuma. Quando ele publicar numa delas, a aba aparece
+ * sozinha, sem ninguém tocar em código.
+ *
+ * Sem Wix, renderiza o <slot>: as abas fixas do protótipo.
+ */
+import { listarCategorias } from '../dados/blog';
+
+const cats = await listarCategorias();
+---
+{cats ? (
+  <>
+    <button class="chip is-on" data-cat="todos">Todos</button>
+    {cats.map((c) => <button class="chip" data-cat={c.slug}>{c.nome}</button>)}
+  </>
+) : <slot />}

@@ -103,6 +103,14 @@ o próprio HTML de `clubecriacionista.com` declara esse `metaSiteId`. Então o c
 normal (`attach` + `wix release`) está **vetado**: ele substituiria o frontend que está
 no ar. Não foi executado.
 
+> **Atualizado em 18/10/2026.** Duas coisas mudaram desde que este trecho foi
+> escrito. Primeira: o cliente **pediu** a virada no domínio principal, então o
+> attach deixou de ser vetado por decisão e passou a ser o plano. Segunda: só o
+> `wix release` troca o que está no ar — o `attach` não publica nada, apenas cria
+> a ligação. Na prática nenhum dos dois roda hoje, por um motivo que não é nosso:
+> as permissões `VELO.*` são reservadas ao proprietário da conta. O diagnóstico
+> completo está em [velo.md](velo.md).
+
 O caminho seguro usa o site no ar só como **fonte de dados**:
 
 1. No painel do site: **Configurações › Desenvolvimento e integrações › Headless Settings**.

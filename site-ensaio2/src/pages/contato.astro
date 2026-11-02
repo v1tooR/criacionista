@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import { caminho, PRODUCAO } from '../config';
+import { esquemaNaBuild } from '../formularios';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
+
+// o esquema de cada formulário é lido do Wix na build e vai embutido na página
+// (ver src/formularios.ts); `<` escapado para não fechar o <script> antes da hora
+const esquemas = { contato: await esquemaNaBuild('contato') };
+const json = (x: unknown) => JSON.stringify(x ?? null).replace(/</g, '\\u003c');
+---
+<Base
+  title={"Contato | Clube Criacionista de Ciências"}
+  desc={"Fale com o Clube Criacionista de Ciências. Dúvidas de pais, professores, parceiros e imprensa."}
+  pvbar={"<span><b>PRÉVIA</b> · Página Contato</span> <span>·</span> <span>Clube Criacionista de Ciências</span> <span>·</span> <a href=\"https://www.clubecriacionista.com/\">ver site atual</a>"}
+  rota={"contato"}
+>
+
+<!-- ============ TOPO ============ -->
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Contato</p>
+    <h1>Fale com o clube</h1>
+    <p class="lead">Dúvida sobre a inscrição, sugestão de tema, proposta de parceria ou pedido de imprensa — escreva que a gente responde.</p>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section class="section" id="falar">
+  <div class="wrap">
+    <div class="note" data-reveal data-previa hidden={PRODUCAO}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <div><b>Falta definir o canal principal.</b> O briefing pede que cliente e agência combinem qual é o caminho oficial (WhatsApp, e-mail ou formulário), o horário de atendimento e o prazo de resposta antes de publicar. Enquanto isso, os blocos abaixo estão marcados como pendentes.</div>
+    </div>
+
+    <div class="edu">
+      <div class="edu__res">
+        <div class="box box--soft" data-reveal>
+          <h3>Antes de escrever</h3>
+          <p>Muita dúvida já está respondida nas páginas do clube. Vale olhar antes — a resposta costuma ser mais rápida.</p>
+          <ul style="margin:0;padding-left:20px;color:var(--body);line-height:1.75">
+            <li><a href={caminho("como-funciona", "#faq")}>Como funciona o clube e os pontos</a></li>
+            <li><a href={caminho("doe")}>Como apoiar o clube</a></li>
+            <li><a href={caminho("concurso")}>Concurso Criacionista</a></li>
+          </ul>
+        </div>
+
+        <div class="box box--soft" data-reveal>
+          <h3>Atendimento</h3>
+          <p style="margin-bottom:0">De segunda a quinta, das 9h às 18h, e na sexta, das 9h às 12h. Respondemos em até 48 horas.</p>
+        </div>
+      </div>
+
+      <form class="nl form" id="form-contato" data-reveal="right" novalidate data-form-wix="contato">
+        <script is:inline type="application/json" data-esquema set:html={json(esquemas.contato)}></script>
+        <h3>Mandar uma mensagem</h3>
+        <p class="nl__sub">Responderemos no e-mail que você informar.</p>
+
+        <div data-campos></div>
+
+        <p class="nl__msg" id="c-status" role="status" aria-live="polite"></p>
+        <p class="nl__note">Não usamos este formulário para enviar newsletter. Para receber os materiais novos, a inscrição é <a href={caminho("index", "#educadores")}>nesta outra página</a>.</p>
+      </form>
+    </div>
+  </div>
+  <div class="wrap totop"><a href="#top">Voltar ao topo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a></div>
+</section>
+
+<!-- ============ PARCERIAS ============ -->
+<section class="section section--soft" id="parcerias">
+  <div class="wrap">
+    <div class="grid grid--2">
+      <div class="box" data-reveal>
+        <h3>Parcerias</h3>
+        <p style="margin-bottom:0">Escolas, igrejas, editoras e projetos que queiram somar com o clube: escreva pelo formulário escolhendo o assunto “Parceria”, ou pelo e-mail <a href="mailto:contato@clubecriacionista.org">contato@clubecriacionista.org</a>.</p>
+      </div>
+      <div class="box" data-reveal>
+        <h3>Imprensa</h3>
+        <p style="margin-bottom:0">Para entrevistas e uso de material do clube, escreva pelo formulário escolhendo o assunto “Imprensa”, ou pelo e-mail <a href="mailto:contato@clubecriacionista.org">contato@clubecriacionista.org</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ RODAPÉ ============ -->
+
+<script>
+  import { montarTodos } from '../formulario-wix';
+  montarTodos();
+</script>
+</Base>

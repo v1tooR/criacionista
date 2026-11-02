@@ -1,0 +1,21 @@
+// Configuração do Worker que o adaptador de hospedagem do Wix usa por baixo.
+//
+// POR QUE ESTE ARQUIVO EXISTE: o @wix/astro-wix-hosting-adapter (3.0.4) gera
+// sozinho um .wix/wrangler.json quando o projeto não tem um próprio — mas monta
+// o caminho com join() do sistema operacional. No Windows isso dá
+// "C:\...\wrangler.json", e o @astrojs/cloudflare faz new URL(caminho, raiz):
+// o "C:" é lido como protocolo e a build quebra com "The URL must be of scheme
+// file". Em Mac/Linux o caminho começa com "/" e o problema não aparece.
+//
+// O próprio adaptador prevê o caso "o projeto tem o seu wrangler": se achar
+// este arquivo na raiz, não gera o dele, e o Cloudflare encontra este pela
+// busca padrão, que é relativa e funciona no Windows.
+//
+// O conteúdo é o mesmo que o adaptador geraria, só com caminho relativo.
+//
+// ATENÇÃO: sem o arquivo gerado, o adaptador também pula a limpeza de
+// dist/server/wrangler.json no fim da build. A limpeza é refeita pela
+// integração `limpaWranglerDoServidor` em astro.config.mjs.
+{
+  "main": "./node_modules/@wix/astro-wix-hosting-adapter/build/backend-runtime/server.mjs"
+}

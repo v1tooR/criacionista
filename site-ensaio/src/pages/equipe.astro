@@ -1,0 +1,229 @@
+---
+/**
+ * Painel da equipe (passo 4b): conferir registros de atividade e lançar presença.
+ *
+ * Escrita aqui, fora do portador. Só abre para membro ATIVO na coleção
+ * TeamMembers — a conferência é do servidor (src/clube/equipe-http.ts); esta
+ * página só mostra o que o servidor deixar. A equipe vê o apelido da criança,
+ * nunca o nome real nem os dados do responsável.
+ */
+import Base from '../layouts/Base.astro';
+import { caminho, entrar } from '../config';
+import { ATIVIDADES } from '../clube/atividades';
+
+export const prerender = true;
+const presenca = ATIVIDADES.filter((a) => a.liberada && a.quem !== 'responsavel');
+---
+<Base
+  title={"Equipe | Clube Criacionista de Ciências"}
+  desc={"Painel da equipe do Clube Criacionista de Ciências."}
+  pvbar={"<span><b>PRÉVIA</b> · Equipe</span> <span>·</span> <span>Clube Criacionista de Ciências</span>"}
+  rota={"equipe"}
+  naoIndexar={true}
+>
+
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Equipe</p>
+    <h1>Painel da equipe</h1>
+    <p class="lead">Confira os registros de atividade e lance a presença de quem participou. Os pontos saem da tabela do programa de recompensas.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <p class="nl__msg" id="eq-carregando" role="status">Carregando…</p>
+
+    <div class="nl" id="eq-fora" hidden>
+      <h3 id="eq-fora-titulo">Entre na sua conta</h3>
+      <p class="nl__sub" id="eq-fora-txt">Esta área é da equipe do clube.</p>
+      <a class="btn btn--primary" id="eq-entrar" href={entrar(caminho("equipe"))}>Entrar <span class="btn__arrow">→</span></a>
+    </div>
+
+    <div class="grid grid--2 cad" id="eq-painel" hidden>
+      <div class="nl">
+        <h3>Esperando conferência <span class="pill pill--soft" id="eq-total">0</span></h3>
+        <p class="nl__msg" id="eq-msg" role="status" aria-live="polite"></p>
+        <div id="eq-fila"></div>
+      </div>
+
+      <form class="nl form" id="eq-lancar" novalidate>
+        <h3>Lançar presença</h3>
+        <p class="nl__sub">Para quem compareceu e fez o check-in. Os pontos entram na hora.</p>
+        <div class="field">
+          <label for="eq-apelido">Apelido do membro pesquisador <span class="req">*</span></label>
+          <input type="text" id="eq-apelido" name="lancar.apelido" maxlength="20" autocomplete="off" aria-describedby="err-lancar.apelido">
+          <p class="err" id="err-lancar.apelido" hidden></p>
+        </div>
+        <div class="field">
+          <label for="eq-atividade">Atividade <span class="req">*</span></label>
+          <div class="sel"><select id="eq-atividade" name="lancar.atividade" aria-describedby="err-lancar.atividade">
+            {presenca.map((a) => <option value={a.chave}>{a.nome} · {a.pontos} pontos</option>)}
+          </select></div>
+          <p class="err" id="err-lancar.atividade" hidden></p>
+        </div>
+        <div class="field">
+          <label for="eq-evento">Nome do evento <span class="req">*</span></label>
+          <input type="text" id="eq-evento" name="registro.evento" maxlength="120" aria-describedby="err-registro.evento">
+          <p class="err" id="err-registro.evento" hidden></p>
+        </div>
+        <div class="field">
+          <label for="eq-data">Data <span class="req">*</span></label>
+          <input type="date" id="eq-data" name="registro.data" aria-describedby="err-registro.data">
+          <p class="err" id="err-registro.data" hidden></p>
+        </div>
+        <p class="nl__msg" id="eq-lancar-msg" role="status" aria-live="polite"></p>
+        <button class="btn btn--primary" type="submit" id="eq-lancar-btn">Lançar pontos <span class="btn__arrow">→</span></button>
+      </form>
+    </div>
+
+    <div class="nl" id="eq-resgates-box" style="margin-top:28px" hidden>
+      <h3>Resgates para enviar <span class="pill pill--soft" id="eq-resg-total">0</span></h3>
+      <p class="nl__sub">Prêmios pedidos pelos responsáveis. Os pontos já saíram do extrato; cancelar devolve os pontos e o item ao estoque.</p>
+      <p class="nl__msg" id="eq-resg-msg" role="status" aria-live="polite"></p>
+      <div id="eq-resgates"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { svgAvatar } from '../clube/avatares';
+
+  type ItemFila = { id: string; apelido: string; avatar: string; area: string; atividade: string; pontos: number; resumo: string; link: string; data: string };
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const esc = (s: string) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  const mostrar = (id: string) => ['eq-carregando', 'eq-fora', 'eq-painel'].forEach((t) => { $(t).hidden = t !== id; });
+
+  async function chamar(url: string, corpo?: unknown) {
+    try {
+      const r = await fetch(url, corpo === undefined
+        ? { credentials: 'same-origin', headers: { Accept: 'application/json' } }
+        : { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(corpo) });
+      const dados = (r.headers.get('content-type') || '').includes('json') ? await r.json().catch(() => null) : null;
+      return { ok: r.ok, status: dados ? r.status : 404, dados };
+    } catch {
+      return { ok: false, status: 0, dados: { erros: { geral: 'Sem conexão.' } } };
+    }
+  }
+
+  function desenharFila(fila: ItemFila[]) {
+    $('eq-total').textContent = String(fila.length);
+    $('eq-fila').innerHTML = fila.length ? fila.map((i) =>
+      '<div class="eq__item" data-id="' + esc(i.id) + '">' +
+        '<span class="cad__av av--' + esc(i.avatar) + '">' + svgAvatar(i.avatar) + '</span>' +
+        '<div class="cad__info"><p class="cad__apelido">' + esc(i.apelido) + '</p>' +
+        '<p style="margin:2px 0"><b>' + esc(i.atividade) + '</b> · ' + i.pontos + ' pontos</p>' +
+        '<p class="nl__note" style="margin:0">' + esc(i.area) + ' · ' + esc(i.resumo) + ' · enviado em ' + new Date(i.data).toLocaleDateString('pt-BR') +
+        (i.link ? ' · <a href="' + esc(i.link) + '" target="_blank" rel="noopener noreferrer">abrir link</a>' : '') + '</p>' +
+        '<div class="eq__acoes"><button type="button" class="btn btn--primary btn--sm" data-aprovar>Aprovar</button>' +
+        '<input type="text" maxlength="500" placeholder="Motivo, se for recusar" aria-label="Motivo da recusa">' +
+        '<button type="button" class="btn btn--ghost btn--sm" data-recusar>Recusar</button></div></div></div>').join('')
+      : '<p class="eq__vazio">Nada esperando conferência.</p>';
+  }
+
+  $('eq-fila').addEventListener('click', async (e) => {
+    const alvo = e.target as HTMLElement;
+    const aprovar = alvo.closest('[data-aprovar]'), recusar = alvo.closest('[data-recusar]');
+    if (!aprovar && !recusar) return;
+    const item = alvo.closest<HTMLElement>('.eq__item')!;
+    const obs = (item.querySelector('input') as HTMLInputElement).value;
+    const msg = $('eq-msg');
+    if (recusar && obs.trim().length < 5) { msg.className = 'nl__msg bad'; msg.textContent = 'Para recusar, escreva o motivo: é o que o responsável vai ler.'; item.querySelector('input')!.focus(); return; }
+    item.querySelectorAll('button').forEach((b) => { b.disabled = true; });
+    const r = await chamar('/api/equipe/decidir', { id: item.dataset.id, decisao: aprovar ? 'aprovar' : 'recusar', observacao: obs });
+    if (r.ok) { desenharFila(r.dados.fila); msg.className = 'nl__msg ok'; msg.textContent = aprovar ? 'Aprovado: os pontos entraram no extrato.' : 'Recusado. O responsável vê o motivo no painel.'; }
+    else { item.querySelectorAll('button').forEach((b) => { b.disabled = false; }); msg.className = 'nl__msg bad'; msg.textContent = r.dados?.erros?.geral || Object.values(r.dados?.erros || {})[0] || 'Não foi possível agora.'; }
+  });
+
+  const form = $<HTMLFormElement>('eq-lancar');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    form.querySelectorAll<HTMLElement>('.err').forEach((x) => { x.hidden = true; });
+    const f = new FormData(form);
+    const s = (k: string) => String(f.get(k) ?? '').trim();
+    const msg = $('eq-lancar-msg');
+    $<HTMLButtonElement>('eq-lancar-btn').disabled = true;
+    const r = await chamar('/api/equipe/lancar', { apelido: s('lancar.apelido'), atividade: s('lancar.atividade'), detalhe: { evento: s('registro.evento'), data: s('registro.data') } });
+    $<HTMLButtonElement>('eq-lancar-btn').disabled = false;
+    if (r.ok) { msg.className = 'nl__msg ok'; msg.textContent = '+' + r.dados.pontos + ' pontos para ' + r.dados.apelido + '.'; (form.elements.namedItem('lancar.apelido') as HTMLInputElement).value = ''; return; }
+    const erros: Record<string, string> = r.dados?.erros || { geral: 'Não foi possível agora.' };
+    for (const [k, v] of Object.entries(erros)) { const p = document.getElementById('err-' + k); if (p) { p.textContent = v; p.hidden = false; } }
+    msg.className = 'nl__msg bad'; msg.textContent = erros.geral || 'Confira os campos marcados.';
+  });
+
+  (async () => {
+    const r = await chamar('/api/equipe/fila');
+    if (r.status === 401) return mostrar('eq-fora');
+    if (r.status === 403) {
+      $('eq-fora-titulo').textContent = 'Área da equipe';
+      $('eq-fora-txt').textContent = 'Sua conta não está na equipe do clube. Se deveria estar, peça ao responsável pelo site.';
+      $('eq-entrar').hidden = true;
+      return mostrar('eq-fora');
+    }
+    if (r.status === 404 || !r.ok) {
+      $('eq-fora-titulo').textContent = r.status === 404 ? 'Indisponível nesta prévia' : 'Não foi possível carregar';
+      $('eq-fora-txt').textContent = r.status === 404 ? 'O painel da equipe funciona no site publicado.' : (r.dados?.erros?.geral || 'Tente de novo em instantes.');
+      $('eq-entrar').hidden = true;
+      return mostrar('eq-fora');
+    }
+    desenharFila(r.dados.fila);
+    mostrar('eq-painel');
+    const rr = await chamar('/api/equipe/resgates');
+    if (rr.ok) { desenharResgates(rr.dados.resgates); $('eq-resgates-box').hidden = false; }
+  })();
+
+  /* ---------- resgates ---------- */
+  type Resgate = { id: string; apelido: string; avatar: string; premio: string; pontos: number; situacao: string; rastreio: string; data: string;
+    entrega: { destinatario: string; cep: string; logradouro: string; numero: string; complemento: string; bairro: string; cidade: string; uf: string } };
+
+  function desenharResgates(lista: Resgate[]) {
+    $('eq-resg-total').textContent = String(lista.length);
+    $('eq-resgates').innerHTML = lista.length ? lista.map((r) => {
+      const e = r.entrega;
+      const cep = e.cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+      const endereco = esc(e.destinatario) + '<br>' + esc(e.logradouro) + ', ' + esc(e.numero) + (e.complemento ? ' — ' + esc(e.complemento) : '') +
+        '<br>' + esc(e.bairro) + ' · ' + esc(e.cidade) + '/' + esc(e.uf) + ' · CEP ' + esc(cep);
+      const enviado = r.situacao === 'shipped';
+      return '<div class="eq__item" data-id="' + esc(r.id) + '">' +
+        '<span class="cad__av av--' + esc(r.avatar) + '">' + svgAvatar(r.avatar) + '</span>' +
+        '<div class="cad__info"><p class="cad__apelido">' + esc(r.apelido) + ' <span class="pill ' + (enviado ? 'pill--ok' : 'pill--soft') + '">' + (enviado ? 'enviado' : 'a enviar') + '</span></p>' +
+        '<p style="margin:2px 0"><b>' + esc(r.premio) + '</b> · ' + r.pontos + ' pontos · pedido em ' + new Date(r.data).toLocaleDateString('pt-BR') + '</p>' +
+        '<p class="nl__note" style="margin:6px 0 0;line-height:1.6">' + endereco + '</p>' +
+        (enviado && r.rastreio ? '<p class="nl__note" style="margin:4px 0 0">Rastreio: ' + esc(r.rastreio) + '</p>' : '') +
+        '<div class="eq__acoes">' +
+          (enviado
+            ? '<button type="button" class="btn btn--primary btn--sm" data-acao="entregar">Marcar entregue</button>'
+            : '<input type="text" maxlength="40" placeholder="Código de rastreio (opcional)" aria-label="Código de rastreio" data-rastreio>' +
+              '<button type="button" class="btn btn--primary btn--sm" data-acao="enviar">Marcar enviado</button>') +
+          '<input type="text" maxlength="200" placeholder="Motivo, se for cancelar" aria-label="Motivo do cancelamento" data-motivo>' +
+          '<button type="button" class="btn btn--ghost btn--sm" data-acao="cancelar">Cancelar</button>' +
+        '</div></div></div>';
+    }).join('') : '<p class="eq__vazio">Nenhum resgate em aberto.</p>';
+  }
+
+  $('eq-resgates').addEventListener('click', async (ev) => {
+    const b = (ev.target as HTMLElement).closest<HTMLButtonElement>('[data-acao]');
+    if (!b) return;
+    const item = b.closest<HTMLElement>('.eq__item')!;
+    const acao = b.dataset.acao!;
+    const msg = $('eq-resg-msg');
+    const texto = acao === 'cancelar'
+      ? (item.querySelector('[data-motivo]') as HTMLInputElement).value
+      : acao === 'enviar' ? ((item.querySelector('[data-rastreio]') as HTMLInputElement | null)?.value || '') : '';
+    if (acao === 'cancelar' && texto.trim().length < 5) { msg.className = 'nl__msg bad'; msg.textContent = 'Para cancelar, escreva o motivo: o responsável vai ler.'; (item.querySelector('[data-motivo]') as HTMLInputElement).focus(); return; }
+    if (acao === 'cancelar' && !window.confirm('Cancelar este resgate? Os pontos voltam para o extrato da criança.')) return;
+    item.querySelectorAll('button').forEach((x) => { x.disabled = true; });
+    const r = await chamar('/api/equipe/resgate', { id: item.dataset.id, acao, texto });
+    if (r.ok) {
+      desenharResgates(r.dados.resgates);
+      msg.className = 'nl__msg ok';
+      msg.textContent = acao === 'enviar' ? 'Marcado como enviado.' : acao === 'entregar' ? 'Marcado como entregue.' : 'Resgate cancelado: os pontos voltaram ao extrato.';
+    } else {
+      item.querySelectorAll('button').forEach((x) => { x.disabled = false; });
+      msg.className = 'nl__msg bad'; msg.textContent = r.dados?.erros?.geral || 'Não foi possível agora.';
+    }
+  });
+</script>
+</Base>

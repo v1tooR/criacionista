@@ -8,25 +8,30 @@
   var wixNativo = document.body.getAttribute('data-wix') === 'nativo';
 
   /* ---- Header sticky ---- */
+  // a casca enxuta do pré-lançamento não tem cabeçalho nem menu
   var hdr = document.getElementById('hdr');
-  var onScroll = function(){ hdr.classList.toggle('is-stuck', window.scrollY > 12); };
-  onScroll();
-  window.addEventListener('scroll', onScroll, {passive:true});
+  if (hdr){
+    var onScroll = function(){ hdr.classList.toggle('is-stuck', window.scrollY > 12); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+  }
 
   /* ---- Menu mobile ---- */
   var burger = document.getElementById('burger'), mnav = document.getElementById('mnav');
-  burger.addEventListener('click', function(){
-    var open = mnav.classList.toggle('is-open');
-    burger.classList.toggle('is-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-  });
-  mnav.addEventListener('click', function(e){
-    if (e.target.tagName === 'A'){
-      mnav.classList.remove('is-open');
-      burger.classList.remove('is-open');
-      burger.setAttribute('aria-expanded','false');
-    }
-  });
+  if (burger && mnav){
+    burger.addEventListener('click', function(){
+      var open = mnav.classList.toggle('is-open');
+      burger.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+    });
+    mnav.addEventListener('click', function(e){
+      if (e.target.tagName === 'A'){
+        mnav.classList.remove('is-open');
+        burger.classList.remove('is-open');
+        burger.setAttribute('aria-expanded','false');
+      }
+    });
+  }
 
   /* ---- Animações de entrada ao rolar ---- */
   var revealables = document.querySelectorAll('[data-reveal]');

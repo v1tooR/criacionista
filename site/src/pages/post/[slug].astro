@@ -1,0 +1,90 @@
+---
+/**
+ * Página de um post do blog.
+ *
+ * Esta rota **não é gerada pelo portador** — ela não existe no protótipo, foi
+ * escrita direto aqui. Rodar `node scripts/port-astro.js` não a apaga.
+ *
+ * Por que ela precisa existir antes da virada: hoje quem serve
+ * clubecriacionista.com/post/… é o site do cliente. Depois que o nosso
+ * frontend assumir o domínio, todo caminho passa por nós, e sem esta rota os
+ * 12 posts viram 404 — inclusive os links dos nossos próprios cards.
+ */
+import Base from '../../layouts/Base.astro';
+import { listarPostsCompletos } from '../../dados/blog';
+import { SITE, PRODUCAO, caminho } from '../../config';
+
+export async function getStaticPaths() {
+  const posts = await listarPostsCompletos();
+  if (!posts) {
+    console.warn('[post] sem Wix: nenhuma página de post foi gerada');
+    return [];
+  }
+
+  const comProblema = posts.filter((p) => p.naoReconhecidos.length);
+  if (comProblema.length) {
+    console.warn('[post] tipos de conteúdo que o renderizador não conhece:');
+    for (const p of comProblema) {
+      console.warn('  ' + p.slug + ': ' + p.naoReconhecidos.join(', '));
+    }
+  }
+
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+// Na prévia a página vem pronta da build (getStaticPaths). Em produção ela é
+// montada no servidor a cada visita (ver paginasNoServidor no astro.config) e
+// o getStaticPaths não roda: o post é buscado pelo endereço.
+let post = Astro.props.post;
+if (!post) {
+  let slug = Astro.params.slug || '';
+  try { slug = decodeURIComponent(slug); } catch { /* fica como veio */ }
+  post = (await listarPostsCompletos())?.find((p) => p.slug === slug);
+}
+if (!post) return Astro.rewrite('/404');
+
+const titulo = post.titulo + ' | Clube Criacionista de Ciências';
+const descricao = post.resumo || post.titulo;
+const noSite = 'https://www.clubecriacionista.com/post/' + post.slug;
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
+---
+<Base
+  title={titulo}
+  desc={descricao}
+  pvbar={'Post · ' + post.titulo}
+  rota="estudos"
+  imagem={post.capa || undefined}
+>
+
+<article class="post">
+  <div class="wrap wrap--txt">
+    <p class="crumb"><a href="/">Home</a> <span>›</span> <a href={caminho('estudos')}>Artigos</a> <span>›</span> {post.titulo}</p>
+
+    {post.categoria && <span class="tag tag--art">{post.categoria}</span>}
+    <h1>{post.titulo}</h1>
+    <p class="post__meta">{[post.autor, post.data, post.minutos + ' min de leitura'].filter(Boolean).join(' · ')}</p>
+  </div>
+
+  {/* o Wix usa a primeira imagem do post como capa; mostrar as duas seguidas
+      repetiria a mesma foto em 10 dos 12 posts */}
+  {post.capa && !post.capaNoCorpo && (
+    <div class="wrap wrap--txt">
+      <img class="post__capa" src={post.capa} alt="" width={720} height={450} />
+    </div>
+  )}
+
+  <div class="wrap wrap--txt">
+    <div class="post__corpo" set:html={post.corpo}></div>
+
+    {/* o espaço antes do link é explícito: o Astro come a quebra de linha
+        que vem antes de uma tag inline, e as palavras ficam coladas */}
+    {/* depois da virada, clubecriacionista.com é este site: o link daria voltas */}
+    {!PRODUCAO && <p class="post__origem">Publicado originalmente no blog do Clube Criacionista. <a href={noSite} target="_blank" rel="noopener noreferrer">Ver no site atual</a></p>}
+
+    <p class="post__volta"><a class="btn btn--ghost btn--sm" href={caminho('estudos')}>← Todos os artigos</a></p>
+  </div>
+</article>
+
+</Base>

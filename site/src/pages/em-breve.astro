@@ -1,0 +1,14 @@
+---
+/**
+ * O que aparece em qualquer endereço fora da raiz e da política no
+ * pré-lançamento (SOMENTE_HOME em src/config.ts; quem desvia para cá é o
+ * src/middleware.ts, mantendo o endereço que a pessoa abriu).
+ *
+ * É a mesma página de aviso da raiz, mas fora do Google (noindex) e do sitemap:
+ * aparece em muitos endereços ao mesmo tempo.
+ */
+import Lancamento from '../components/Lancamento.astro';
+
+export const prerender = true;
+---
+<Lancamento />

@@ -1,0 +1,937 @@
+---
+/**
+ * Inscrição do membro pesquisador e painel do responsável (passo 4a).
+ *
+ * Não é gerada pelo portador: não existe no protótipo, foi escrita aqui, no
+ * design system do site. Rodar `port-astro.js` não a apaga.
+ *
+ * A página é estática; os dados vêm e vão pelos endpoints do servidor
+ * (src/pages/api/clube/*), que conferem a sessão do responsável e gravam nas
+ * coleções fechadas (ADMIN) do CMS. O navegador nunca escolhe de quem é o
+ * cadastro: o servidor lê o membro da sessão.
+ *
+ * Estados: carregando · visitante (pede login) · formulário (primeira criança,
+ * com os dados do responsável) · painel (crianças inscritas + "inscrever outra")
+ * · prévia sem servidor (ZIP estático).
+ */
+import Base from '../layouts/Base.astro';
+import { caminho, entrar } from '../config';
+import { RELACOES, AVATARES, TERMOS, VERSAO_TERMOS, UFS, AVISO_IMAGEM, anosPermitidos } from '../clube/regras';
+import { svgAvatar, NOMES_AVATAR } from '../clube/avatares';
+import { ATIVIDADES, AREAS } from '../clube/atividades';
+
+export const prerender = true;
+const anoAtual = new Date().getFullYear();
+const anos = anosPermitidos();
+// o texto gravado é TERMOS.participacao, palavra por palavra; aqui só a
+// expressão "Política de privacidade" vira link
+const [termoAntes, termoDepois = ''] = TERMOS.participacao.split('Política de privacidade');
+---
+<Base
+  title={"Inscrever meu filho | Clube Criacionista de Ciências"}
+  desc={"Inscreva seu filho como membro pesquisador do Clube Criacionista de Ciências."}
+  pvbar={"<span><b>PRÉVIA</b> · Inscrição</span> <span>·</span> <span>Clube Criacionista de Ciências</span>"}
+  rota={"cadastro"}
+  naoIndexar={true}
+>
+
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Inscrever meu filho</p>
+    <h1>Inscrever meu filho</h1>
+    <p class="lead">O cadastro é sempre do responsável. A criança entra no clube por um apelido e um avatar, e o nome real não aparece para ninguém.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2 cad">
+
+      <aside>
+        <h2 class="h2">O que pedimos, e o que nunca pedimos</h2>
+        <ul class="cad__lista">
+          <li><b>Do responsável:</b> nome completo e CPF. O CPF é sempre do adulto, nunca da criança. Telefone é opcional.</li>
+          <li><b>Da criança:</b> só o primeiro nome, o ano de nascimento, o apelido e um avatar ilustrado.</li>
+          <li><b>Nunca:</b> documento da criança, endereço ou escola no cadastro. Fotos e vídeos só entram como descoberta enviada, e só com a sua autorização.</li>
+          <li><b>Boletim:</b> para os pontos de média, você envia o print do boletim. Só a equipe vê, e ele é apagado assim que ela confere.</li>
+        </ul>
+        <p class="nl__note">Você pode retirar as autorizações a qualquer momento, por esta mesma página. Tudo isso está na <a href={caminho("politica-de-privacidade")}>Política de privacidade</a>.</p>
+      </aside>
+
+      <div class="nl" id="cad">
+
+        <p class="nl__msg" id="cad-carregando" role="status">Carregando…</p>
+
+        <!-- prévia estática (ZIP): não há servidor -->
+        <div id="cad-previa" hidden>
+          <h3>Inscrição indisponível nesta prévia</h3>
+          <p class="nl__sub">Esta é a versão de demonstração do site, sem servidor. A inscrição funciona no site publicado.</p>
+        </div>
+
+        <!-- visitante -->
+        <div id="cad-visitante" hidden>
+          <h3>Primeiro, entre na sua conta</h3>
+          <p class="nl__sub">A inscrição fica dentro da conta do responsável. Entre ou crie a sua, e você volta direto para cá.</p>
+          <a class="btn btn--primary" href={entrar(caminho("cadastro"))}>Entrar ou criar conta <span class="btn__arrow">→</span></a>
+        </div>
+
+        <!-- painel do responsável -->
+        <div id="cad-painel" hidden>
+          <h3 id="cad-ola">Seus membros pesquisadores</h3>
+          <p class="nl__msg ok" id="cad-feito" role="status" hidden></p>
+          <ul class="cad__criancas" id="cad-criancas"></ul>
+          <button class="btn btn--primary" type="button" id="cad-outra">Inscrever outro filho <span class="btn__arrow">→</span></button>
+          <p class="nl__note" id="cad-equipe" hidden>Você é da equipe do clube: <a href={caminho("equipe")}>abrir o painel de aprovação</a>.</p>
+        </div>
+
+        <!-- registrar atividade (passo 4b) -->
+        <form class="form" id="cad-reg" novalidate hidden>
+          <h3 id="cad-reg-titulo">Registrar atividade</h3>
+          <p class="nl__sub">A equipe confere em até 48 horas e os pontos entram no extrato. Quanto cada atividade vale está em <a href={caminho("como-funciona", "#pontos")}>Como funciona</a>.</p>
+          <input type="hidden" name="researcherId" />
+          <div class="field">
+            <label for="reg-atividade">Atividade <span class="req">*</span></label>
+            <div class="sel">
+              <select id="reg-atividade" name="registro.atividade" aria-describedby="err-registro.atividade">
+                <option value="" selected disabled>Selecione</option>
+                {(['participacao', 'desempenho', 'producao'] as const).map((area) => (
+                  <optgroup label={AREAS[area]}>
+                    {ATIVIDADES.filter((a) => a.area === area && a.quem !== 'equipe').map((a) => (
+                      <option value={a.chave} disabled={!a.liberada} data-imagem={a.imagem ? '1' : undefined}>{a.nome} · {a.pontos} {a.pontos === 1 ? 'ponto' : 'pontos'}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+            </div>
+            <p class="field__help">Palestra presencial a equipe lança direto, no credenciamento.</p>
+            <p class="field__help" id="reg-sem-imagem" hidden>Foto e vídeo autorais precisam da autorização de imagem. Você pode dar a autorização no painel, em "Fotos e vídeos".</p>
+            <p class="err" id="err-registro.atividade" hidden></p>
+          </div>
+
+          <div data-area="participacao" hidden>
+            <div class="field">
+              <label for="reg-evento">Qual foi a atividade? <span class="req">*</span></label>
+              <input type="text" id="reg-evento" name="registro.evento" maxlength="120" placeholder="Ex.: Palestra sobre os fósseis" aria-describedby="err-registro.evento">
+              <p class="err" id="err-registro.evento" hidden></p>
+            </div>
+            <div class="field">
+              <label for="reg-data">Data <span class="req">*</span></label>
+              <input type="date" id="reg-data" name="registro.data" aria-describedby="err-registro.data">
+              <p class="err" id="err-registro.data" hidden></p>
+            </div>
+          </div>
+
+          <div data-area="desempenho" hidden>
+            <div class="field">
+              <label for="reg-ano">Ano letivo <span class="req">*</span></label>
+              <div class="sel"><select id="reg-ano" name="registro.ano" aria-describedby="err-registro.ano">
+                <option value={anoAtual}>{anoAtual}</option><option value={anoAtual - 1}>{anoAtual - 1}</option>
+              </select></div>
+              <p class="err" id="err-registro.ano" hidden></p>
+            </div>
+            <div class="field" data-so="media_bimestre">
+              <label for="reg-bim">Bimestre <span class="req">*</span></label>
+              <div class="sel"><select id="reg-bim" name="registro.bimestre" aria-describedby="err-registro.bimestre">
+                <option value="" selected disabled>Selecione</option>
+                <option value="1">1º bimestre</option><option value="2">2º bimestre</option><option value="3">3º bimestre</option><option value="4">4º bimestre</option>
+              </select></div>
+              <p class="err" id="err-registro.bimestre" hidden></p>
+            </div>
+            <div class="field">
+              <label for="reg-media">Média <span class="req">*</span></label>
+              <input type="text" id="reg-media" name="registro.media" inputmode="decimal" maxlength="4" placeholder="Ex.: 8,5" aria-describedby="err-registro.media">
+              <p class="field__help">A média de todas as disciplinas do boletim.</p>
+              <p class="err" id="err-registro.media" hidden></p>
+            </div>
+          </div>
+
+          <div data-area="producao" hidden>
+            <div class="field">
+              <label for="reg-titulo">Título do trabalho <span class="req">*</span></label>
+              <input type="text" id="reg-titulo" name="registro.titulo" maxlength="120" placeholder="Ex.: Como as formigas se organizam" aria-describedby="err-registro.titulo">
+              <p class="err" id="err-registro.titulo" hidden></p>
+            </div>
+            <div class="field" data-anexo="texto">
+              <label for="reg-texto">Texto</label>
+              <textarea id="reg-texto" name="registro.texto" rows="8" maxlength="5000" aria-describedby="err-registro.texto"></textarea>
+              <p class="field__help">Escreva aqui, ou envie o arquivo logo abaixo.</p>
+              <p class="err" id="err-registro.texto" hidden></p>
+            </div>
+          </div>
+
+          <!-- campos que várias atividades usam: o texto de cada um muda com a atividade -->
+          <div class="field" id="reg-link-campo" hidden>
+            <label for="reg-link" id="reg-link-rotulo">Link</label>
+            <input type="url" id="reg-link" name="registro.link" maxlength="300" placeholder="https://" aria-describedby="err-registro.link">
+            <p class="field__help" id="reg-link-ajuda"></p>
+            <p class="err" id="err-registro.link" hidden></p>
+          </div>
+
+          <div class="note note--aviso" id="reg-aviso" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            <div><b>Antes de enviar:</b> {AVISO_IMAGEM}</div>
+          </div>
+
+          <div class="field" id="reg-arquivo-campo" hidden>
+            <label for="reg-arquivo" id="reg-arquivo-rotulo">Arquivo</label>
+            <input type="file" id="reg-arquivo" name="registro.arquivo" aria-describedby="err-registro.arquivo">
+            <p class="field__help" id="reg-arquivo-ajuda"></p>
+            <p class="err" id="err-registro.arquivo" hidden></p>
+          </div>
+
+          <p class="nl__msg" id="reg-msg" role="status" aria-live="polite"></p>
+          <div class="form__acoes">
+            <button class="btn btn--ghost" type="button" id="reg-cancelar">Cancelar</button>
+            <button class="btn btn--primary" type="submit" id="reg-enviar">Enviar para a equipe <span class="btn__arrow">→</span></button>
+          </div>
+        </form>
+
+        <!-- sugerir apelido fora da lista -->
+        <form class="form" id="cad-sug" novalidate hidden>
+          <h3 id="sug-titulo">Sugerir outro apelido</h3>
+          <p class="nl__sub">Quer um nome que não está na lista? Conte quem foi a pessoa, quando e onde viveu, e a ligação dela com o tema das origens. Se a equipe aprovar, o nome entra na lista do clube e vira o apelido.</p>
+          <input type="hidden" name="researcherId" />
+          <div class="field">
+            <label for="sug-nome">Nome completo da pessoa <span class="req">*</span></label>
+            <input type="text" id="sug-nome" name="sugestao.nome" maxlength="120" placeholder="Ex.: Johannes Kepler" aria-describedby="err-sugestao.nome">
+            <p class="err" id="err-sugestao.nome" hidden></p>
+          </div>
+          <div class="field">
+            <label for="sug-apelido">Apelido desejado <span class="req">*</span></label>
+            <input type="text" id="sug-apelido" name="sugestao.apelido" maxlength="26" placeholder="Ex.: Johannes Kepler" aria-describedby="err-sugestao.apelido">
+            <p class="field__help">Pode ter mais de um nome. Se outro membro já usar, ele ganha um número, como Johannes Kepler001.</p>
+            <p class="err" id="err-sugestao.apelido" hidden></p>
+          </div>
+          <div class="field">
+            <label for="sug-pesquisa">A pesquisa <span class="req">*</span></label>
+            <textarea id="sug-pesquisa" name="sugestao.pesquisa" rows="9" maxlength="5000" aria-describedby="err-sugestao.pesquisa"></textarea>
+            <p class="field__help"><span id="sug-conta">0</span> de pelo menos 200 caracteres. Se usou livros ou sites, diga quais.</p>
+            <p class="err" id="err-sugestao.pesquisa" hidden></p>
+          </div>
+          <p class="nl__msg" id="sug-msg" role="status" aria-live="polite"></p>
+          <div class="form__acoes">
+            <button class="btn btn--ghost" type="button" id="sug-cancelar">Cancelar</button>
+            <button class="btn btn--primary" type="submit" id="sug-enviar">Enviar para a equipe <span class="btn__arrow">→</span></button>
+          </div>
+        </form>
+
+        <!-- resgatar prêmio (passo 4b) -->
+        <form class="form" id="cad-resg" novalidate hidden>
+          <h3 id="resg-titulo">Resgatar prêmio</h3>
+          <p class="nl__sub" id="resg-saldo"></p>
+          <input type="hidden" name="researcherId" />
+          <fieldset class="field" aria-describedby="err-resgate.premio">
+            <legend>Escolha o prêmio <span class="req">*</span></legend>
+            <div class="resg__premios" id="resg-premios"></div>
+            <p class="err" id="err-resgate.premio" hidden></p>
+          </fieldset>
+
+          <fieldset class="cad__bloco">
+            <legend class="cad__titulo">Entrega pelos Correios</legend>
+            <div class="field">
+              <label for="ent-dest">Nome de quem vai receber <span class="req">*</span></label>
+              <input type="text" id="ent-dest" name="entrega.destinatario" autocomplete="name" maxlength="120" aria-describedby="err-entrega.destinatario">
+              <p class="err" id="err-entrega.destinatario" hidden></p>
+            </div>
+            <div class="field">
+              <label for="ent-cep">CEP <span class="req">*</span></label>
+              <input type="text" id="ent-cep" name="entrega.cep" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" aria-describedby="err-entrega.cep">
+              <p class="err" id="err-entrega.cep" hidden></p>
+            </div>
+            <div class="field">
+              <label for="ent-rua">Rua, avenida… <span class="req">*</span></label>
+              <input type="text" id="ent-rua" name="entrega.logradouro" autocomplete="address-line1" maxlength="150" aria-describedby="err-entrega.logradouro">
+              <p class="err" id="err-entrega.logradouro" hidden></p>
+            </div>
+            <div class="resg__dupla">
+              <div class="field">
+                <label for="ent-num">Número <span class="req">*</span></label>
+                <input type="text" id="ent-num" name="entrega.numero" maxlength="15" aria-describedby="err-entrega.numero">
+                <p class="err" id="err-entrega.numero" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ent-comp">Complemento</label>
+                <input type="text" id="ent-comp" name="entrega.complemento" autocomplete="address-line2" maxlength="80" aria-describedby="err-entrega.complemento">
+                <p class="err" id="err-entrega.complemento" hidden></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="ent-bairro">Bairro <span class="req">*</span></label>
+              <input type="text" id="ent-bairro" name="entrega.bairro" maxlength="80" aria-describedby="err-entrega.bairro">
+              <p class="err" id="err-entrega.bairro" hidden></p>
+            </div>
+            <div class="resg__dupla">
+              <div class="field">
+                <label for="ent-cidade">Cidade <span class="req">*</span></label>
+                <input type="text" id="ent-cidade" name="entrega.cidade" autocomplete="address-level2" maxlength="80" aria-describedby="err-entrega.cidade">
+                <p class="err" id="err-entrega.cidade" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ent-uf">Estado <span class="req">*</span></label>
+                <div class="sel"><select id="ent-uf" name="entrega.uf" autocomplete="address-level1" aria-describedby="err-entrega.uf">
+                  <option value="" selected disabled>UF</option>
+                  {UFS.map((u) => <option value={u}>{u}</option>)}
+                </select></div>
+                <p class="err" id="err-entrega.uf" hidden></p>
+              </div>
+            </div>
+            <p class="field__help">Usamos o endereço só para enviar o prêmio. Detalhes na <a href={caminho("politica-de-privacidade")}>Política de privacidade</a>.</p>
+          </fieldset>
+
+          <p class="nl__msg" id="resg-msg" role="status" aria-live="polite"></p>
+          <div class="form__acoes">
+            <button class="btn btn--ghost" type="button" id="resg-cancelar">Cancelar</button>
+            <button class="btn btn--primary" type="submit" id="resg-enviar">Confirmar resgate <span class="btn__arrow">→</span></button>
+          </div>
+        </form>
+
+        <!-- formulário -->
+        <form class="form" id="cad-form" novalidate hidden>
+          <input type="hidden" name="versaoTermos" value={VERSAO_TERMOS} />
+
+          <fieldset class="cad__bloco" id="cad-resp">
+            <legend class="cad__titulo">1. Você, responsável</legend>
+            <div class="field">
+              <label for="cad-nome">Nome completo <span class="req">*</span></label>
+              <input type="text" id="cad-nome" name="responsavel.nome" autocomplete="name" maxlength="120" aria-describedby="err-responsavel.nome">
+              <p class="err" id="err-responsavel.nome" hidden></p>
+            </div>
+            <div class="field">
+              <label for="cad-cpf">CPF <span class="req">*</span></label>
+              <input type="text" id="cad-cpf" name="responsavel.cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" aria-describedby="err-responsavel.cpf">
+              <p class="field__help">O seu CPF, de adulto. Nunca pedimos CPF de criança.</p>
+              <p class="err" id="err-responsavel.cpf" hidden></p>
+            </div>
+            <div class="field">
+              <label for="cad-tel">Telefone (opcional)</label>
+              <input type="tel" id="cad-tel" name="responsavel.telefone" autocomplete="tel" placeholder="(11) 90000-0000" maxlength="20" aria-describedby="err-responsavel.telefone">
+              <p class="err" id="err-responsavel.telefone" hidden></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="cad__bloco">
+            <legend class="cad__titulo" id="cad-titulo-crianca">2. A criança</legend>
+            <div class="field">
+              <label for="cad-relacao">Você é… <span class="req">*</span></label>
+              <div class="sel">
+                <select id="cad-relacao" name="crianca.relacao" aria-describedby="err-crianca.relacao">
+                  <option value="" selected disabled>Selecione</option>
+                  {Object.entries(RELACOES).map(([v, t]) => <option value={v}>{t}</option>)}
+                </select>
+              </div>
+              <p class="err" id="err-crianca.relacao" hidden></p>
+            </div>
+            <div class="field">
+              <label for="cad-pnome">Primeiro nome da criança <span class="req">*</span></label>
+              <input type="text" id="cad-pnome" name="crianca.primeiroNome" autocomplete="off" maxlength="40" aria-describedby="err-crianca.primeiroNome">
+              <p class="field__help">Só a equipe e você veem. No clube ela aparece pelo apelido.</p>
+              <p class="err" id="err-crianca.primeiroNome" hidden></p>
+            </div>
+            <div class="field">
+              <label for="cad-ano">Ano de nascimento <span class="req">*</span></label>
+              <div class="sel">
+                <select id="cad-ano" name="crianca.anoNascimento" aria-describedby="err-crianca.anoNascimento">
+                  <option value="" selected disabled>Selecione</option>
+                  {anos.map((a) => <option value={a}>{a}</option>)}
+                </select>
+              </div>
+              <p class="err" id="err-crianca.anoNascimento" hidden></p>
+            </div>
+            <div class="field">
+              <label for="cad-apelido">Apelido no clube <span class="req">*</span></label>
+              <div class="sel">
+                <select id="cad-apelido" name="crianca.apelido" aria-describedby="cad-apelido-ajuda err-crianca.apelido">
+                  <option value="" selected disabled>Carregando a lista…</option>
+                </select>
+              </div>
+              <p class="field__help" id="cad-apelido-ajuda">Escolha junto com a criança um cientista ou personagem ligado ao tema das origens. É assim que ela aparece para os outros membros. Se o nome já estiver em uso, ele ganha um número, como Newton001.</p>
+              <div class="cad__quem" id="cad-apelido-quem" hidden></div>
+              <p class="field__help">Não achou o nome que queria? Depois da inscrição, você pode sugerir outro pelo painel, com uma pesquisa sobre a pessoa.</p>
+              <p class="err" id="err-crianca.apelido" hidden></p>
+            </div>
+            <fieldset class="field" aria-describedby="err-crianca.avatar">
+              <legend>Avatar <span class="req">*</span></legend>
+              <div class="cad__avatares">
+                {AVATARES.map((a) => (
+                  <label class={'cad__av av--' + a} title={NOMES_AVATAR[a]}>
+                    <input type="radio" name="crianca.avatar" value={a} />
+                    <span set:html={svgAvatar(a)} />
+                    <span class="sr">{NOMES_AVATAR[a]}</span>
+                  </label>
+                ))}
+              </div>
+              <p class="err" id="err-crianca.avatar" hidden></p>
+            </fieldset>
+          </fieldset>
+
+          <fieldset class="cad__bloco">
+            <legend class="cad__titulo" id="cad-titulo-aut">3. Autorizações</legend>
+            <label class="check" for="cad-aut-part">
+              <input type="checkbox" id="cad-aut-part" name="autorizacoes.participacao" aria-describedby="err-autorizacoes.participacao">
+              <span>{termoAntes}<a href={caminho("politica-de-privacidade")}>Política de privacidade</a>{termoDepois} <span class="req">*</span></span>
+            </label>
+            <p class="err" id="err-autorizacoes.participacao" hidden></p>
+            <label class="check" for="cad-aut-img">
+              <input type="checkbox" id="cad-aut-img" name="autorizacoes.imagem">
+              <span>{TERMOS.imagem} <em>(opcional: sem ela, a criança envia descobertas em texto ou link)</em></span>
+            </label>
+          </fieldset>
+
+          <p class="nl__msg" id="cad-msg" role="status" aria-live="polite"></p>
+          <div class="form__acoes">
+            <button class="btn btn--ghost" type="button" id="cad-cancelar" hidden>Cancelar</button>
+            <button class="btn btn--primary" type="submit" id="cad-enviar">Inscrever <span class="btn__arrow">→</span></button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { validarCadastro, validarRegistro, validarEndereco, validarSugestao, problemaNoArquivo, anexoDa, ANEXOS, TERMOS, VERSAO_TERMOS, type Erros } from '../clube/regras';
+  import { atividade } from '../clube/atividades';
+  import { svgAvatar } from '../clube/avatares';
+
+  type Pontos = {
+    saldo: number;
+    extrato: { data: string; descricao: string; pontos: number }[];
+    registros: { id: string; atividade: string; resumo: string; situacao: string; pontos: number | null; observacao: string; data: string }[];
+    resgates?: { id: string; premio: string; pontos: number; situacao: string; rastreio: string; observacao: string; data: string }[];
+  };
+  type Painel = {
+    responsavel: { nome: string } | null;
+    equipe?: boolean;
+    criancas: { id: string; apelido: string; primeiroNome: string; avatar: string; situacao: string;
+      autorizacoes: { participacao: string; imagem: string }; pontos?: Pontos;
+      sugestao?: { situacao: string; apelido: string; nome: string; observacao: string } | null }[];
+  };
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const telas = ['cad-carregando', 'cad-previa', 'cad-visitante', 'cad-painel', 'cad-form', 'cad-reg', 'cad-resg', 'cad-sug'];
+  const mostrar = (...ids: string[]) => telas.forEach((t) => { $(t).hidden = !ids.includes(t); });
+  const form = $<HTMLFormElement>('cad-form');
+  const msg = $('cad-msg');
+  let painel: Painel | null = null;
+
+  const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+
+  /** Resposta do servidor → dados, ou o motivo de não ter. */
+  async function chamar(url: string, corpo?: unknown): Promise<{ ok: boolean; status: number; dados: any }> {
+    let r: Response;
+    try {
+      r = await fetch(url, corpo === undefined
+        ? { credentials: 'same-origin', headers: { Accept: 'application/json' } }
+        : { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(corpo) });
+    } catch {
+      return { ok: false, status: 0, dados: { erros: { geral: 'Sem conexão. Confira a internet e tente de novo.' } } };
+    }
+    const tipo = r.headers.get('content-type') || '';
+    const dados = tipo.includes('json') ? await r.json().catch(() => null) : null;
+    return { ok: r.ok, status: dados ? r.status : 404, dados };
+  }
+
+  function desenharPainel(p: Painel) {
+    painel = p;
+    const primeiro = (p.responsavel?.nome || '').split(' ')[0];
+    $('cad-ola').textContent = primeiro ? 'Olá, ' + primeiro + '. Seus membros pesquisadores' : 'Seus membros pesquisadores';
+    const lista = $('cad-criancas');
+    lista.innerHTML = p.criancas.map((c) => {
+      const ativa = c.situacao === 'active';
+      const aut = (tipo: 'participacao' | 'imagem', rotulo: string) => {
+        const s = c.autorizacoes[tipo];
+        const txt = s === 'aceita' ? 'autorizada' : s === 'revogada' ? 'retirada' : 'não dada';
+        const botao = s === 'aceita' ? ' <button type="button" class="linkbtn" data-revogar="' + tipo + '" data-id="' + esc(c.id) + '">Retirar</button>'
+          : tipo === 'imagem' && ativa ? ' <button type="button" class="linkbtn" data-autorizar="' + esc(c.id) + '">Autorizar</button>' : '';
+        return '<li>' + rotulo + ': <b>' + txt + '</b>' + botao + '</li>';
+      };
+      const pts = c.pontos;
+      const dia = (iso: string) => new Date(iso).toLocaleDateString('pt-BR');
+      const SIT: Record<string, string> = { pending: 'em análise', approved: 'aprovado', rejected: 'recusado' };
+      const registros = pts && pts.registros.length
+        ? '<details class="cad__hist"><summary>Registros (' + pts.registros.length + ')</summary><ul>' + pts.registros.map((r) =>
+            '<li><b>' + esc(r.atividade) + '</b> · ' + esc(r.resumo) + ' · <span class="cad__sit cad__sit--' + esc(r.situacao) + '">' + (SIT[r.situacao] || esc(r.situacao)) +
+            (r.situacao === 'approved' && r.pontos ? ' (+' + r.pontos + ')' : '') + '</span>' +
+            (r.observacao ? '<br><span class="nl__note">Equipe: ' + esc(r.observacao) + '</span>' : '') + '</li>').join('') + '</ul></details>'
+        : '';
+      const extrato = pts && pts.extrato.length
+        ? '<details class="cad__hist"><summary>Extrato de pontos</summary><ul>' + pts.extrato.map((l) =>
+            '<li>' + dia(l.data) + ' · ' + esc(l.descricao) + ' · <b>' + (l.pontos > 0 ? '+' : '') + l.pontos + '</b></li>').join('') + '</ul></details>'
+        : '';
+      const saldo = pts ? '<p class="cad__saldo"><b>' + pts.saldo + '</b> ' + (pts.saldo === 1 ? 'ponto' : 'pontos') + '</p>' : '';
+      const podeAgir = ativa && c.autorizacoes.participacao === 'aceita';
+      const registrar = podeAgir
+        ? '<div class="cad__botoes"><button type="button" class="btn btn--ghost btn--sm" data-registrar="' + esc(c.id) + '" data-apelido="' + esc(c.apelido) + '">Registrar atividade</button>' +
+          '<button type="button" class="btn btn--ghost btn--sm" data-resgatar="' + esc(c.id) + '" data-apelido="' + esc(c.apelido) + '" data-saldo="' + (pts?.saldo ?? 0) + '">Resgatar prêmio</button></div>'
+        : '';
+      const sg = c.sugestao;
+      const sugestao = sg && sg.situacao === 'pending'
+        ? '<p class="nl__note">Sugestão de apelido "' + esc(sg.apelido) + '" esperando a equipe.</p>'
+        : (sg && sg.situacao === 'rejected' ? '<p class="nl__note">A sugestão "' + esc(sg.apelido) + '" não foi aprovada' + (sg.observacao ? ': ' + esc(sg.observacao) : '') + '.</p>' : '') +
+          (ativa ? '<p class="nl__note"><button type="button" class="linkbtn" data-sugerir="' + esc(c.id) + '" data-apelido="' + esc(c.apelido) + '">Sugerir outro apelido</button></p>' : '');
+      const SITR: Record<string, string> = { requested: 'pedido recebido', shipped: 'enviado', delivered: 'entregue', cancelled: 'cancelado' };
+      const resgates = pts && pts.resgates?.length
+        ? '<details class="cad__hist"><summary>Resgates (' + pts.resgates.length + ')</summary><ul>' + pts.resgates.map((x) =>
+            '<li><b>' + esc(x.premio) + '</b> · ' + x.pontos + ' pontos · <span class="cad__sit cad__sit--' + esc(x.situacao) + '">' + (SITR[x.situacao] || esc(x.situacao)) + '</span>' +
+            (x.rastreio ? '<br><span class="nl__note">Rastreio: ' + esc(x.rastreio) + '</span>' : '') +
+            (x.observacao ? '<br><span class="nl__note">Equipe: ' + esc(x.observacao) + '</span>' : '') + '</li>').join('') + '</ul></details>'
+        : '';
+      return '<li class="cad__crianca">' +
+        '<span class="cad__av av--' + esc(c.avatar) + '">' + svgAvatar(c.avatar) + '</span>' +
+        '<div class="cad__info"><p class="cad__apelido">' + esc(c.apelido) + ' <span class="pill ' + (ativa ? 'pill--ok' : 'pill--soft') + '">' + (ativa ? 'ativo' : c.situacao === 'suspended' ? 'sem autorização' : 'em análise') + '</span></p>' +
+        '<p class="nl__note" style="margin:2px 0 6px">' + esc(c.primeiroNome) + ' · visível só para você e a equipe</p>' +
+        saldo +
+        '<ul class="cad__auts">' + aut('participacao', 'Participação') + aut('imagem', 'Fotos e vídeos') + '</ul>' +
+        registrar + sugestao + registros + resgates + extrato + '</div></li>';
+    }).join('');
+    $('cad-equipe').hidden = !p.equipe;
+    mostrar('cad-painel');
+  }
+
+  /* ---------- registrar atividade ---------- */
+  const reg = $<HTMLFormElement>('cad-reg');
+  const regMsg = $('reg-msg');
+  const selAtiv = $<HTMLSelectElement>('reg-atividade');
+  // ano letivo: o atual e o anterior, pelo relógio de quem abre (a página é gerada na build)
+  {
+    const y = new Date().getFullYear();
+    $<HTMLSelectElement>('reg-ano').innerHTML = '<option value="' + y + '">' + y + '</option><option value="' + (y - 1) + '">' + (y - 1) + '</option>';
+  }
+  const AJUDA_ARQUIVO: Record<string, [string, string]> = {
+    boletim: ['Print ou PDF do boletim', 'Foto (JPG, PNG ou WEBP) ou PDF, até 10 MB. Só a equipe vê, e o arquivo é apagado assim que ela confere.'],
+    foto: ['Foto', 'JPG, PNG ou WEBP, até 15 MB.'],
+    video: ['Arquivo do vídeo', 'MP4, MOV ou WEBM, até 200 MB. Ou cole o link acima, se o vídeo já está no YouTube ou no Google Drive.'],
+    texto: ['Arquivo do texto', 'PDF ou Word, ou a foto da folha escrita à mão. Até 10 MB.'],
+  };
+  function areaDoRegistro() {
+    const a = atividade(selAtiv.value);
+    reg.querySelectorAll<HTMLElement>('div[data-area]').forEach((b) => { b.hidden = b.dataset.area !== a?.area; });
+    reg.querySelectorAll<HTMLElement>('[data-so]').forEach((b) => { b.hidden = b.dataset.so !== a?.chave; });
+    reg.querySelectorAll<HTMLElement>('[data-anexo]').forEach((b) => { b.hidden = b.dataset.anexo !== a?.anexo; });
+    // link: opcional na participação; obrigatório nas atividades de link; alternativa ao arquivo no vídeo
+    const comLink = a?.area === 'participacao' || a?.anexo === 'link' || a?.anexo === 'video';
+    $('reg-link-campo').hidden = !comLink;
+    $('reg-link-rotulo').innerHTML = a?.anexo === 'link' ? 'Link <span class="req">*</span>' : a?.anexo === 'video' ? 'Link do vídeo' : 'Link (opcional)';
+    $('reg-link-ajuda').textContent = a?.anexo === 'link' ? 'O endereço da postagem, do artigo ou do vídeo.'
+      : a?.anexo === 'video' ? 'Se o vídeo já está no YouTube ou no Google Drive, cole o link. Ou envie o arquivo abaixo.'
+      : 'Da palestra online ou do certificado do curso, se houver.';
+    // arquivo
+    const tipo = anexoDa(a);
+    $('reg-arquivo-campo').hidden = !tipo;
+    if (tipo) {
+      const obrigatorio = tipo === 'boletim' || tipo === 'foto';
+      $('reg-arquivo-rotulo').innerHTML = AJUDA_ARQUIVO[tipo][0] + (obrigatorio ? ' <span class="req">*</span>' : '');
+      $('reg-arquivo-ajuda').textContent = AJUDA_ARQUIVO[tipo][1];
+      $<HTMLInputElement>('reg-arquivo').accept = ANEXOS[tipo].tipos.join(',');
+    }
+    $('reg-aviso').hidden = !a?.imagem;
+  }
+  selAtiv.addEventListener('change', areaDoRegistro);
+
+  function abrirRegistro(id: string, apelido: string) {
+    reg.reset();
+    (reg.elements.namedItem('researcherId') as HTMLInputElement).value = id;
+    $('cad-reg-titulo').textContent = 'Registrar atividade de ' + apelido;
+    // foto e vídeo só com a autorização de imagem
+    const crianca = painel?.criancas.find((c) => c.id === id);
+    const semImagem = crianca?.autorizacoes.imagem !== 'aceita';
+    selAtiv.querySelectorAll<HTMLOptionElement>('option[data-imagem]').forEach((o) => { o.disabled = semImagem; });
+    $('reg-sem-imagem').hidden = !semImagem;
+    reg.querySelectorAll<HTMLElement>('.err').forEach((e) => { e.hidden = true; });
+    reg.querySelectorAll('.is-error').forEach((e) => e.classList.remove('is-error'));
+    regMsg.textContent = '';
+    areaDoRegistro();
+    mostrar('cad-reg');
+    selAtiv.focus();
+  }
+
+  function lerRegistro() {
+    const f = new FormData(reg);
+    const s = (k: string) => String(f.get(k) ?? '').trim();
+    const a = atividade(s('registro.atividade'));
+    const media = s('registro.media').replace(',', '.');
+    const link = s('registro.link');
+    const detalhe: Record<string, unknown> = a?.area === 'desempenho'
+      ? { ano: Number(s('registro.ano')), ...(a.chave === 'media_bimestre' ? { bimestre: Number(s('registro.bimestre')) } : {}), media: media ? Number(media) : NaN }
+      : a?.area === 'producao'
+        ? { titulo: s('registro.titulo'), ...(link && (a.anexo === 'link' || a.anexo === 'video') ? { link } : {}), ...(a.anexo === 'texto' && s('registro.texto') ? { texto: s('registro.texto') } : {}) }
+        : { evento: s('registro.evento'), data: s('registro.data'), ...(link ? { link } : {}) };
+    return { researcherId: s('researcherId'), atividade: s('registro.atividade'), detalhe };
+  }
+
+  function errosNoRegistro(erros: Erros) {
+    reg.querySelectorAll<HTMLElement>('.err').forEach((e) => { e.hidden = true; e.textContent = ''; });
+    reg.querySelectorAll('.is-error').forEach((e) => e.classList.remove('is-error'));
+    let primeiro: HTMLElement | null = null;
+    for (const [campo, texto] of Object.entries(erros)) {
+      const p = document.getElementById('err-' + campo);
+      if (p) { p.textContent = texto; p.hidden = false; }
+      const ctrl = reg.querySelector<HTMLElement>('[name="' + campo + '"]');
+      ctrl?.classList.add('is-error');
+      if (!primeiro && ctrl) primeiro = ctrl;
+    }
+    regMsg.className = 'nl__msg bad';
+    regMsg.textContent = erros.geral || 'Falta pouco: confira os campos marcados.';
+    (primeiro as HTMLElement | null)?.focus();
+  }
+
+  /** Sobe o arquivo direto para a mídia do Wix, no endereço que o servidor gerou. */
+  function subir(url: string, arquivo: File, aoAndar: (pct: number) => void): Promise<string> {
+    return new Promise((ok, falha) => {
+      const x = new XMLHttpRequest();
+      x.open('PUT', url);
+      x.setRequestHeader('Content-Type', arquivo.type);
+      x.upload.onprogress = (ev) => { if (ev.lengthComputable) aoAndar(Math.round((ev.loaded / ev.total) * 100)); };
+      x.onload = () => {
+        let id = '';
+        try { const j = JSON.parse(x.responseText); id = j?.file?.id || j?.id || ''; } catch { /* sem id */ }
+        if (x.status >= 200 && x.status < 300 && id) ok(id); else falha(new Error('envio ' + x.status));
+      };
+      x.onerror = () => falha(new Error('rede'));
+      x.send(arquivo);
+    });
+  }
+
+  reg.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const dados = lerRegistro();
+    const a = atividade(dados.atividade);
+    const tipo = anexoDa(a);
+    const arquivo = tipo ? $<HTMLInputElement>('reg-arquivo').files?.[0] : undefined;
+    // confere tudo antes de subir o arquivo (o id de verdade só existe depois)
+    const erros = validarRegistro(arquivo ? { ...dados, detalhe: { ...dados.detalhe, arquivo: 'arquivo_a_enviar' } } : dados);
+    if (arquivo && tipo) {
+      const problema = problemaNoArquivo(tipo, arquivo.type, arquivo.size);
+      if (problema) erros['registro.arquivo'] = problema;
+    }
+    if (Object.keys(erros).length) return errosNoRegistro(erros);
+    const botao = $<HTMLButtonElement>('reg-enviar');
+    botao.disabled = true;
+    regMsg.className = 'nl__msg'; regMsg.textContent = 'Enviando…';
+    if (arquivo) {
+      const t = await chamar('/api/clube/anexo', { researcherId: dados.researcherId, atividade: dados.atividade, tipo: arquivo.type, tamanho: arquivo.size });
+      if (!t.ok) {
+        botao.disabled = false;
+        if (t.status === 401) return mostrar('cad-visitante');
+        return errosNoRegistro(t.dados?.erros || { geral: 'Não foi possível enviar o arquivo agora.' });
+      }
+      try {
+        (dados.detalhe as Record<string, unknown>).arquivo = await subir(t.dados.uploadUrl, arquivo, (pct) => { regMsg.textContent = 'Enviando o arquivo… ' + pct + '%'; });
+      } catch {
+        botao.disabled = false;
+        return errosNoRegistro({ 'registro.arquivo': 'O arquivo não subiu. Confira a internet e tente de novo.' });
+      }
+      regMsg.textContent = 'Arquivo enviado. Registrando…';
+    }
+    const r = await chamar('/api/clube/registrar', dados);
+    botao.disabled = false;
+    if (r.ok) {
+      desenharPainel(r.dados);
+      const feito = $('cad-feito');
+      feito.textContent = 'Registro enviado. A equipe confere e os pontos entram no extrato.';
+      feito.hidden = false;
+      return;
+    }
+    if (r.status === 401) return mostrar('cad-visitante');
+    errosNoRegistro(r.dados?.erros || { geral: 'Não foi possível enviar agora. Tente de novo em instantes.' });
+  });
+  $('reg-cancelar').addEventListener('click', () => painel && desenharPainel(painel));
+
+  /* ---------- resgatar prêmio ---------- */
+  type Premio = { id: string; nome: string; descricao: string; foto: string; pontos: number; esgotado: boolean };
+  const resg = $<HTMLFormElement>('cad-resg');
+  const resgMsg = $('resg-msg');
+
+  function errosNoResgate(erros: Erros) {
+    resg.querySelectorAll<HTMLElement>('.err').forEach((e) => { e.hidden = true; e.textContent = ''; });
+    resg.querySelectorAll('.is-error').forEach((e) => e.classList.remove('is-error'));
+    let primeiro: HTMLElement | null = null;
+    for (const [campo, texto] of Object.entries(erros)) {
+      const p = document.getElementById('err-' + campo);
+      if (p) { p.textContent = texto; p.hidden = false; }
+      const ctrl = resg.querySelector<HTMLElement>('[name="' + campo + '"]');
+      ctrl?.classList.add('is-error');
+      if (!primeiro && ctrl) primeiro = ctrl;
+    }
+    resgMsg.className = 'nl__msg bad';
+    resgMsg.textContent = erros.geral || 'Falta pouco: confira os campos marcados.';
+    (primeiro as HTMLElement | null)?.focus();
+  }
+
+  async function abrirResgate(id: string, apelido: string, saldo: number) {
+    resg.reset();
+    (resg.elements.namedItem('researcherId') as HTMLInputElement).value = id;
+    $('resg-titulo').textContent = 'Resgatar prêmio para ' + apelido;
+    $('resg-saldo').textContent = 'Saldo: ' + saldo + (saldo === 1 ? ' ponto.' : ' pontos.') + ' Os pontos saem do extrato quando você confirma.';
+    resg.querySelectorAll<HTMLElement>('.err').forEach((e) => { e.hidden = true; });
+    resgMsg.className = 'nl__msg'; resgMsg.textContent = 'Carregando os prêmios…';
+    const lista = $('resg-premios');
+    lista.innerHTML = '';
+    $<HTMLButtonElement>('resg-enviar').disabled = true;
+    mostrar('cad-resg');
+    const r = await chamar('/api/clube/premios');
+    if (!r.ok) { resgMsg.className = 'nl__msg bad'; resgMsg.textContent = r.dados?.erros?.geral || 'Não foi possível carregar os prêmios.'; return; }
+    const premios: Premio[] = r.dados.premios;
+    resgMsg.textContent = '';
+    if (!premios.length) { lista.innerHTML = '<p class="nl__note">O clube ainda não cadastrou prêmios. Volte em breve!</p>'; return; }
+    lista.innerHTML = premios.map((p) => {
+      const falta = p.pontos - saldo;
+      const bloqueado = p.esgotado || falta > 0;
+      return '<label class="resg__premio' + (bloqueado ? ' is-off' : '') + '">' +
+        '<input type="radio" name="resgate.premio" value="' + esc(p.id) + '"' + (bloqueado ? ' disabled' : '') + '>' +
+        (p.foto ? '<img src="' + esc(p.foto) + '" alt="" loading="lazy" width="72" height="72">' : '<span class="resg__semfoto" aria-hidden="true"></span>') +
+        '<span><b>' + esc(p.nome) + '</b><br><span class="resg__preco">' + p.pontos + ' pontos</span>' +
+        (p.descricao ? '<br><span class="nl__note">' + esc(p.descricao) + '</span>' : '') +
+        (p.esgotado ? '<br><span class="nl__note">Esgotado</span>' : falta > 0 ? '<br><span class="nl__note">Faltam ' + falta + ' pontos</span>' : '') +
+        '</span></label>';
+    }).join('');
+    $<HTMLButtonElement>('resg-enviar').disabled = false;
+    const e = r.dados.endereco;
+    if (e) for (const [k, v] of Object.entries(e)) {
+      const ctrl = resg.elements.namedItem('entrega.' + k) as HTMLInputElement | null;
+      if (ctrl) ctrl.value = k === 'cep' ? String(v).replace(/^(\d{5})(\d{3})$/, '$1-$2') : String(v);
+    }
+  }
+
+  $<HTMLInputElement>('ent-cep').addEventListener('input', (e) => {
+    const el = e.target as HTMLInputElement;
+    const d = el.value.replace(/\D/g, '').slice(0, 8);
+    el.value = d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d;
+  });
+
+  resg.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(resg);
+    const s = (k: string) => String(f.get(k) ?? '').trim();
+    const entrega = { destinatario: s('entrega.destinatario'), cep: s('entrega.cep'), logradouro: s('entrega.logradouro'), numero: s('entrega.numero'),
+      complemento: s('entrega.complemento'), bairro: s('entrega.bairro'), cidade: s('entrega.cidade'), uf: s('entrega.uf') };
+    const erros: Erros = { ...(s('resgate.premio') ? {} : { 'resgate.premio': 'Escolha um prêmio.' }), ...validarEndereco(entrega) };
+    if (Object.keys(erros).length) return errosNoResgate(erros);
+    const botao = $<HTMLButtonElement>('resg-enviar');
+    botao.disabled = true;
+    resgMsg.className = 'nl__msg'; resgMsg.textContent = 'Enviando…';
+    const r = await chamar('/api/clube/resgatar', { researcherId: s('researcherId'), rewardId: s('resgate.premio'), entrega });
+    botao.disabled = false;
+    if (r.ok) {
+      desenharPainel(r.dados);
+      const feito = $('cad-feito');
+      feito.textContent = 'Resgate pedido! A equipe envia pelos Correios e o código de rastreio aparece aqui.';
+      feito.hidden = false;
+      return;
+    }
+    if (r.status === 401) return mostrar('cad-visitante');
+    errosNoResgate(r.dados?.erros || { geral: 'Não foi possível concluir agora. Tente de novo em instantes.' });
+  });
+  $('resg-cancelar').addEventListener('click', () => painel && desenharPainel(painel));
+
+  type Apelido = { apelido: string; nome: string; nascimento: string; local: string; fatos: string; proximo: string };
+  let apelidos: Apelido[] | null = null;
+  const selApelido = $<HTMLSelectElement>('cad-apelido');
+  async function carregarApelidos() {
+    const r = await chamar('/api/clube/apelidos');
+    if (!r.ok) { selApelido.innerHTML = '<option value="" selected disabled>Não foi possível carregar a lista. Recarregue a página.</option>'; return; }
+    apelidos = r.dados.apelidos as Apelido[];
+    selApelido.innerHTML = '<option value="" selected disabled>Selecione</option>' +
+      apelidos.map((x) => '<option value="' + esc(x.apelido) + '">' + esc(x.apelido === x.nome ? x.nome : x.apelido + ' · ' + x.nome) + '</option>').join('');
+  }
+  selApelido.addEventListener('change', () => {
+    const x = apelidos?.find((a) => a.apelido === selApelido.value);
+    const quem = $('cad-apelido-quem');
+    quem.hidden = !x;
+    if (!x) return;
+    const vida = [x.nascimento && x.nascimento !== '0' ? 'nasceu em ' + x.nascimento : '', x.local].filter(Boolean).join(', ');
+    quem.innerHTML = '<p><b>' + esc(x.nome) + '</b>' + (vida ? ' · ' + esc(vida) : '') + '</p>' +
+      (x.fatos ? '<p>' + esc(x.fatos) + '</p>' : '') +
+      '<p class="nl__note">O apelido vai ficar: <b>' + esc(x.proximo) + '</b></p>';
+  });
+
+  function abrirFormulario(comResponsavel: boolean) {
+    form.reset();
+    $('cad-apelido-quem').hidden = true;
+    if (!apelidos) carregarApelidos();
+    limparErros();
+    $('cad-resp').hidden = !comResponsavel;
+    $('cad-titulo-crianca').textContent = (comResponsavel ? '2. ' : '1. ') + 'A criança';
+    $('cad-titulo-aut').textContent = (comResponsavel ? '3. ' : '2. ') + 'Autorizações';
+    $('cad-cancelar').hidden = comResponsavel;
+    msg.textContent = '';
+    mostrar('cad-form');
+  }
+
+  function limparErros() {
+    form.querySelectorAll<HTMLElement>('.err').forEach((e) => { e.hidden = true; e.textContent = ''; });
+    form.querySelectorAll('.is-error').forEach((e) => e.classList.remove('is-error'));
+  }
+
+  function mostrarErros(erros: Erros) {
+    limparErros();
+    let primeiro: HTMLElement | null = null;
+    for (const [campo, texto] of Object.entries(erros)) {
+      if (campo === 'geral') continue;
+      const p = document.getElementById('err-' + campo);
+      if (p) { p.textContent = texto; p.hidden = false; }
+      const ctrl = form.querySelector<HTMLElement>('[name="' + campo + '"]');
+      const alvo = ctrl?.closest('.check') || (ctrl?.type === 'radio' ? ctrl.closest('fieldset') : ctrl);
+      alvo?.classList.add('is-error');
+      if (!primeiro && ctrl) primeiro = ctrl;
+    }
+    msg.className = 'nl__msg bad';
+    msg.textContent = erros.geral || 'Falta pouco: confira os campos marcados.';
+    (primeiro as HTMLElement | null)?.focus();
+  }
+
+  function lerFormulario() {
+    const f = new FormData(form);
+    const s = (k: string) => String(f.get(k) ?? '');
+    const comResp = !$('cad-resp').hidden;
+    return {
+      responsavel: comResp ? { nome: s('responsavel.nome'), cpf: s('responsavel.cpf'), telefone: s('responsavel.telefone') } : undefined,
+      crianca: { relacao: s('crianca.relacao'), primeiroNome: s('crianca.primeiroNome'), anoNascimento: Number(s('crianca.anoNascimento')), apelido: s('crianca.apelido'), avatar: s('crianca.avatar') },
+      autorizacoes: { participacao: f.get('autorizacoes.participacao') === 'on', imagem: f.get('autorizacoes.imagem') === 'on' },
+      versaoTermos: VERSAO_TERMOS,
+    };
+  }
+
+  // CPF com máscara enquanto digita
+  $<HTMLInputElement>('cad-cpf').addEventListener('input', (e) => {
+    const el = e.target as HTMLInputElement;
+    const d = el.value.replace(/\D/g, '').slice(0, 11);
+    el.value = d.replace(/^(\d{3})(\d)/, '$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1-$2');
+  });
+  // ao corrigir um campo, o aviso dele some
+  form.addEventListener('input', (e) => {
+    const nome = (e.target as HTMLInputElement).name;
+    const p = document.getElementById('err-' + nome);
+    if (p && !p.hidden) { p.hidden = true; (e.target as HTMLElement).closest('.check, fieldset.field')?.classList.remove('is-error'); (e.target as HTMLElement).classList.remove('is-error'); }
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const dados = lerFormulario();
+    const erros = validarCadastro(dados, dados.responsavel !== undefined);
+    if (Object.keys(erros).length) return mostrarErros(erros);
+
+    const botao = $<HTMLButtonElement>('cad-enviar');
+    botao.disabled = true;
+    msg.className = 'nl__msg'; msg.textContent = 'Enviando…';
+    const r = await chamar('/api/clube/cadastro', dados);
+    botao.disabled = false;
+    if (r.ok) {
+      desenharPainel(r.dados);
+      const feito = $('cad-feito');
+      const nova = (r.dados as Painel).criancas[(r.dados as Painel).criancas.length - 1];
+      feito.textContent = (nova?.apelido || dados.crianca.apelido.trim()) + ' agora é membro pesquisador do clube!';
+      apelidos = null; // os números mudaram: a lista é lida de novo na próxima inscrição
+      feito.hidden = false;
+      $('cad').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (r.status === 401) return mostrar('cad-visitante');
+    mostrarErros(r.dados?.erros || { geral: 'Não foi possível concluir agora. Tente de novo em instantes.' });
+  });
+
+  $('cad-outra').addEventListener('click', () => { $('cad-feito').hidden = true; abrirFormulario(false); });
+  $('cad-cancelar').addEventListener('click', () => painel && desenharPainel(painel));
+
+  $('cad-criancas').addEventListener('click', async (e) => {
+    const rb = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-registrar]');
+    if (rb) { $('cad-feito').hidden = true; return abrirRegistro(rb.dataset.registrar!, rb.dataset.apelido || ''); }
+    const rs = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-resgatar]');
+    if (rs) { $('cad-feito').hidden = true; return abrirResgate(rs.dataset.resgatar!, rs.dataset.apelido || '', Number(rs.dataset.saldo || 0)); }
+    const sg = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-sugerir]');
+    if (sg) { $('cad-feito').hidden = true; return abrirSugestao(sg.dataset.sugerir!, sg.dataset.apelido || ''); }
+    const au = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-autorizar]');
+    if (au) {
+      if (!window.confirm(TERMOS.imagem + '\n\nConfirmar a autorização?')) return;
+      au.disabled = true;
+      const r = await chamar('/api/clube/autorizar', { researcherId: au.dataset.autorizar, versaoTermos: VERSAO_TERMOS });
+      if (r.ok) desenharPainel(r.dados);
+      else { au.disabled = false; window.alert(r.dados?.erros?.geral || 'Não foi possível autorizar agora.'); }
+      return;
+    }
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-revogar]');
+    if (!b) return;
+    const tipo = b.dataset.revogar as 'participacao' | 'imagem';
+    const aviso = tipo === 'participacao'
+      ? 'Retirar a autorização de participação tira a criança do clube: ela não poderá mais enviar descobertas. Confirmar?'
+      : 'Retirar a autorização de fotos e vídeos: a criança passa a enviar só texto ou link. Confirmar?';
+    if (!window.confirm(aviso)) return;
+    b.disabled = true;
+    const r = await chamar('/api/clube/revogar', { researcherId: b.dataset.id, tipo });
+    if (r.ok) desenharPainel(r.dados);
+    else { b.disabled = false; window.alert(r.dados?.erros?.geral || 'Não foi possível retirar agora.'); }
+  });
+
+  /* ---------- sugerir apelido ---------- */
+  const sug = $<HTMLFormElement>('cad-sug');
+  const sugMsg = $('sug-msg');
+  function abrirSugestao(id: string, apelido: string) {
+    sug.reset();
+    (sug.elements.namedItem('researcherId') as HTMLInputElement).value = id;
+    $('sug-titulo').textContent = 'Sugerir outro apelido para ' + apelido;
+    $('sug-conta').textContent = '0';
+    sug.querySelectorAll<HTMLElement>('.err').forEach((x) => { x.hidden = true; });
+    sug.querySelectorAll('.is-error').forEach((x) => x.classList.remove('is-error'));
+    sugMsg.textContent = '';
+    mostrar('cad-sug');
+    $('sug-nome').focus();
+  }
+  $<HTMLTextAreaElement>('sug-pesquisa').addEventListener('input', (e) => { $('sug-conta').textContent = String((e.target as HTMLTextAreaElement).value.trim().length); });
+  function errosNaSugestao(erros: Erros) {
+    sug.querySelectorAll<HTMLElement>('.err').forEach((x) => { x.hidden = true; x.textContent = ''; });
+    sug.querySelectorAll('.is-error').forEach((x) => x.classList.remove('is-error'));
+    let primeiro: HTMLElement | null = null;
+    for (const [campo, texto] of Object.entries(erros)) {
+      const p = document.getElementById('err-' + campo);
+      if (p) { p.textContent = texto; p.hidden = false; }
+      const ctrl = sug.querySelector<HTMLElement>('[name="' + campo + '"]');
+      ctrl?.classList.add('is-error');
+      if (!primeiro && ctrl) primeiro = ctrl;
+    }
+    sugMsg.className = 'nl__msg bad';
+    sugMsg.textContent = erros.geral || 'Falta pouco: confira os campos marcados.';
+    (primeiro as HTMLElement | null)?.focus();
+  }
+  sug.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(sug);
+    const s = (k: string) => String(f.get(k) ?? '').trim();
+    const dados = { researcherId: s('researcherId'), nome: s('sugestao.nome'), apelido: s('sugestao.apelido'), pesquisa: s('sugestao.pesquisa') };
+    const erros = validarSugestao(dados);
+    if (Object.keys(erros).length) return errosNaSugestao(erros);
+    const botao = $<HTMLButtonElement>('sug-enviar');
+    botao.disabled = true;
+    sugMsg.className = 'nl__msg'; sugMsg.textContent = 'Enviando…';
+    const r = await chamar('/api/clube/sugerir-apelido', dados);
+    botao.disabled = false;
+    if (r.ok) {
+      desenharPainel(r.dados);
+      const feito = $('cad-feito');
+      feito.textContent = 'Sugestão enviada. A equipe lê a pesquisa e responde aqui no painel.';
+      feito.hidden = false;
+      return;
+    }
+    if (r.status === 401) return mostrar('cad-visitante');
+    errosNaSugestao(r.dados?.erros || { geral: 'Não foi possível enviar agora. Tente de novo em instantes.' });
+  });
+  $('sug-cancelar').addEventListener('click', () => painel && desenharPainel(painel));
+
+  // início: quem é você?
+  (async () => {
+    const r = await chamar('/api/clube/painel');
+    if (r.status === 404 || r.status === 0 && !r.dados) return mostrar('cad-previa');
+    if (r.status === 401) return mostrar('cad-visitante');
+    if (!r.ok) { mostrar('cad-carregando'); $('cad-carregando').className = 'nl__msg bad'; $('cad-carregando').textContent = r.dados?.erros?.geral || 'Não foi possível carregar agora.'; return; }
+    const p = r.dados as Painel;
+    if (!p.responsavel || !p.criancas.length) {
+      painel = p;
+      return abrirFormulario(!p.responsavel);
+    }
+    desenharPainel(p);
+  })();
+
+</script>
+</Base>

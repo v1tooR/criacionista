@@ -1,0 +1,23 @@
+{
+  "forms": [
+    {
+      "name": "Aviso de lançamento",
+      "formId": "ec01e466-400a-4a82-8e3d-e2bcf5763d36",
+      "created": true,
+      "fields": [
+        {
+          "target": "seu_e_mail_6ct2s5",
+          "label": "Seu e-mail"
+        },
+        {
+          "target": "autorizo_o_clube_criacionista_de_ci_ncia_67m87v",
+          "label": "Autorizo o Clube Criacionista de Ciências a me enviar por e-mail o aviso de lançamento e as novidades do clube. Posso cancelar a qualquer momento."
+        }
+      ],
+      "fieldsLive": 2,
+      "steps": 1,
+      "rules": 0,
+      "degraded": []
+    }
+  ]
+}

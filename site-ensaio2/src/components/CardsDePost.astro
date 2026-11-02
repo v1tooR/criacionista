@@ -1,0 +1,55 @@
+---
+/**
+ * Cards de post do blog, lidos do site do cliente.
+ *
+ * Quando não dá para falar com o Wix — sem Client ID, fora do ar, sem permissão —
+ * renderiza o <slot>, que é o bloco de cards fixos vindo do protótipo. Assim a
+ * página nunca fica com um buraco, e dá para trabalhar no layout sem credencial.
+ *
+ * O markup copia o do protótipo card por card, inclusive o "·" como texto solto
+ * entre os <span> (é um item de flex anônimo, e o gap do .card__meta conta com
+ * ele). Se o visual do card mudar no protótipo, tem de mudar aqui também — é o
+ * preço de a seção ter virado dinâmica.
+ */
+import { listarPosts } from '../dados/blog';
+
+interface Props {
+  limite?: number;
+  /** nome da categoria no Wix, ex.: "Momento Criacionista" */
+  categoria?: string;
+  /** texto da etiqueta; sem isto usa a categoria do próprio post */
+  etiqueta?: string;
+  /** classe de cor da etiqueta: tag--mc, tag--news, tag--art */
+  cor?: string;
+  /** os cards da home não trazem autor; os da página de artigos trazem */
+  mostrarAutor?: boolean;
+  /** texto do link no pé do card: "Ler no blog" na home, "Ler notícia" em notícias */
+  chamada?: string;
+  /** cards em grade entram com animação escalonada; os do carrossel não */
+  revelar?: boolean;
+}
+
+const {
+  limite = 6, categoria, etiqueta, cor = 'tag--mc',
+  mostrarAutor = false, chamada = 'Ler no blog', revelar = false,
+} = Astro.props;
+
+const posts = await listarPosts(limite, categoria);
+
+/** mesmo escalonamento do protótipo: 0, 110ms, 220ms… */
+const atraso = (i: number) => (i === 0 ? undefined : '--d:' + i * 110 + 'ms');
+---
+{posts ? posts.map((p, i) => (
+  <a class="card" href={p.link} data-reveal={revelar ? true : undefined} style={revelar ? atraso(i) : undefined}>
+    <div class="card__media">
+      {(etiqueta ?? p.categoria) && <span class={'tag ' + cor}>{etiqueta ?? p.categoria}</span>}
+      {p.capa && <img src={p.capa} alt="" loading="lazy" width={720} height={450} />}
+    </div>
+    <div class="card__body">
+      <h3 class="card__title">{p.titulo}</h3>
+      <p class="card__txt">{p.resumo}</p>
+      <div class="card__meta">{mostrarAutor && p.autor ? <Fragment><span>{p.autor}</span>·</Fragment> : null}<span>{p.data}</span>·<span>{p.minutos} min de leitura</span></div>
+      <span class="card__more">{chamada} <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+    </div>
+  </a>
+)) : <slot />}

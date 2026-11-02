@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import { caminho, entrar, PRODUCAO } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
+---
+<Base
+  title={"Concurso Criacionista | Clube Criacionista de Ciências"}
+  desc={"O concurso do Clube Criacionista de Ciências: como participar, regulamento, prazos e envio da participação."}
+  pvbar={"<span><b>PRÉVIA</b> · Página Concurso (era Eventos)</span> <span>·</span> <span>Clube Criacionista de Ciências</span> <span>·</span> <a href=\"https://www.clubecriacionista.com/\">ver site atual</a>"}
+  rota={"concurso"}
+>
+
+<!-- ============ TOPO ============ -->
+<section class="phero" id="top">
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="phero__in">
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Concurso</p>
+    <h1>Concurso Criacionista</h1>
+    <p class="lead">O desafio anual dos membros pesquisadores: investigar um tema a fundo e apresentar a descoberta. Aqui ficam o concurso ativo, as regras e o envio da participação.</p>
+  </div>
+</section>
+
+<!-- ============ ESTADO: SEM CONCURSO ATIVO ============ -->
+<section class="section" id="ativo">
+  <div class="wrap">
+    <div class="note" data-reveal>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <div><b>Esta página substitui “Eventos”</b>, que hoje aparece vazia no site. Na publicação, <code>/eventos</code> deve redirecionar para cá. Abaixo estão os dois estados da página: sem concurso ativo e com concurso aberto. O cliente ainda precisa definir tema, prazos e premiação.</div>
+    </div>
+
+    <div class="box box--soft" data-reveal style="text-align:center;padding:46px 30px"> <span class="pill">ESTADO 1 · SEM CONCURSO ATIVO</span>
+      <h2 class="h2" style="margin:14px 0 10px">Nenhum concurso aberto no momento</h2>
+      <p class="lead" style="margin:0 auto 22px">O próximo será anunciado aqui e por e-mail. Quem já é membro pesquisador fica sabendo primeiro — e quem ainda não é pode se inscrever agora para não perder.</p>
+      <div class="cta__btns" style="justify-content:center"> <a class="btn btn--primary" href={caminho("cadastro")}>Inscrever meu filho <span class="btn__arrow">→</span></a> <a class="btn btn--ghost" href={caminho("index", "#educadores")}>Avise-me por e-mail</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap totop"><a href="#top">Voltar ao topo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a></div>
+</section>
+
+<!-- ============ ESTADO: CONCURSO ABERTO ============ -->
+<section class="section section--soft">
+  <div class="wrap">
+    <div class="sec-head" data-reveal> <span class="pill">ESTADO 2 · CONCURSO ABERTO</span>
+      <h2 class="h2" style="margin-top:14px">Como a página fica durante um concurso</h2>
+      <p class="lead">Estrutura fixa: apresentação, como participar, regulamento resumido, formulário de envio e regulamento completo em PDF.</p>
+    </div>
+
+    <div class="box" data-reveal> <span class="tag tag--news">Inscrições em breve</span>
+      <h3 style="font-size:26px;margin:12px 0 10px">As digitais do Criador</h3>
+      <p>Uma frase que explica o desafio para a criança, na linguagem dela. O tema sai da Estação dos Por Ques e vale para todas as faixas.</p>
+      <div class="tbl" style="margin-top:18px">
+        <table>
+          <thead><tr><th>Etapa</th><th>Quando</th></tr></thead>
+          <tbody>
+            <tr><td>Inscrições e envio das participações</td><td>A divulgar</td></tr>
+            <tr><td>Avaliação da comissão</td><td>A divulgar</td></tr>
+            <tr><td>Divulgação do resultado</td><td>A divulgar</td></tr>
+            <tr><td>Entrega da premiação</td><td>A divulgar</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="steps" style="margin-top:38px">
+      <div class="step" data-reveal style="--sc:var(--cyan)">
+        <div class="step__n">1</div>
+        <h3>Leia o regulamento</h3>
+        <p>O regulamento completo fica em PDF, para o responsável ler com calma antes de inscrever a criança.</p>
+      </div>
+      <div class="step" data-reveal style="--sc:var(--yellow-d)">
+        <div class="step__n">2</div>
+        <h3>Prepare a participação</h3>
+        <p>A criança investiga o tema e monta a apresentação no formato pedido pelo regulamento daquele ano.</p>
+      </div>
+      <div class="step" data-reveal style="--sc:var(--green-d)">
+        <div class="step__n">3</div>
+        <h3>Envie pelo formulário</h3>
+        <p>O envio do concurso é separado do envio comum de descobertas e só aparece para membro pesquisador logado.</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap totop"><a href="#top">Voltar ao topo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></a></div>
+</section>
+
+<!-- ============ REGULAMENTO + ENVIO ============ -->
+<section class="section" id="participar">
+  <div class="wrap">
+    <div class="edu">
+      <div class="edu__res">
+        <div class="box" data-reveal>
+          <h3>Regulamento resumido</h3>
+          <ul style="margin:0;padding-left:20px;color:var(--body);line-height:1.75">
+            <li>Participam membros pesquisadores com cadastro ativo e autorização do responsável em dia.</li>
+            <li>Uma participação por membro pesquisador.</li>
+            <li>O trabalho precisa ser feito pela criança; o adulto ajuda na gravação e na segurança, não no conteúdo.</li>
+            <li>Vale a regra de sempre: o rosto da criança não aparece e o nome real não é usado.</li>
+            <li>Trabalhos copiados de outra fonte são desclassificados.</li>
+            <li>A comissão avalia por critérios publicados no regulamento completo.</li>
+          </ul> <a class="btn btn--ghost btn--sm" style="margin-top:16px" href="#regulamento" data-wip="Regulamento completo em PDF" data-previa hidden={PRODUCAO}>
+            Baixar o regulamento completo (PDF) <span class="btn__arrow">→</span>
+          </a>
+        </div>
+
+        <div class="box box--soft" data-reveal>
+          <h3>Premiação</h3>
+          <ul style="margin:0;padding-left:20px;line-height:1.8">
+            <li><b>1º lugar:</b> R$ 3.000,00</li>
+            <li><b>2º lugar:</b> R$ 1.500,00</li>
+            <li><b>3º lugar:</b> R$ 500,00</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nl" data-reveal="right">
+        <h3>Enviar minha participação</h3>
+        <p class="nl__sub">Este formulário só aparece para membro pesquisador logado, e é separado do envio comum de descobertas.</p>
+
+        <div class="empty" style="padding:34px 20px;background:#fff">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="10.5" width="17" height="10.5" rx="2.6"/><path d="M7.5 10.5V7a4.5 4.5 0 0 1 9 0v3.5"/></svg>
+          <h3>Você precisa estar logado</h3>
+          <p>Entre com a conta do membro pesquisador para enviar a participação. Se ainda não tem cadastro, o responsável faz em poucos minutos.</p>
+          <div class="cta__btns" style="justify-content:center;margin-top:18px"> <a class="btn btn--primary btn--sm" href={entrar(caminho("concurso"))}>Entrar</a> <a class="btn btn--ghost btn--sm" href={caminho("cadastro")}>Criar cadastro</a>
+          </div>
+        </div>
+
+        <p class="nl__note">Depois do login, o formulário pede: título do trabalho, formato (vídeo, foto, texto ou link), o arquivo, uma descrição e o aceite do regulamento — com o mesmo aviso de segurança sobre não mostrar o rosto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <h2 class="h2">Participar é para quem já está no clube</h2>
+      <p class="lead">A inscrição do membro pesquisador é gratuita e fica pronta antes do próximo concurso abrir.</p>
+      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href={caminho("cadastro")}>Inscrever meu filho <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href={caminho("como-funciona")}>Ver como funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ RODAPÉ ============ -->
+</Base>

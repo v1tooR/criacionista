@@ -1,0 +1,75 @@
+{
+ "_fonte": "Aliases_membros.Clube.Criacionista.docx (cliente, 26/10/2026): 10 nomes para os testes iniciais; o cliente vai mandar a lista definitiva. Apelido = nome completo (o cliente pediu nomes com duas palavras, 27/10/2026).",
+ "nomes": [
+  {
+   "nome": "Adão",
+   "apelido": "Adão",
+   "nascimento": "0",
+   "local": "Eden",
+   "fatos": "Primeiro ser humano criado e pai da raça humana"
+  },
+  {
+   "nome": "Eva",
+   "apelido": "Eva",
+   "nascimento": "0",
+   "local": "Eden",
+   "fatos": "Mãe da raça humana e, assim como o próprio Deus Criador, ela foi o Socorro e Força (Ezer) para Adão e a humanidade"
+  },
+  {
+   "nome": "Moisés",
+   "apelido": "Moisés",
+   "nascimento": "1571a.C.*",
+   "local": "Egito",
+   "fatos": "Autor do livro de Gênesis, sob inspiração de Deus (*Data de nascimento proposta pelo bíspo James Usher, conforme a cronologia bíblica tradicional)"
+  },
+  {
+   "nome": "Agostinho de Hipona",
+   "apelido": "Agostinho de Hipona",
+   "nascimento": "354",
+   "local": "Tagaste, Numídia, Império Romano",
+   "fatos": "Grande teólogo; escreveu sobre Gênesis, criação, tempo e a ação criadora de Deus."
+  },
+  {
+   "nome": "Alberto Magno",
+   "apelido": "Alberto Magno",
+   "nascimento": "c. 1200",
+   "local": "Lauingen, Baviera",
+   "fatos": "Dominicano e filósofo natural; procurou harmonizar a observação da natureza com a doutrina cristã da criação."
+  },
+  {
+   "nome": "Alcuíno de Iorque",
+   "apelido": "Alcuíno de Iorque",
+   "nascimento": "c. 735",
+   "local": "Iorque, Inglaterra",
+   "fatos": "Erudito na corte de Carlos Magno; produziu obras educacionais e bíblicas."
+  },
+  {
+   "nome": "Andreas Vesalius",
+   "apelido": "Andreas Vesalius",
+   "nascimento": "1514",
+   "local": "Bruxelas, Países Baixos Habsburgos",
+   "fatos": "Fundador da anatomia humana moderna; atuou em uma época em que a anatomia era frequentemente vista como estudo do design divino."
+  },
+  {
+   "nome": "Antoine Arnauld",
+   "apelido": "Antoine Arnauld",
+   "nascimento": "1612",
+   "local": "Paris, França",
+   "fatos": "Teólogo e filósofo; figura principal do pensamento católico jansenista."
+  },
+  {
+   "nome": "Antoine Lavoisier",
+   "apelido": "Antoine Lavoisier",
+   "nascimento": "1743",
+   "local": "Paris, França",
+   "fatos": "Pai da química moderna; católico cujo trabalho estabeleceu a conservação da massa."
+  },
+  {
+   "nome": "Antonie van Leeuwenhoek",
+   "apelido": "Antonie van Leeuwenhoek",
+   "nascimento": "1632",
+   "local": "Delft, República Holandesa",
+   "fatos": "“Pai da microbiologia”; descobriu microrganismos e era membro da Igreja Reformada Holandesa."
+  }
+ ]
+}

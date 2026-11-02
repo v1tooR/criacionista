@@ -1,0 +1,42 @@
+{
+  "name": "clube-criacionista",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "node scripts/servir.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "@wix/astro": "^3.1.0",
+    "@wix/astro-pages": "^3.0.1",
+    "@wix/blog": "1.0.673",
+    "@wix/dashboard": "^1.3.48",
+    "@wix/data": "^1.0.529",
+    "@wix/essentials": "^1.0.10",
+    "@wix/forms": "^1.0.501",
+    "@wix/identity": "^1.0.253",
+    "@wix/media": "1.0.278",
+    "@wix/members": "^1.0.530",
+    "@wix/ricos": "^11.17.0",
+    "@wix/sdk": "^1.21.18",
+    "@wix/seo": "^1.0.79",
+    "astro": "^7.3.8",
+    "tailwindcss": "^4.1.7",
+    "typescript": "^5.8.3"
+  },
+  "comentarios": {
+    "@wix/blog": "Versão fixa, sem ^. A 1.0.682 (latest em 14/10/2026) exige @wix/auto_sdk_blog_posts@1.0.198, que nunca foi publicado — publicação quebrada do lado do Wix, e npm install falha com ETARGET. A 1.0.673 pede a 1.0.193, que existe. Testar o latest de novo mais pra frente e soltar o ^ quando resolver."
+  },
+  "devDependencies": {
+    "@astrojs/react": "^6.0.6",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@wix/astro-wix-hosting-adapter": "^3.0.4",
+    "@wix/cli": "^1.1.258",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

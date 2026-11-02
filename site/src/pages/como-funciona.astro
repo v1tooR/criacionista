@@ -1,5 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import { caminho, PRODUCAO } from '../config';
+
+// gerada na build, mesmo com o servidor ligado (ver astro.config.mjs)
+export const prerender = true;
 ---
 <Base
   title={"Como funciona | Clube Criacionista de Ciências"}
@@ -13,7 +17,7 @@ import Base from '../layouts/Base.astro';
   <div class="orb orb--1"></div>
   <div class="orb orb--2"></div>
   <div class="phero__in">
-    <p class="crumb"><a href="/">Home</a> <span>›</span> Como funciona</p>
+    <p class="crumb"><a href={caminho("index")}>Home</a> <span>›</span> Como funciona</p>
     <h1>Como funciona</h1>
     <p class="lead">Da inscrição à recompensa: o caminho completo do membro pesquisador, as regras dos pontos e o que o responsável enxerga em cada etapa.</p>
   </div>
@@ -22,9 +26,9 @@ import Base from '../layouts/Base.astro';
 <!-- ============ OS TRÊS PASSOS ============ -->
 <section class="section">
   <div class="wrap">
-    <div class="note" data-reveal>
+    <div class="note" data-reveal data-previa hidden={PRODUCAO}>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
-      <div><b>Esta página substitui o “Programa de Recompensas”.</b> A mecânica dos pontos, que hoje é uma página estática, passa a morar aqui; o resgate fica na <a href="/loja">Loja</a>. Na publicação, o endereço <code>/recompensas</code> deve redirecionar para cá, para não perder os links antigos. Valores de pontos e regras de nível ainda dependem de confirmação do cliente.</div>
+      <div><b>Esta página substitui o “Programa de Recompensas”.</b> A mecânica dos pontos, que hoje é uma página estática, passa a morar aqui; o resgate fica na <a href={caminho("loja")}>Loja</a>. Na publicação, o endereço <code>/recompensas</code> deve redirecionar para cá, para não perder os links antigos. Valores de pontos e regras de nível ainda dependem de confirmação do cliente.</div>
     </div>
 
     <div class="sec-head" data-reveal> <span class="eyebrow">O caminho</span>
@@ -92,8 +96,8 @@ import Base from '../layouts/Base.astro';
 <section class="section" id="missoes">
   <div class="wrap">
     <div class="sec-head" data-reveal> <span class="eyebrow">Passo 2</span>
-      <h2 class="h2">As missões da semana</h2>
-      <p class="lead">Cada mês tem um tema na Estação dos Por Ques. As missões saem desse tema e ficam abertas por um período.</p>
+      <h2 class="h2">Temas sugeridos</h2>
+      <p class="lead">A cada mês será sugerido um novo tema para pesquisa, mas os temas anteriores poderão continuar a ser usados como referência.</p>
     </div>
 
     <div class="grid grid--3">
@@ -141,7 +145,7 @@ import Base from '../layouts/Base.astro';
 
       <div class="alerta">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-        <p><b>Antes de enviar, a tela avisa:</b> não mostre o rosto, não diga o nome completo, não mostre a fachada de casa nem o uniforme da escola. O envio fica em análise até alguém da equipe conferir.</p>
+        <p><b>Antes de enviar, a tela avisa:</b> caso não deseje mostrar o rosto da criança, borre a imagem que será enviada (atente para não mostrar o seu endereço ou fachada da casa, uniforme escolar ou outro item que não desejar mostrar). O envio fica em análise até alguém da equipe conferir.</p>
       </div>
     </div>
   </div>
@@ -153,19 +157,31 @@ import Base from '../layouts/Base.astro';
   <div class="wrap">
     <div class="sec-head" data-reveal> <span class="eyebrow">Passo 3</span>
       <h2 class="h2">Como os pontos funcionam</h2>
-      <p class="lead">Ponto não cai do céu nem some sem explicação: cada crédito vem de uma descoberta aprovada e cada débito, de um resgate.</p>
+      <p class="lead">Ponto não cai do céu nem some sem explicação: cada crédito vem de uma atividade conferida pela equipe e cada débito, de um resgate. São três áreas: produção científica, participação em atividades e desempenho acadêmico.</p>
     </div>
 
     <div class="tbl" data-reveal>
       <table>
         <thead>
-          <tr><th>O que a criança faz</th><th>Quando os pontos entram</th><th>Quantos pontos</th></tr>
+          <tr><th>O que a criança faz</th><th>Quando os pontos entram</th><th>Pontos</th></tr>
         </thead>
         <tbody>
-          <tr><td>Envia uma descoberta de observação</td><td>Depois da aprovação da equipe</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-          <tr><td>Envia um experimento feito em casa</td><td>Depois da aprovação da equipe</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-          <tr><td>Completa todas as missões do mês</td><td>No fechamento do mês</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
-          <tr><td>Participa do Concurso Criacionista</td><td>Na confirmação da inscrição</td><td><span class="pill pill--soft">A DEFINIR</span></td></tr>
+          <tr class="tbl__grupo"><td colspan="3">Produção científica</td></tr>
+          <tr><td>Vídeo autoral</td><td>Depois da aprovação da equipe</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Texto autoral</td><td>Depois da aprovação da equipe</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Foto autoral</td><td>Depois da aprovação da equipe</td><td><b>5 pontos</b></td></tr>
+          <tr><td>Link de postagem</td><td>Depois da aprovação da equipe</td><td><b>1 ponto</b></td></tr>
+          <tr><td>Link de artigo ou reportagem</td><td>Depois da aprovação da equipe</td><td><b>1 ponto</b></td></tr>
+          <tr><td>Link de vídeo</td><td>Depois da aprovação da equipe</td><td><b>1 ponto</b></td></tr>
+          <tr class="tbl__grupo"><td colspan="3">Participação em atividades</td></tr>
+          <tr><td>Palestra presencial</td><td>Na confirmação da presença</td><td><b>20 pontos</b></td></tr>
+          <tr><td>Palestra online, com o quiz respondido</td><td>Na confirmação da presença</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Exposição</td><td>Na confirmação da presença</td><td><b>5 pontos</b></td></tr>
+          <tr><td>Oficina</td><td>Na confirmação da presença</td><td><b>15 pontos</b></td></tr>
+          <tr><td>Curso concluído, com as avaliações</td><td>Na confirmação da presença</td><td><b>50 pontos</b></td></tr>
+          <tr class="tbl__grupo"><td colspan="3">Desempenho acadêmico</td></tr>
+          <tr><td>Média do bimestre igual ou maior que 8,0</td><td>Depois da conferência da equipe</td><td><b>10 pontos</b></td></tr>
+          <tr><td>Média final do ano igual ou maior que 8,0</td><td>Depois da conferência da equipe</td><td><b>10 pontos</b></td></tr>
         </tbody>
       </table>
     </div>
@@ -186,7 +202,7 @@ import Base from '../layouts/Base.astro';
       <div class="card" data-reveal>
         <div class="card__body">
           <h3 class="card__title">Precisa de ajuste</h3>
-          <p class="card__txt">Algo impede a aprovação — o rosto apareceu, faltou explicar. Vem um recado dizendo o que mudar, e ela reenvia.</p>
+          <p class="card__txt">Algo impede a aprovação — faltou explicar, o arquivo não abriu. Vem um recado dizendo o que mudar, e ela reenvia.</p>
         </div>
       </div>
     </div>
@@ -219,7 +235,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="tcard" data-reveal> <span class="tcard__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6.5v5c0 4.7 3.3 8.9 8 9.9 4.7-1 8-5.2 8-9.9v-5L12 3Z"/></svg></span>
         <h3>Você autoriza</h3>
-        <p>Sem o seu aceite no termo de participação e no de imagem, a criança não consegue enviar nada. E você pode revogar depois.</p>
+        <p>Sem o seu aceite no termo de participação, a criança não consegue enviar nada. Foto e vídeo dependem também da autorização de imagem. E você pode revogar depois.</p>
       </div>
       <div class="tcard" data-reveal> <span class="tcard__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
         <h3>Nada é publicado sem conferência</h3>
@@ -243,11 +259,11 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Meu filho precisa de e-mail próprio?<span class="acc__ico"></span></button>
-        <div class="acc__a"><div>Não. O cadastro fica na conta do responsável, e a criança entra por ali. <span class="pill pill--soft">A CONFIRMAR</span> Se o cliente preferir dar login próprio à criança, isso muda na implementação.</div></div>
+        <div class="acc__a"><div>Não. O cadastro fica na conta do responsável, e a criança participa por ali: é o responsável quem registra as atividades e pede os resgates.</div></div>
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Quanto tempo leva para o envio ser aprovado?<span class="acc__ico"></span></button>
-        <div class="acc__a"><div>O prazo depende do volume de envios e da equipe disponível. <span class="pill pill--soft">A DEFINIR</span> Assim que o cliente fechar o prazo, ele aparece aqui e na tela de envio.</div></div>
+        <div class="acc__a"><div>Até 48 horas. Quando a equipe aprova, os pontos entram no extrato na hora; se recusar, o responsável vê o motivo no painel.</div></div>
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Posso cadastrar mais de um filho?<span class="acc__ico"></span></button>
@@ -259,7 +275,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <div class="acc">
         <button class="acc__q" aria-expanded="false">Os pontos vencem?<span class="acc__ico"></span></button>
-        <div class="acc__a"><div><span class="pill pill--soft">A DEFINIR</span> Precisa de decisão do cliente. A recomendação é que não vençam, para não gerar frustração em quem junta pontos por vários meses.</div></div>
+        <div class="acc__a"><div>Não. Os pontos não vencem: o que a criança junta fica no extrato até ela resgatar.</div></div>
       </div>
     </div>
   </div>
@@ -271,7 +287,7 @@ import Base from '../layouts/Base.astro';
     <div class="cta" data-reveal>
       <h2 class="h2">Pronto para começar?</h2>
       <p class="lead">O cadastro leva poucos minutos e quem preenche é você, responsável.</p>
-      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href="#cadastro" data-wip="Cadastro do membro pesquisador">Inscrever meu filho <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href="/loja">Ver o que dá para resgatar</a>
+      <div class="cta__btns"> <a class="btn btn--yellow btn--lg" href={caminho("cadastro")}>Inscrever meu filho <span class="btn__arrow">→</span></a> <a class="btn btn--ghost btn--lg" href={caminho("loja")}>Ver o que dá para resgatar</a>
       </div>
     </div>
   </div>
