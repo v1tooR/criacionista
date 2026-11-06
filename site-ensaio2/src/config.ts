@@ -29,7 +29,9 @@ export const PRODUCAO = true;
  * Só vale com PRODUCAO; a prévia em ZIP continua com todas as páginas. Para abrir
  * o site inteiro: false aqui, e build + publicação de novo.
  */
-export const SOMENTE_HOME = true;
+// ENSAIO (TESTEENSAIO): site inteiro aberto para o cliente testar (03/11/2026).
+// O domínio principal (site/) continua em pré-lançamento.
+export const SOMENTE_HOME = false;
 export const ABERTAS_SO_HOME = ['/', '/lancamento', '/politica-de-privacidade', '/em-breve', '/404', '/robots.txt', '/sitemap.xml'];
 
 /**

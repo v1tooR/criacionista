@@ -25,6 +25,9 @@ post-universo-ajustado.jpg|67f35a_11525b9cfd2a46839e80d29fc731d250~mv2.jpg
 logo-wix.png|d49d42_26bdf518dbdd4e7f8ac10a1cfc336559~mv2.png
 hero-banner.jpg|d49d42_548aac6a70fe4a63880f1ace26bddbc2~mv2.jpg
 selo-pb.png|67f35a_e6aa4def7b984a0688b259d23d26d723~mv2.png
+oclube-missao.jpg|d49d42_81f057c3f56d4fe1a214e55febe8c15a~mv2.png/v1/fit/w_1280,h_1280,q_85/oficina.jpg
+oclube-visao.jpg|d49d42_43301d22cd6241f1a33945ebb85fc136~mv2.jpg/v1/fit/w_1280,h_1280,q_85/experimentos.jpg
+oclube-proposito.jpg|d49d42_95e09c0e765243e4bd1f20ed36bd2e09~mv2.jpg/v1/fit/w_1280,h_1280,q_85/turma.jpg
 "
 
 echo "== Imagens do Wix =="

@@ -219,7 +219,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .hero__in{position:relative;z-index:2;display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center;padding:78px 24px 88px;max-width:var(--maxw);margin:0 auto}
 .hero h1{
   color:var(--hero-fg);
-  font-size:clamp(36px,5.4vw,62px);line-height:1.03;letter-spacing:-.018em;margin:0 0 20px;
+  /* título de ~80 caracteres (devolutiva de 04/11/2026): menor que o de 40 que havia antes */
+  font-size:clamp(31px,4vw,50px);line-height:1.06;letter-spacing:-.018em;margin:0 0 20px;
 }
 .hero h1 .accent{color:var(--hero-accent);position:relative;white-space:nowrap}
 .hero h1 .accent::after{
@@ -792,6 +793,13 @@ a.res:hover .res__go{transform:translateX(4px)}
 }
 .vslot b{display:block;font-size:15px;color:var(--ink);margin-bottom:4px}
 .vslot span{font-size:13.2px;color:var(--muted);max-width:34ch;display:inline-block;line-height:1.5}
+
+/* Imagem no lugar do vídeo (O Clube: Missão, Visão, Propósito) */
+.ibloc__img{
+  margin:0;width:100%;aspect-ratio:16/9;border-radius:var(--r-m);overflow:hidden;
+  background:var(--bg-soft2);box-shadow:var(--sh-s);
+}
+.ibloc__img img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* --- Blocos institucionais (Missão, Visão...) --------------- */
 .ibloc{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center;padding:34px 0}
